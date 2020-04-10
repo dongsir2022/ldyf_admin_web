@@ -50,98 +50,60 @@ export const constantRoutes = [
         path: '',
         component: () => import('@/views/index'),
         name: 'home',
-        meta: {title: '欢迎登录', icon: 'home', affix: true}
+        meta: { title: '欢迎登录', icon: 'home', affix: true }
       }
     ],
     hidden: true
   },
-  {
-    path: '/order',
-    component: Layout,
-    name: 'order',
-    meta: {title: '工单管理', icon: 'el-icon-tickets'},
-    children: [{
-      path: '/orderList',
-      name: 'orderList',
-      component: () => import('@/views/order/orderList'),
-      meta: {title: '工单列表', icon: 'el-icon-document'}
-    },
-      {
-        path: '/addOrder',
-        name: 'addOrder',
-        component: () => import('@/views/order/addOrder'),
-        meta: {title: '创建工单', icon: 'el-icon-document-add'}
-      }]
-  },
-  {
-    path: '/merchant',
-    component: Layout,
-    name: 'merchant',
-    meta: {title: '商户管理', icon: 'el-icon-house'},
-    alwaysShow: true,
-    children: [{
-      path: '/merchantList',
-      name: 'merchantList',
-      component: () => import('@/views/merchant/merchantList'),
-      meta: {title: '商户列表', icon: 'el-icon-notebook-1'}
-    }]
-  },
-  {
-    path: '/littleBee',
-    component: Layout,
-    name: 'littleBee',
-    meta: {title: '员工管理', icon: 'el-icon-user'},
-    children: [{
-      path: '/littleBeeList',
-      name: 'littleBeeList',
-      component: () => import('@/views/littleBee/littleBeeList'),
-      meta: {title: '员工列表', icon: 'el-icon-notebook-1'}
-    }, {
-      path: '/addLittleBee',
-      name: 'addLittleBee',
-      component: () => import('@/views/littleBee/addLittleBee'),
-      meta: {title: '添加员工', icon: 'el-icon-circle-plus-outline'}
-    }, {
-      path: '/updateLittleBee',
-      name: 'updateLittleBee',
-      component: () => import('@/views/littleBee/updateLittleBee'),
-      meta: {title: '修改员工信息', icon: 'el-icon-refresh-right'},
-      hidden: true,
-      noCache: true
-    }]
-  },
-  {
-    path: '/system',
-    component: Layout,
-    name: 'system',
-    meta: {title: '系统设置', icon: 'el-icon-tickets'},
-    children: [{
-      path: '/accountList',
-      name: 'accountList',
-      component: () => import('@/views/system/accountList'),
-      meta: {title: '系统账号管理', icon: 'el-icon-document'}
-    },
-      {
-        path: '/serviceTypeList',
-        name: 'serviceTypeList',
-        component: () => import('@/views/system/serviceTypeList'),
-        meta: {title: '维护类型', icon: 'el-icon-document-add'}
-      }]
-  },
+  // {
+  //   path: '/system',
+  //   component: Layout,
+  //   name: 'system',
+  //   meta: { title: '系统设置', icon: 'el-icon-tickets' },
+  //   children: [{
+  //     path: '/account',
+  //     name: 'system-account',
+  //     component: () => import('@/views/system/account/accountIndex'),
+  //     meta: { title: '账号管理', icon: 'el-icon-document' }
+  //   }, {
+  //     path: '/menu',
+  //     name: 'system-menu',
+  //     component: () => import('@/views/system/menu/menuIndex'),
+  //     meta: { title: '菜单管理', icon: 'el-icon-document-add' }
+  //   }, {
+  //     path: '/role',
+  //     name: 'system-role',
+  //     component: () => import('@/views/system/role/roleIndex'),
+  //     meta: { title: '权限管理', icon: 'el-icon-document-add' }
+  //   }, {
+  //     path: '/roleEdit',
+  //     name: 'system-role-edit',
+  //     hidden: true,
+  //     component: () => import('@/views/system/role/roleEditIndex'),
+  //     meta: { title: '设置访问权限', icon: 'el-icon-notebook-1' }
+  //   }]
+  // },
   // 404 page must be placed at the end !!!
-  {path: '*', redirect: '/404', hidden: true}
+  { path: '/404', redirect: '/404', hidden: true }
 ]
+
+export const componentMap = {
+  'system-account': () => import('@/views/system/account/accountIndex'),
+  'system-menu': () => import('@/views/system/menu/menuIndex'),
+  'system-role': () => import('@/views/system/role/roleIndex'),
+  'system-role-edit': () => import('@/views/system/role/roleEditIndex')
+}
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({y: 0}),
+  scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })
 
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export function resetRouter() {
+export  function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }

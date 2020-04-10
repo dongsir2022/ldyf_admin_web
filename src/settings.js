@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '工单系统',
+  title: '分账系统',
 
   /**
    * @type {boolean} true | false

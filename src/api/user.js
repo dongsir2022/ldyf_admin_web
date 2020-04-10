@@ -4,7 +4,7 @@ export function login(params) {
   params['client_id'] = 'hjjf_admin_client';
   params['client_secret'] = 'hjjfMobile123!@#';
   params['grant_type'] = 'password';
-  params['scope'] = 'server';
+  params['scope'] = 'admin';
   return request({
     url: '/oauth/token',
     method: 'post',
@@ -14,7 +14,7 @@ export function login(params) {
 
 export function getInfo() {
   return request({
-    url: '/oauth/current',
+    url: '/oauth/current/permission',
     method: 'get'
   })
 }

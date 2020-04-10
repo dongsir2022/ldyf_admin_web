@@ -7,6 +7,10 @@ const getters = {
   userInfo: state => state.user.userInfo,
   refresh_token: state => state.user.refresh_token,
   visitedViews: state => state.tagsView.visitedViews,
-  permission_routes: state => state.permission.routes
+  permission_names: state => state.permission.permission_names,
+  permission_paths: state => state.permission.permission_paths,
+  permission_routers: state => state.permission.routes,
+  addRoutes: state => state.permission.addRoutes,
+  menus: state => state.user.menus
 }
 export default getters

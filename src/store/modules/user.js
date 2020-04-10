@@ -8,7 +8,8 @@ const getDefaultState = () => {
     refresh_token: getRefreshToken(),
     name: '',
     avatar: '',
-    userInfo: {}
+    userInfo: {},
+    menus: [],
   }
 }
 
@@ -33,6 +34,9 @@ const mutations = {
   SET_USER_INFO: (state, userInfo) => {
     state.userInfo = userInfo
   },
+  SET_MENUS: (state, menus) => {
+    state.menus = menus
+  },
 }
 
 const actions = {
@@ -50,6 +54,7 @@ const actions = {
         setRefreshToken(refreshToken)
         commit('SET_TOKEN', data.token.value)
         commit('SET_REFRESH_TOKEN', refreshToken)
+        commit('SET_ROLES', data.site_name)
         resolve()
       }).catch(error => {
         reject(error)
@@ -62,13 +67,9 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         let data = response
-        // if (data && data.roles && data.roles.length > 0) {
-        // } else {
-        //   reject('getInfo: roles must be a non-null array !')
-        // }
-        commit('SET_USER_INFO', data.account)
-        commit('SET_NAME', data.account.username)
-
+        commit('SET_MENUS', data.menus)
+        commit('SET_USER_INFO', data.userInfo)
+        commit('SET_NAME', data.userInfo.username)
         resolve(data)
       }).catch(error => {
         reject(error)
