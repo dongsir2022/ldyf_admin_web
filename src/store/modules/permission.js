@@ -18,7 +18,7 @@ function transferRouteInfo(_route) {
     title: _route.title,
     icon: _route.icon,
     noCache: (_route.cache === 0),
-    readOnly: (_route.read_only === 1),
+    readOnly: (_route.read_only === 1)
   }
   if (_route.children) {
     for (let m = 0; m < _route.children.length; m++) {
@@ -50,7 +50,7 @@ function loadPermission(names, paths, parentPath, _routers) {
     let currentFullPath = _routers[i].path
     if (isNotBlank(_routers[i].path)) {
       if (isNotBlank(parentPath)) {
-        currentFullPath = parentPath + '/' + currentFullPath
+        currentFullPath = parentPath + currentFullPath
         currentFullPath = currentFullPath.replace('//', '/')
       }
       paths.push(currentFullPath)

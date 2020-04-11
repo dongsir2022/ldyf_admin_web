@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '分账系统',
+  title: 'Quick Book',
 
   /**
    * @type {boolean} true | false

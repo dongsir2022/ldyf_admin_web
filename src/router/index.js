@@ -54,44 +54,23 @@ export const constantRoutes = [
       }
     ],
     hidden: true
-  },
-  // {
-  //   path: '/system',
-  //   component: Layout,
-  //   name: 'system',
-  //   meta: { title: '系统设置', icon: 'el-icon-tickets' },
-  //   children: [{
-  //     path: '/account',
-  //     name: 'system-account',
-  //     component: () => import('@/views/system/account/accountIndex'),
-  //     meta: { title: '账号管理', icon: 'el-icon-document' }
-  //   }, {
-  //     path: '/menu',
-  //     name: 'system-menu',
-  //     component: () => import('@/views/system/menu/menuIndex'),
-  //     meta: { title: '菜单管理', icon: 'el-icon-document-add' }
-  //   }, {
-  //     path: '/role',
-  //     name: 'system-role',
-  //     component: () => import('@/views/system/role/roleIndex'),
-  //     meta: { title: '权限管理', icon: 'el-icon-document-add' }
-  //   }, {
-  //     path: '/roleEdit',
-  //     name: 'system-role-edit',
-  //     hidden: true,
-  //     component: () => import('@/views/system/role/roleEditIndex'),
-  //     meta: { title: '设置访问权限', icon: 'el-icon-notebook-1' }
-  //   }]
-  // },
+  }
   // 404 page must be placed at the end !!!
-  { path: '/404', redirect: '/404', hidden: true }
+  // { path: '/404', redirect: '/404', hidden: true }
 ]
 
 export const componentMap = {
   'system-account': () => import('@/views/system/account/accountIndex'),
   'system-menu': () => import('@/views/system/menu/menuIndex'),
   'system-role': () => import('@/views/system/role/roleIndex'),
-  'system-role-edit': () => import('@/views/system/role/roleEditIndex')
+  'system-role-edit': () => import('@/views/system/role/roleEditIndex'),
+  'merchant-list': () => import('@/views/merchant/merchantIndex'),
+  'merchant-account': () => import('@/views/merchant/merchantAccountIndex'),
+  'settlement-batch': () => import('@/views/settlement/settlementBatchIndex'),
+  'settlement-payable': () => import('@/views/settlement/payableIndex'),
+  'settlement-receivable': () => import('@/views/settlement/receivableIndex'),
+  'settlement-collect-records': () => import('@/views/settlement/collectRecordsIndex'),
+  'config-split': () => import('@/views/config/splitIndex'),
 }
 
 const createRouter = () => new Router({

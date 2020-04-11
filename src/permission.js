@@ -43,7 +43,7 @@ router.beforeEach(async(to, from, next) => {
         if (hasPermission(store.getters.permission_names, store.getters.permission_paths, to)) {
           next()
         } else {
-          next({ path: '/401', name: '401', replace: true, query: { noGoBack: true } })
+          next({ path: '/'})
         }
       } else {
         store.dispatch('user/getInfo').then(res => {
@@ -53,7 +53,7 @@ router.beforeEach(async(to, from, next) => {
             if (hasPermission(store.getters.permission_names, store.getters.permission_paths, to)) {
               next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
             } else {
-              next({ path: '/401', name: '401', replace: true, query: { noGoBack: true } })
+              next({ path: '/'})
             }
           })
         })

@@ -14,7 +14,7 @@
             auto-complete="on"
             label-position="left">
             <el-form-item>
-              <span class="login-form-title">分账系统</span>
+              <span class="login-form-title">Quick Book</span>
             </el-form-item>
             <el-form-item prop="username">
               <el-input
