@@ -36,7 +36,7 @@ const mutations = {
   },
   SET_MENUS: (state, menus) => {
     state.menus = menus
-  },
+  }
 }
 
 const actions = {
@@ -54,7 +54,6 @@ const actions = {
         setRefreshToken(refreshToken)
         commit('SET_TOKEN', data.token.value)
         commit('SET_REFRESH_TOKEN', refreshToken)
-        commit('SET_ROLES', data.site_name)
         resolve()
       }).catch(error => {
         reject(error)

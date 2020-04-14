@@ -50,7 +50,7 @@ export const constantRoutes = [
         path: '',
         component: () => import('@/views/index'),
         name: 'home',
-        meta: { title: '欢迎登录', icon: 'home', affix: true }
+        meta: { title: '交易一览', icon: 'home', affix: true }
       }
     ],
     hidden: true
@@ -71,6 +71,9 @@ export const componentMap = {
   'settlement-receivable': () => import('@/views/settlement/receivableIndex'),
   'settlement-collect-records': () => import('@/views/settlement/collectRecordsIndex'),
   'config-split': () => import('@/views/config/splitIndex'),
+  'config-split-temp': () => import('@/views/config/splitTempIndex'),
+  'merchant-withdraw-record': () => import('@/views/merchant/withdrawRecordIndex'),
+  'merchant-settle': () => import('@/views/merchant/merchantSettleIndex')
 }
 
 const createRouter = () => new Router({
@@ -82,7 +85,7 @@ const createRouter = () => new Router({
 const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
-export  function resetRouter() {
+export function resetRouter() {
   const newRouter = createRouter()
   router.matcher = newRouter.matcher // reset router
 }

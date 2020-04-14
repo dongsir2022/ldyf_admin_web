@@ -81,7 +81,6 @@ service.interceptors.response.use(
           removeCookie()
         })
       }
-      console.log("刷新token" + token);
       if (!refreshResult) {
         router.replace({
           path: '/home'

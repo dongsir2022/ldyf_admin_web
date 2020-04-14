@@ -1,9 +1,13 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row>
-        <el-col :span="4">
-          <el-button type="primary" icon="el-icon-circle-plus" @click.native="$parent.openPage('config-split-temp')">添加分润模版</el-button>
+      <el-row :gutter="10">
+        <el-col :span="6">
+          <el-input v-model='searchKey' clearable class="filter-item input-tx" placeholder="输入商户名称&编号"/>
+        </el-col>
+        <el-col :span="2">
+          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -15,25 +19,32 @@
       highlight-current-row>
       <el-table-column
         align="center"
-        label="创建时间"
-        prop="create_time"/>
+        label="商户编号"
+        prop="merchant_no"/>
       <el-table-column
         align="center"
-        label="名称"
-        prop="split_name"/>
+        label="商户名称"
+        prop="merchant_name"/>
       <el-table-column
         align="center"
-        label="模版ID"
-        prop="split_no"/>
-      <el-table-column
-        align="center"
-        label="分润方式"
-        prop="split_type"/>
-      <el-table-column
-        align="center"
-        label="状态">
+        label="商户等级">
         <template slot-scope="scope">
-          {{scope.row.split_status}}
+          <el-tag>{{scope.row.merchant_level|merchantLevelDict}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="结算周期"
+        prop="settle_cycle"/>
+      <el-table-column
+        align="center"
+        label="结算方式"
+        prop="settle_type"/>
+      <el-table-column
+        align="center"
+        label="生效状态">
+        <template slot-scope="scope">
+          {{scope.row.settle_status|settleStatusDict}}
         </template>
       </el-table-column>
       <el-table-column
@@ -44,15 +55,10 @@
           <el-button
             type="text"
             @click=""
-            size="mini">详情
-          </el-button>
-          <el-button
-            type="text"
-            @click=""
             size="mini">编辑
           </el-button>
           <el-popconfirm
-            title="确定删除么？" @onConfirm="freezeMerchant(scope.row)">
+            title="确定删除么？" @onConfirm="">
             <el-button
               slot="reference"
               type="text"
@@ -78,7 +84,7 @@
   </div>
 </template>
 
-<script src="./split.js"/>
+<script src="./merchantSettle.js"/>
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/common.scss";
 </style>
