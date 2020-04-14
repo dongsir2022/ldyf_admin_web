@@ -1,9 +1,9 @@
 import axios from 'axios'
-import {MessageBox, Message} from 'element-ui'
+import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
-import {getRefreshToken, getToken, removeCookie, setToken} from '@/utils/auth'
-import {refreshToken} from "@/api/user";
-import {isNotBlank} from "@/utils/utils";
+import { getRefreshToken, getToken, removeCookie, setToken } from '@/utils/auth'
+import { refreshToken } from '@/api/user'
+import { isNotBlank } from '@/utils/utils'
 import router from '../router'
 import qs from 'qs'
 
@@ -14,41 +14,18 @@ const service = axios.create({
   timeout: 30000 // request timeout
 })
 
-// request interceptor
-// service.interceptors.request.use(
-//   config => {
-//     // if (config.method === 'get' || config.method === 'post') {
-//     //   config.data = qs.stringify(config.data);
-//     // }
-//     console.log(config.data);
-//     // do something before request is sent
-//     if (store.getters.token) {
-//       // let each request carry token
-//       // ['X-Token'] is a custom headers key
-//       // please modify it according to the actual situation
-//       config.headers['Authorization'] = getToken()
-//     }
-//     return config
-//   },
-//   error => {
-//     // do something with request error
-//     console.log(error) // for debug
-//     return Promise.reject(error)
-//   }
-// )
-
 service.interceptors.request.use(
   config => {
     if (config.method === 'GET' || config.method === 'POST') {
-      config.data = qs.stringify(config.data);
+      config.data = qs.stringify(config.data)
     }
-    if (config.baseURL.indexOf("http://") > 0) {
-      config.url = config.baseURL;
+    if (config.baseURL.indexOf('http://') > 0) {
+      config.url = config.baseURL
     }
     if (store.getters.token) {
       config.headers['Authorization'] = getToken()
     }
-    config.headers['Access-Control-Allow-Origin'] = 'http://localhost';
+    config.headers['Access-Control-Allow-Origin'] = 'http://localhost'
     return config
   },
   error => {
@@ -83,12 +60,11 @@ service.interceptors.response.use(
       }
       if (!refreshResult) {
         router.replace({
-          path: '/home'
+          path: '/'
         })
       }
-      window.location.reload()
     } else {
-      let errorMessage = res;
+      let errorMessage = res
       if (res.hasOwnProperty('code')) {
         errorMessage = res.message
       }
@@ -105,7 +81,7 @@ service.interceptors.response.use(
     if (error.response.data.code === 400 || error.response.data.code === 401) {
       removeCookie()
       router.replace({
-        path: '/home'
+        path: '/'
       })
     } else {
       if (error.response && error.response.data.errors) {

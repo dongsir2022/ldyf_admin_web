@@ -31,7 +31,6 @@ router.beforeEach(async(to, from, next) => {
 
   // determine whether the user has logged in
   const hasToken = getToken()
-
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
@@ -43,7 +42,7 @@ router.beforeEach(async(to, from, next) => {
         if (hasPermission(store.getters.permission_names, store.getters.permission_paths, to)) {
           next()
         } else {
-          next({ path: '/'})
+          next({ path: '/' })
         }
       } else {
         store.dispatch('user/getInfo').then(res => {
@@ -53,9 +52,10 @@ router.beforeEach(async(to, from, next) => {
             if (hasPermission(store.getters.permission_names, store.getters.permission_paths, to)) {
               next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
             } else {
-              next({ path: '/'})
+              next({ path: '/' })
             }
           })
+        }).catch(error => {
         })
       }
     }
