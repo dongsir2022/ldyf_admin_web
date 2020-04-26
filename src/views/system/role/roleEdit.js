@@ -1,5 +1,5 @@
 import {mapGetters} from 'vuex'
-import {getRoleMenuTree, saveRoleMenus} from '@/api/system/role'
+import {getRoleMenuTree, saveRoleMenus} from '@/api/system/roleApi'
 
 export default {
   name: 'system-role-edit',

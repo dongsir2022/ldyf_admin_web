@@ -1,4 +1,4 @@
-import { create, getMenuTree, remove, update } from '@/api/system/menu'
+import { create, getMenuTree, remove, update } from '@/api/system/menuApi'
 
 export default {
   name: "system-menu",

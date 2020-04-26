@@ -80,5 +80,5 @@
 
 <script src="./split.js"/>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/common.scss";
+  @import "src/styles/common";
 </style>

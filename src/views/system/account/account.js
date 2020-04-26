@@ -1,6 +1,6 @@
 import { mapGetters } from 'vuex'
-import { getAccountList, createAccount, deleteAccount, updatePassword, setRole } from '@/api/system/account'
-import { getRoleList } from '@/api/system/role'
+import { getAccountList, createAccount, deleteAccount, updatePassword, setRole } from '@/api/system/accountApi'
+import { getRoleList } from '@/api/system/roleApi'
 
 export default {
   name: 'system-user',

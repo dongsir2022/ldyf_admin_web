@@ -70,10 +70,12 @@ export const componentMap = {
   'settlement-payable': () => import('@/views/settlement/payableIndex'),
   'settlement-receivable': () => import('@/views/settlement/receivableIndex'),
   'settlement-collect-records': () => import('@/views/settlement/collectRecordsIndex'),
-  'config-split': () => import('@/views/config/splitIndex'),
-  'config-split-temp': () => import('@/views/config/splitTempIndex'),
+  'config-split': () => import('@/views/config/split/splitIndex'),
+  'config-split-temp': () => import('@/views/config/split/splitTempIndex'),
+  'config-holiday': () => import('@/views/config/holiday/holidayIndex'),
+  'config-appVersion': () => import('@/views/config/appVersion/appVersionIndex'),
   'merchant-withdraw-record': () => import('@/views/merchant/withdrawRecordIndex'),
-  'merchant-settle': () => import('@/views/merchant/merchantSettleIndex')
+  'merchant-settle': () => import('@/views/merchant/merchantSettleIndex'),
 }
 
 const createRouter = () => new Router({

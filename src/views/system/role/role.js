@@ -1,4 +1,4 @@
-import { create, getRoleList, remove, update } from '@/api/system/role'
+import { create, getRoleList, remove, update } from '@/api/system/roleApi'
 
 export default {
   name: 'system-role',
