@@ -1,4 +1,4 @@
-import { getMerchantAccountList } from '@/api/merchant/merchant'
+import { getMerchantAccountList } from '@/api/merchant/merchantApi'
 
 export default {
   name: 'merchantAccount',

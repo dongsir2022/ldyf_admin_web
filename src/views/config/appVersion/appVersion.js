@@ -49,9 +49,11 @@ export default {
   methods: {
     handleCurrentChange(page) {
       this.page = page
+      this.fetchData()
     },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
+      this.fetchData()
     },
     fetchData() {
       this.loading = true

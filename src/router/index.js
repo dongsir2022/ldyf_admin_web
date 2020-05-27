@@ -76,6 +76,9 @@ export const componentMap = {
   'config-appVersion': () => import('@/views/config/appVersion/appVersionIndex'),
   'merchant-withdraw-record': () => import('@/views/merchant/withdrawRecordIndex'),
   'merchant-settle': () => import('@/views/merchant/merchantSettleIndex'),
+  'payment-list': () => import('@/views/payment/paymentIndex'),
+  'work-merchant-approve-list': () => import('@/views/work/merchant/merchantApproveListIndex'),
+  'work-merchant-approve-page': () => import('@/views/work/merchant/merchantApproveIndex')
 }
 
 const createRouter = () => new Router({

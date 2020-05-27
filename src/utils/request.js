@@ -38,8 +38,9 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     if (res.code === -1) {
+      console.log('error')
       Message({
-        message: $t('alert.error'),
+        message: res.message,
         type: 'error',
         duration: 2000
       })

@@ -1,9 +1,16 @@
 <template>
-  <div class="app-container" >
+  <div class="app-container">
     <div class="block">
-      <el-row :gutter="10">
-        <el-col :span="6">
-          <el-input v-model='searchKey' clearable class="filter-item input-tx" placeholder="输入商户名称"/>
+      <el-row :gutter="10" type="flex">
+        <el-col :span="3">
+          <el-select v-model="search.status" placeholder="请选择审批状态">
+            <el-option
+              v-for="item in approveStatus"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-col>
         <el-col :span="2">
           <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
@@ -19,37 +26,52 @@
       highlight-current-row>
       <el-table-column
         align="center"
-        label="商户编号"
-        prop="merchant_no"/>
+        label="商户三方编号"
+        width="200"
+        prop="merchant_out_no"/>
       <el-table-column
         align="center"
         label="商户名称"
+        width="200"
         prop="merchant_name"/>
       <el-table-column
         align="center"
-        label="可用余额"
-        prop="merchant_amount_available"/>
+        label="商户内部编号"
+        width="300"
+        prop="merchant_no">
+      </el-table-column>
       <el-table-column
         align="center"
-        label="可提现余额"
-        prop="merchant_amount_withdraw"/>
+        label="审批状态"
+        width="100">
+        <template slot-scope="scope">
+          {{scope.row.approve_status|approveStatusDict}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="创建时间"
+        prop="create_time">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="最后更新时间"
+        prop="last_update_time">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="最后更新人"
+        prop="last_update_user">
+      </el-table-column>
       <el-table-column
         align="center"
         v-if="!$route.meta.readOnly"
         label="操作">
         <template slot-scope="scope">
-          <el-popconfirm
-            title="确定冻结商户么？" @onConfirm="freezeMerchant(scope.row)">
-            <el-button
-              slot="reference"
-              type="text"
-              size="mini">冻结
-            </el-button>
-          </el-popconfirm>
           <el-button
             type="text"
-            @click=""
-            size="mini">详情
+            @click="approve(scope.row.id)"
+            size="mini">审批
           </el-button>
         </template>
       </el-table-column>
@@ -69,13 +91,7 @@
     </div>
   </div>
 </template>
-
-<script src="./merchantAccount.js"/>
+<script src="./merchantApproveList.js"/>
 <style rel="stylesheet/scss" lang="scss" scoped>
   @import "src/styles/common.scss";
-</style>
-<style lang="scss" scoped>
-  .sup-merchant-item {
-    margin-right: 20px;
-  }
 </style>

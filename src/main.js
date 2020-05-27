@@ -39,10 +39,6 @@ Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
-Vue.filter('parseDict', function(value, dict) {
-  return dict[value]
-})
-
 Vue.config.productionTip = false
 
 new Vue({

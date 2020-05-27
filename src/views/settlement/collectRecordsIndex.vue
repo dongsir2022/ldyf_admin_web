@@ -40,7 +40,7 @@
       <el-table-column
         align="center"
         label="金额"
-        prop="payable_amount"/>
+        prop="payable_fee"/>
       <el-table-column
         align="center"
         label="结算状态">
