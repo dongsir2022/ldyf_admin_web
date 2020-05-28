@@ -1,10 +1,8 @@
 import Mock from 'mockjs'
 import { param2Obj } from '../src/utils'
-import merchant from './merchant'
 import settlement from './settlement'
 
 const mocks = [
-  ...merchant,
   ...settlement
 ]
 

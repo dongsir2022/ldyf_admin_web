@@ -42,6 +42,8 @@ export default {
         this.loading = false
         this.list = res.data
         this.total = res.total
+      }).catch(error => {
+        this.loading = false
       })
     },
     approve(id) {

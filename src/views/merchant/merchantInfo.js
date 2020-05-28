@@ -1,8 +1,8 @@
 import MerchantInfo from '@/components/merchant/merchantInfo'
-import { agreeMerchantApprove, getMerchantApproveInfo, rejectMerchantApprove } from '@/api/merchant/merchantApi'
+import { getMerchantInfo } from '@/api/merchant/merchantApi'
 
 export default {
-  name: 'merchantApproveIndex',
+  name: 'merchantInfoIndex',
   components: { MerchantInfo },
   data() {
     return {
@@ -58,29 +58,9 @@ export default {
   },
   methods: {
     fetchData() {
-      getMerchantApproveInfo(this.merchantId).then(res => {
+      getMerchantInfo(this.merchantId).then(res => {
         this.merchantInfo = res.data
         this.loading = false
-      })
-    },
-    agree() {
-      this.loading = true
-      agreeMerchantApprove(this.merchantId).then(res => {
-        this.$message({
-          message: '审批同意成功',
-          type: 'success'
-        })
-        this.fetchData()
-      })
-    },
-    reject() {
-      this.loading = true
-      rejectMerchantApprove(this.merchantId).then(res => {
-        this.$message({
-          message: '审批驳回成功',
-          type: 'success'
-        })
-        this.fetchData()
       })
     }
   }

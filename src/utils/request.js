@@ -38,12 +38,12 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     if (res.code === -1) {
-      console.log('error')
       Message({
         message: res.message,
         type: 'error',
         duration: 2000
       })
+      return Promise.reject(res)
     } else if (res.code === 200) {
       return res
     } else if (res.code === 400 || res.code === 401) {
