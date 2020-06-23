@@ -52,6 +52,11 @@ export default {
         merchant_id: id
       })
     },
+    tradeDeviceList(id) {
+      this.$parent.openPage('merchant-tradeDevice-list', {
+        merchant_id: id
+      })
+    },
     info(id) {
       this.$parent.openPage('merchant-info', {
         merchant_id: id

@@ -22,6 +22,7 @@ service.interceptors.request.use(
     if (config.baseURL.indexOf('http://') > 0) {
       config.url = config.baseURL
     }
+    // config.url = config.url.replace("/admin/","/admin2/")
     if (store.getters.token) {
       config.headers['Authorization'] = getToken()
     }

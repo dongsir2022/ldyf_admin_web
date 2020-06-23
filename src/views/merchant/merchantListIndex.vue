@@ -56,7 +56,12 @@
           <el-button
             type="text"
             @click="subTradeTerminal(scope.row.id)"
-            size="mini">查看交易终端
+            size="mini">交易终端管理
+          </el-button>
+          <el-button
+            type="text"
+            @click="tradeDeviceList(scope.row.id)"
+            size="mini">门店管理
           </el-button>
           <el-popconfirm v-if="scope.row.merchant_status==1"
                          title="确定冻结商户么？" @onConfirm="freezeMerchant(scope.row.id)">

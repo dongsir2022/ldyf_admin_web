@@ -81,7 +81,12 @@ export const componentMap = {
   'merchant-settle': () => import('@/views/merchant/merchantSettleIndex'),
   'payment-list': () => import('@/views/payment/paymentIndex'),
   'work-merchant-approve-list': () => import('@/views/work/merchant/merchantApproveListIndex'),
-  'work-merchant-approve-page': () => import('@/views/work/merchant/merchantApproveIndex')
+  'work-merchant-approve-page': () => import('@/views/work/merchant/merchantApproveIndex'),
+  'merchant-tradeDevice-list': () => import('@/views/merchant/tradeDeviceListIndex'),
+  'config-agency-list': () => import('@/views/config/agencyInfo/agencyInfoListIndex'),
+  'config-commonProblem-list': () => import('@/views/config/commonProblemInfo/commonProblemInfoIndex'),
+  'reconciliation-internal-list': () => import('@/views/reconciliation/internalBillLogIndex'),
+  'reconciliation-external-list': () => import('@/views/reconciliation/externalBillLogIndex'),
 }
 
 const createRouter = () => new Router({

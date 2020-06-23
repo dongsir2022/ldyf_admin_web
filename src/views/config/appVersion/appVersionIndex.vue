@@ -2,26 +2,6 @@
   <div class="app-container">
     <div class="block">
       <el-row :gutter="10">
-        <el-col :span="3">
-          <el-input v-model='searchKey' clearable class="filter-item input-tx" placeholder="输入收款方"/>
-        </el-col>
-        <el-col :span="7">
-          <el-date-picker
-            v-model="searchCreateTime"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="创建开始日期"
-            end-placeholder="创建结束日期">
-          </el-date-picker>
-        </el-col>
-        <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
-          </el-button>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="block">
-      <el-row :gutter="10">
         <el-col :span="4">
           <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" @click='addAppVersion'>
             新增App版本

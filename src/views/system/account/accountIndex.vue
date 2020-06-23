@@ -1,7 +1,9 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-button class="filter-item" type="primary" icon="el-icon-circle-plus" v-if="!$route.meta.readOnly" @click="addAccount">添加用户</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-circle-plus" v-if="!$route.meta.readOnly"
+                 @click="addAccount">添加用户
+      </el-button>
       <el-button class="filter-item" type="primary" icon="el-icon-refresh" @click='getAccountList()'
                  :loading="loading">刷新
       </el-button>
@@ -28,7 +30,6 @@
           {{scope.row.username}}
         </template>
       </el-table-column>
-
       <el-table-column
         align="center"
         label="所属分组">
@@ -36,23 +37,28 @@
           {{scope.row.role_name}}
         </template>
       </el-table-column>
-
       <el-table-column
         align="center"
-        label="最后登录时间">
-        <template slot-scope="scope">
-          {{scope.row.last_login_time}}
-        </template>
-      </el-table-column>
-
+        label="所属机构名称"
+        prop="agency_name"/>
       <el-table-column
         align="center"
-        label="共计登录次数">
-        <template slot-scope="scope">
-          {{scope.row.login_count}}
-        </template>
-      </el-table-column>
-
+        label="所属机构"
+        prop="agency_no"/>
+<!--      <el-table-column-->
+<!--        align="center"-->
+<!--        label="最后登录时间">-->
+<!--        <template slot-scope="scope">-->
+<!--          {{scope.row.last_login_time}}-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--      <el-table-column-->
+<!--        align="center"-->
+<!--        label="共计登录次数">-->
+<!--        <template slot-scope="scope">-->
+<!--          {{scope.row.login_count}}-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <el-table-column
         align="center"
         v-if="!$route.meta.readOnly"
