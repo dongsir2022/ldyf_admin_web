@@ -38,6 +38,9 @@ export default {
     },
     freezeMerchant(row) {
       this.$message.error('服务不可用')
+    },
+    test() {
+
     }
   }
 }

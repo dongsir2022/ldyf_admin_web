@@ -1,6 +1,6 @@
 import router from './router'
 import store from './store'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
@@ -56,6 +56,7 @@ router.beforeEach(async(to, from, next) => {
             }
           })
         }).catch(error => {
+          console.log('error', error)
         })
       }
     }

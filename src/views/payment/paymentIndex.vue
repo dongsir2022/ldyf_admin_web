@@ -3,7 +3,7 @@
     <div class="block">
       <el-row :gutter="10">
         <el-col :span="4">
-          <el-input v-model='searchKey.orderNo' clearable class="filter-item input-tx" placeholder="输入订单号"/>
+          <el-input v-model="searchKey.orderNo" clearable class="filter-item input-tx" placeholder="输入订单号" />
         </el-col>
         <el-col :span="7">
           <el-date-picker
@@ -12,11 +12,11 @@
             range-separator="至"
             start-placeholder="完成开始时间"
             end-placeholder="完成结束时间"
-            value-format="yyyy-MM-dd HH:mm:ss">
-          </el-date-picker>
+            value-format="yyyy-MM-dd HH:mm:ss"
+          />
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
         </el-col>
       </el-row>
@@ -25,50 +25,59 @@
       v-loading="loading"
       :data="list"
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         width="200"
         label="订单编号"
-        prop="order_no"/>
+        prop="order_no"
+      />
       <el-table-column
         align="center"
         width="200"
         label="完成时间"
-        prop="complete_time"/>
+        prop="complete_time"
+      />
       <el-table-column
         align="center"
         width="300"
         label="商户名称"
-        prop="merchant_name"/>
+        prop="merchant_name"
+      />
       <el-table-column
         align="center"
         width="300"
         label="商户识别号"
-        prop="merchant_no"/>
+        prop="merchant_no"
+      />
       <el-table-column
         align="center"
         width="200"
         label="费率/封顶"
-        prop="rate"/>
+        prop="rate"
+      />
       <el-table-column
         align="center"
         width="200"
-        label="交易金额">
+        label="交易金额"
+      >
         <template slot-scope="scope">
-          {{scope.row.pay_amount|moneyFormat}}
+          {{ scope.row.pay_amount|moneyFormat }}
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         width="200"
         label="收款银行卡号"
-        prop="card_no"/>
+        prop="card_no"
+      />
       <el-table-column
         align="center"
         width="200"
         label="创建时间"
-        prop="create_time"/>
+        prop="create_time"
+      />
     </el-table>
     <!-- 分页 -->
     <div class="pagination-container block">
@@ -80,7 +89,8 @@
         layout="total, sizes, prev, pager, next"
         :page-size="pageSize"
         @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"/>
+        @size-change="handleSizeChange"
+      />
     </div>
   </div>
 </template>

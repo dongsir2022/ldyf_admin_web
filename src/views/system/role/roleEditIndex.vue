@@ -2,7 +2,7 @@
   <div class="app-container">
     <div v-if="isLoadData">
       <div class="block">
-        {{roleInfo.name}}
+        {{ roleInfo.name }}
       </div>
       <el-form>
         <el-form-item>
@@ -21,17 +21,18 @@
                   :default-checked-keys="defaultMenuIds"
                   :check-strictly="true"
                   @check-change="handleCheckChange"
-                  @check="handleCheck">
-                  <span class="custom-tree-node" slot-scope="{ node, data }">
+                  @check="handleCheck"
+                >
+                  <span slot-scope="{ node, data }" class="custom-tree-node">
                     <span>{{ data.title }}</span>
                     <span v-if="data.type===2" style="margin-left: 20px;">
                       <el-switch
                         v-model="data.read_only"
                         active-text="是否只能查看"
                         active-color="#13ce66"
-                        :active-value=1
-                        :inactive-value=0>
-                      </el-switch>
+                        :active-value="1"
+                        :inactive-value="0"
+                      />
                     </span>
                   </span>
                 </el-tree>
@@ -46,7 +47,7 @@
       </el-form>
     </div>
     <div v-else class="loadingBox">
-      <span class="el-icon-loading"/>
+      <span class="el-icon-loading" />
     </div>
   </div>
 </template>

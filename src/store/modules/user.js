@@ -1,6 +1,6 @@
-import {login, logout, getInfo} from '@/api/user'
-import {getToken, setToken, removeToken, setRefreshToken, getRefreshToken} from '@/utils/auth'
-import {resetRouter} from '@/router'
+import { login, logout, getInfo } from '@/api/user'
+import { getToken, setToken, removeToken, setRefreshToken, getRefreshToken } from '@/utils/auth'
+import { resetRouter } from '@/router'
 
 const getDefaultState = () => {
   return {
@@ -9,7 +9,7 @@ const getDefaultState = () => {
     name: '',
     avatar: '',
     userInfo: {},
-    menus: [],
+    menus: []
   }
 }
 
@@ -41,10 +41,10 @@ const mutations = {
 
 const actions = {
   // user login
-  login({commit}, userInfo) {
-    const {username, password} = userInfo
+  login({ commit }, userInfo) {
+    const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({username: username.trim(), password: password}).then(response => {
+      login({ username: username.trim(), password: password }).then(response => {
         const data = response
         let refreshToken = ''
         if (data.token.refreshToken) {
@@ -62,10 +62,10 @@ const actions = {
   },
 
   // get user info
-  getInfo({commit, state}) {
+  getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
-        let data = response
+        const data = response
         commit('SET_MENUS', data.menus)
         commit('SET_USER_INFO', data.userInfo)
         commit('SET_NAME', data.userInfo.username)
@@ -77,7 +77,7 @@ const actions = {
   },
 
   // user logout
-  logout({commit, state}) {
+  logout({ commit, state }) {
     return new Promise((resolve, reject) => {
       logout(state.token).then(() => {
         removeToken() // must remove  token  first
@@ -91,7 +91,7 @@ const actions = {
   },
 
   // remove token
-  resetToken({commit}) {
+  resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
       commit('RESET_STATE')

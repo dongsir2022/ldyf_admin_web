@@ -1,5 +1,10 @@
 import MerchantInfo from '@/components/merchant/merchantInfo'
-import { agreeMerchantApprove, getMerchantApproveInfo, rejectMerchantApprove } from '@/api/merchant/merchantApi'
+import {
+  agreeMerchantApprove,
+  getAgentUserInfoApi,
+  getMerchantApproveInfo,
+  rejectMerchantApprove
+} from '@/api/merchant/merchantApi'
 
 export default {
   name: 'merchantApproveIndex',
@@ -41,9 +46,14 @@ export default {
           'contact_phone': '',
           'contact_type': '',
           'create_time': '',
-          'create_user': '',
+          'create_user': ''
         }
       },
+      splitForm: {
+        rate: 0.002,
+        agent: 0.00001
+      },
+      agentUser: {},
       loading: false
     }
   },
@@ -60,12 +70,19 @@ export default {
     fetchData() {
       getMerchantApproveInfo(this.merchantId).then(res => {
         this.merchantInfo = res.data
-        this.loading = false
+        getAgentUserInfoApi(this.merchantInfo.merchant_info.agent_no).then(res => {
+          this.agentUser = res.data
+          this.loading = false
+        })
       })
     },
     agree() {
       this.loading = true
-      agreeMerchantApprove(this.merchantId).then(res => {
+      const data = {
+        rate: this.splitForm.rate,
+        agent_rate: this.splitForm.agent
+      }
+      agreeMerchantApprove(this.merchantId, data).then(res => {
         this.$message({
           message: '审批同意成功',
           type: 'success'

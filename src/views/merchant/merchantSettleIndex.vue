@@ -3,10 +3,10 @@
     <div class="block">
       <el-row :gutter="10">
         <el-col :span="6">
-          <el-input v-model='searchKey' clearable class="filter-item input-tx" placeholder="输入商户名称&编号"/>
+          <el-input v-model="searchKey" clearable class="filter-item input-tx" placeholder="输入商户名称&编号" />
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
         </el-col>
       </el-row>
@@ -16,53 +16,65 @@
       :data="list"
       border
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="商户编号"
-        prop="merchant_no"/>
+        prop="merchant_no"
+      />
       <el-table-column
         align="center"
         label="商户名称"
-        prop="merchant_name"/>
+        prop="merchant_name"
+      />
       <el-table-column
         align="center"
-        label="商户等级">
+        label="商户等级"
+      >
         <template slot-scope="scope">
-          <el-tag>{{scope.row.merchant_level|merchantLevelDict}}</el-tag>
+          <el-tag>{{ scope.row.merchant_level|merchantLevelDict }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         label="结算周期"
-        prop="settle_cycle"/>
+        prop="settle_cycle"
+      />
       <el-table-column
         align="center"
         label="结算方式"
-        prop="settle_type"/>
+        prop="settle_type"
+      />
       <el-table-column
         align="center"
-        label="生效状态">
+        label="生效状态"
+      >
         <template slot-scope="scope">
-          {{scope.row.settle_status|settleStatusDict}}
+          {{ scope.row.settle_status|settleStatusDict }}
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
         v-if="!$route.meta.readOnly"
-        label="操作">
-        <template slot-scope="scope">
+        align="center"
+        label="操作"
+      >
+        <template>
           <el-button
             type="text"
-            @click=""
-            size="mini">编辑
+            size="mini"
+            @click="test"
+          >编辑
           </el-button>
           <el-popconfirm
-            title="确定删除么？" @onConfirm="">
+            title="确定删除么？"
+            @onConfirm="test"
+          >
             <el-button
               slot="reference"
               type="text"
-              size="mini">删除
+              size="mini"
+            >删除
             </el-button>
           </el-popconfirm>
         </template>

@@ -1,6 +1,6 @@
 import { createHoliday, getHolidayDataByMonth, removeHoliday } from '@/api/config/holidayApi'
 import moment from 'moment'
-import fa from 'element-ui/src/locale/lang/fa'
+// import fa from 'element-ui/src/locale/lang/fa'
 
 export default {
   name: 'holidayIndex',
@@ -25,8 +25,8 @@ export default {
   },
   watch: {
     myDate(newValue, oldValue) {
-      let newMouth = moment(newValue).format('YYYY-MM')
-      let oldMouth = moment(oldValue).format('YYYY-MM')
+      const newMouth = moment(newValue).format('YYYY-MM')
+      const oldMouth = moment(oldValue).format('YYYY-MM')
       if (newMouth !== oldMouth) {
         this.fetchData(newMouth)
       }

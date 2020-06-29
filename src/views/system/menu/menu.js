@@ -1,7 +1,7 @@
 import { create, getMenuTree, remove, update } from '@/api/system/menuApi'
 
 export default {
-  name: "system-menu",
+  name: 'system-menu',
   data() {
     return {
       data: [],
@@ -52,13 +52,13 @@ export default {
         ]
       },
       rules: {
-        name: [{required: true, message: '请输入菜单英文名称', trigger: 'blur'}],
-        title: [{required: true, message: '请输入菜单标题（显示名称）', trigger: 'blur'}],
-        type: [{required: true, message: '请选择菜单类型', trigger: 'blur'}],
-        path: [{required: true, message: '请输入path', trigger: 'blur'}],
-        component: [{required: true, message: '请输入页面地址', trigger: 'blur'}],
+        name: [{ required: true, message: '请输入菜单英文名称', trigger: 'blur' }],
+        title: [{ required: true, message: '请输入菜单标题（显示名称）', trigger: 'blur' }],
+        type: [{ required: true, message: '请选择菜单类型', trigger: 'blur' }],
+        path: [{ required: true, message: '请输入path', trigger: 'blur' }],
+        component: [{ required: true, message: '请输入页面地址', trigger: 'blur' }],
         sort_value: [
-          {required: true, message: '请输入排序值', trigger: 'blur'},
+          { required: true, message: '请输入排序值', trigger: 'blur' },
           {
             message: '请输入数字', type: 'number', transform(value) {
               if (value) {
@@ -66,7 +66,7 @@ export default {
               }
             }
           }]
-      },
+      }
     }
   },
   created() {
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     resetForm() {
-      this.form = {...this.initForm, site_id: this.site_id}
+      this.form = { ...this.initForm, site_id: this.site_id }
     },
     fetchData() {
       this.loading = true
@@ -95,15 +95,15 @@ export default {
       this.form.parent_id = node.data.id
       this.form.name = node.data.name + '-'
       this.form.type = 2
-      this.formTitle = '添加子菜单';
-      this.formVisible = true;
-      this.isAdd = true;
+      this.formTitle = '添加子菜单'
+      this.formVisible = true
+      this.isAdd = true
     },
     edit(node, data) {
-      this.form = {...node.data}
-      this.isAdd = false;
-      this.formTitle = '编辑菜单';
-      this.formVisible = true;
+      this.form = { ...node.data }
+      this.isAdd = false
+      this.formTitle = '编辑菜单'
+      this.formVisible = true
     },
     remove(node, data) {
       this.$confirm(this.$t('alert.deleteParentConfirm'), this.$t('alert.tooltip'), {
@@ -118,23 +118,23 @@ export default {
           this.$message({
             message: this.$t('alert.deleteSuccess'),
             type: 'success'
-          });
-          this.fetchData();
+          })
+          this.fetchData()
         })
       }).catch(() => {
       })
     },
     addRootMenu() {
       this.resetForm()
-      this.formTitle = '添加菜单';
+      this.formTitle = '添加菜单'
       this.form.component = 'Layout'
-      this.formVisible = true;
-      this.isAdd = true;
+      this.formVisible = true
+      this.isAdd = true
     },
     cancel() {
-      this.formVisible = false;
-      //移除表单项的校验结果
-      this.$refs.form.clearValidate();
+      this.formVisible = false
+      // 移除表单项的校验结果
+      this.$refs.form.clearValidate()
     },
     save() {
       this.$refs['form'].validate((valid) => {
@@ -144,9 +144,9 @@ export default {
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'
-              });
-              this.fetchData();
-              this.formVisible = false;
+              })
+              this.fetchData()
+              this.formVisible = false
               this.resetForm()
             })
           } else {
@@ -154,20 +154,18 @@ export default {
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'
-              });
-              this.fetchData();
-              this.formVisible = false;
+              })
+              this.fetchData()
+              this.formVisible = false
               this.resetForm()
             })
           }
         } else {
           return false
         }
-      });
-
+      })
     }
 
   }
-
 
 }

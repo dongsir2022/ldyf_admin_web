@@ -8,8 +8,8 @@
               v-for="item in channelArr"
               :key="item"
               :label="item"
-              :value="item">
-            </el-option>
+              :value="item"
+            />
           </el-select>
         </el-col>
         <el-col :span="7">
@@ -18,11 +18,11 @@
             type="datetimerange"
             range-separator="至"
             start-placeholder="创建开始日期"
-            end-placeholder="创建结束日期">
-          </el-date-picker>
+            end-placeholder="创建结束日期"
+          />
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
         </el-col>
       </el-row>
@@ -31,55 +31,66 @@
       v-loading="loading"
       :data="list"
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="创建时间"
-        prop="create_time"/>
+        prop="create_time"
+      />
       <el-table-column
         align="center"
         label="商户订单号"
-        prop="order_no"/>
+        prop="order_no"
+      />
       <el-table-column
         align="center"
         label="应付方"
-        prop="payable_side"/>
+        prop="payable_side"
+      />
       <el-table-column
         align="center"
         label="金额"
-        prop="payable_amount"/>
+        prop="payable_amount"
+      />
       <el-table-column
         align="center"
-        label="结算状态">
+        label="结算状态"
+      >
         <template slot-scope="scope">
-          {{scope.row.payable_status|settlementStatusDict}}
+          {{ scope.row.payable_status|settlementStatusDict }}
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
         v-if="!$route.meta.readOnly"
-        label="操作">
+        align="center"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-popconfirm
             v-if="scope.row.payable_status===0"
             title="确定取消结算么？"
-            @onConfirm="">
+            @onConfirm="test"
+          >
             <el-button
               slot="reference"
               type="text"
-              size="mini">结算
+              size="mini"
+            >结算
             </el-button>
           </el-popconfirm>
           <el-button
             v-if="scope.row.payable_status===0"
             type="text"
-            @click=""
-            size="mini">标记结算
+            size="mini"
+            @click="test"
+          >标记结算
           </el-button>
           <el-button
             type="text"
-            @click=""
-            size="mini">相关订单
+            size="mini"
+            @click="test"
+          >相关订单
           </el-button>
         </template>
       </el-table-column>
@@ -94,7 +105,8 @@
         layout="total, sizes, prev, pager, next"
         :page-size="pageSize"
         @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"/>
+        @size-change="handleSizeChange"
+      />
     </div>
   </div>
 </template>

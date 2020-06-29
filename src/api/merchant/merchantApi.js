@@ -52,10 +52,11 @@ export function getMerchantApproveInfo(id) {
   })
 }
 
-export function agreeMerchantApprove(id) {
+export function agreeMerchantApprove(id, data) {
   return request({
     url: '/admin/merchantApprove/agree/' + id,
-    method: 'put'
+    method: 'put',
+    data: data
   })
 }
 
@@ -81,3 +82,78 @@ export function getTradeTerminalInfo(id) {
   })
 }
 
+export function getTradeDeviceList(params) {
+  return request({
+    url: '/admin/tradeDevice/getTradeDeviceList',
+    method: 'get',
+    params: params
+  })
+}
+
+export function getAgentUserInfoApi(id) {
+  return request({
+    url: '/admin/tradeTerminal/agentInfo/' + id,
+    method: 'get'
+  })
+}
+
+export function getDeviceOperatorList(params) {
+  return request({
+    url: '/admin/merchantLoginAccount/getLoginAccountList',
+    method: 'get',
+    params: params
+  })
+}
+
+export function freezeDeviceOperator(id) {
+  return request({
+    url: '/admin/merchantLoginAccount/freeze/' + id,
+    method: 'put'
+  })
+}
+
+export function normalDeviceOperator(id) {
+  return request({
+    url: '/admin/merchantLoginAccount/normal/' + id,
+    method: 'put'
+  })
+}
+
+export function deviceOperatorChangePassword(data) {
+  return request({
+    url: '/admin/merchantLoginAccount/changePassword',
+    method: 'put',
+    data: data
+  })
+}
+
+export function createDeviceOperator(data) {
+  return request({
+    url: '/admin/merchantLoginAccount/addLoginAccount',
+    method: 'post',
+    data: data
+  })
+}
+
+export function unbindDeviceOperator(id) {
+  return request({
+    url: '/admin/merchantLoginAccount/unbind/' + id,
+    method: 'put'
+  })
+}
+
+export function bindingDeviceOperator(data) {
+  return request({
+    url: '/admin/merchantLoginAccount/binding',
+    method: 'put',
+    data: data
+  })
+}
+
+export function unbindDeviceOperatorList(params) {
+  return request({
+    url: '/admin/merchantLoginAccount/getUnbindList',
+    method: 'get',
+    params: params
+  })
+}

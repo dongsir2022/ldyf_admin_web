@@ -12,7 +12,8 @@
             :rules="loginRules"
             class="login-form"
             auto-complete="on"
-            label-position="left">
+            label-position="left"
+          >
             <el-form-item>
               <span class="login-form-title">Quick Book</span>
             </el-form-item>
@@ -42,21 +43,20 @@
               :loading="loading"
               type="primary"
               class="submit"
-              @click.native.prevent="handleLogin">登录
+              @click.native.prevent="handleLogin"
+            >登录
             </el-button>
           </el-form>
         </el-col>
       </el-row>
-      <div class="login-form-panel">
-
-      </div>
-      <div></div>
+      <div class="login-form-panel" />
+      <div />
     </el-card>
   </div>
 </template>
 
 <script>
-import {validUsername} from '@/utils/validate'
+// import { validUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
@@ -67,8 +67,8 @@ export default {
         password: ''
       },
       loginRules: {
-        username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
-        password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+        password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       },
       loading: false,
       passwordType: 'password',
@@ -77,7 +77,7 @@ export default {
   },
   watch: {
     $route: {
-      handler: function (route) {
+      handler: function(route) {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
@@ -99,7 +99,7 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({path: this.redirect || '/'})
+            this.$router.push({ path: this.redirect || '/' })
             this.loading = false
           }).catch(() => {
             this.loading = false
@@ -113,7 +113,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
   .login-container {

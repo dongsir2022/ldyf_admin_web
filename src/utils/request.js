@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+import { Message } from 'element-ui'
 import store from '@/store'
 import { getRefreshToken, getToken, removeCookie, setToken } from '@/utils/auth'
 import { refreshToken } from '@/api/user'
@@ -22,10 +22,12 @@ service.interceptors.request.use(
     if (config.baseURL.indexOf('http://') > 0) {
       config.url = config.baseURL
     }
+    // config.url = config.url.replace("/admin/","/admin2/")
     if (store.getters.token) {
       config.headers['Authorization'] = getToken()
     }
     config.headers['Access-Control-Allow-Origin'] = 'http://localhost'
+    console.log('发送请求', config.method, config.url, config.data)
     return config
   },
   error => {
@@ -47,9 +49,9 @@ service.interceptors.response.use(
     } else if (res.code === 200) {
       return res
     } else if (res.code === 400 || res.code === 401) {
-      let requestUrl = response.config.url
-      //刷新token
-      let token = getRefreshToken()
+      // const requestUrl = response.config.url
+      // 刷新token
+      const token = getRefreshToken()
       let refreshResult = false
       if (isNotBlank(token)) {
         refreshToken(token).then(res => {
@@ -78,7 +80,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    //debug
+    // debug
     if (error.response.data.code === 400 || error.response.data.code === 401) {
       removeCookie()
       router.replace({

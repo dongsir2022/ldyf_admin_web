@@ -4,7 +4,7 @@ import {
   getAppVersionDataApi,
   removeAppVersionApi, updateAppVersionApi
 } from '@/api/config/appVersionApi'
-import da from 'element-ui/src/locale/lang/da'
+// import da from 'element-ui/src/locale/lang/da'
 import { isNotBlank } from '@/utils/utils'
 
 export default {

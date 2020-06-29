@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <merchant-info v-bind:merchant-info="merchantInfo"/>
+    <merchant-info :merchant-info="merchantInfo" />
   </div>
 </template>
 <script src="./merchantInfo.js"/>

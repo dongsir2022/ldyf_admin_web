@@ -12,51 +12,63 @@
       :data="list"
       border
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="创建时间"
-        prop="create_time"/>
+        prop="create_time"
+      />
       <el-table-column
         align="center"
         label="名称"
-        prop="split_name"/>
+        prop="split_name"
+      />
       <el-table-column
         align="center"
         label="模版ID"
-        prop="split_no"/>
+        prop="split_no"
+      />
       <el-table-column
         align="center"
         label="分润方式"
-        prop="split_type"/>
+        prop="split_type"
+      />
       <el-table-column
         align="center"
-        label="状态">
+        label="状态"
+      >
         <template slot-scope="scope">
-          {{scope.row.split_status}}
+          {{ scope.row.split_status }}
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
         v-if="!$route.meta.readOnly"
-        label="操作">
+        align="center"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-button
             type="text"
-            @click=""
-            size="mini">详情
+            size="mini"
+            @click="test"
+          >详情
           </el-button>
           <el-button
             type="text"
-            @click=""
-            size="mini">编辑
+            size="mini"
+            @click="test"
+          >编辑
           </el-button>
           <el-popconfirm
-            title="确定删除么？" @onConfirm="freezeMerchant(scope.row)">
+            title="确定删除么？"
+            @onConfirm="freezeMerchant(scope.row)"
+          >
             <el-button
               slot="reference"
               type="text"
-              size="mini">删除
+              size="mini"
+            >删除
             </el-button>
           </el-popconfirm>
         </template>

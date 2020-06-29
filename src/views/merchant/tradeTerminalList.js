@@ -1,4 +1,4 @@
-import { getMerchantList, getTradeTerminalList } from '@/api/merchant/merchantApi'
+import { getTradeTerminalList } from '@/api/merchant/merchantApi'
 import { isNotBlank } from '@/utils/utils'
 
 export default {
@@ -54,6 +54,7 @@ export default {
         }
         this.loading = false
       }).catch(error => {
+        console.log('fetchData -> error', error)
         this.loading = false
       })
     },
@@ -96,7 +97,7 @@ export default {
     freezeMerchant(row) {
       this.$message.error('服务不可用')
     },
-    info(id){
+    info(id) {
       this.$parent.openPage('merchant-tradeTerminal-info', {
         terminal_id: id
       })

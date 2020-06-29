@@ -32,7 +32,6 @@ export function deleteAccount(params) {
   })
 }
 
-
 export function updatePassword(params) {
   return request({
     url: '/admin/account/reset/password',
@@ -45,6 +44,14 @@ export function setRole(params) {
   return request({
     url: '/admin/account/binding/role',
     method: 'post',
+    data: params
+  })
+}
+
+export function updateAgencyInfo(params) {
+  return request({
+    url: '/admin/account/update/agencyno',
+    method: 'put',
     data: params
   })
 }

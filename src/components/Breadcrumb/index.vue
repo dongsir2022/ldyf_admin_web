@@ -28,11 +28,11 @@ export default {
   },
   methods: {
     getBreadcrumb() {
-      let matched = this.$route.matched.filter(item => {
+      const matched = this.$route.matched.filter(item => {
         if (item.name) {
           return true
         }
-      });
+      })
       this.levelList = matched
     },
     pathCompile(path) {

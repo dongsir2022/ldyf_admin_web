@@ -41,7 +41,7 @@ export default {
           'contact_phone': '',
           'contact_type': '',
           'create_time': '',
-          'create_user': '',
+          'create_user': ''
         }
       },
       loading: false

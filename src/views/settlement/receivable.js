@@ -18,6 +18,9 @@ export default {
     this.fetchData()
   },
   methods: {
+    test() {
+
+    },
     handleCurrentChange(page) {
       this.page = page
     },

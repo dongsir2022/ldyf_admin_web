@@ -15,7 +15,7 @@
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_up'"/>
+                      <i :class="'icon_up'" />
                       <span :class="'content content_up'">100%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
@@ -40,7 +40,7 @@
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_down'"/>
+                      <i :class="'icon_down'" />
                       <span :class="'content content_down'">10%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
@@ -65,7 +65,7 @@
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_up'"/>
+                      <i :class="'icon_up'" />
                       <span :class="'content content_up'">100%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
@@ -90,7 +90,7 @@
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_down'"/>
+                      <i :class="'icon_down'" />
                       <span :class="'content content_down'">100%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
@@ -183,7 +183,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'home',
+  name: 'Home',
   data() {
     return {}
   },
@@ -194,16 +194,16 @@ export default {
     ])
 
   },
-  methods: {
-    judgePermission: function(str) {
-      //权限判断
-      return this.roles.indexOf(str) > -1
-    }
-
-  },
   beforeCreate() {
   },
   created() {
+
+  },
+  methods: {
+    judgePermission: function(str) {
+      // 权限判断
+      return this.roles.indexOf(str) > -1
+    }
 
   }
 }

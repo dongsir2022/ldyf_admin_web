@@ -35,7 +35,7 @@ function transferRouteInfo(_route) {
  * @param menuTree 父子关系的菜单树结构
  */
 function initMenuTreeToRouter(menuTree) {
-  let routers = [...menuTree]
+  const routers = [...menuTree]
   for (let i = 0; i < routers.length; i++) {
     transferRouteInfo(routers[i])
   }
@@ -82,10 +82,10 @@ const mutations = {
 const actions = {
   generateRoutes({ commit }, data) {
     return new Promise(resolve => {
-      let accessedRoutes = initMenuTreeToRouter(data.menus)
+      const accessedRoutes = initMenuTreeToRouter(data.menus)
       // let accessedRoutes = []
-      let permissionNames = []
-      let permissionPaths = []
+      const permissionNames = []
+      const permissionPaths = []
       loadPermission(permissionNames, permissionPaths, null, constantRoutes)
       loadPermission(permissionNames, permissionPaths, null, accessedRoutes)
       commit('SET_ROUTES', accessedRoutes)

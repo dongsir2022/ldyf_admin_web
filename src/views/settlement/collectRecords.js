@@ -1,4 +1,4 @@
-import { getSettlementPayableList } from '@/api/settlement/settlement'
+// import { getSettlementPayableList } from '@/api/settlement/settlement'
 
 export default {
   name: 'settlementCollectRecords',

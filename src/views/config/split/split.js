@@ -15,6 +15,9 @@ export default {
     },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
+    },
+    test() {
+
     }
   }
 }

@@ -3,7 +3,7 @@
     <div class="block">
       <el-row :gutter="10" type="flex">
         <el-col :span="6">
-          <el-input v-model='search.merchantName' clearable class="filter-item input-tx" placeholder="输入商户名称"/>
+          <el-input v-model="search.merchantName" clearable class="filter-item input-tx" placeholder="输入商户名称" />
         </el-col>
         <el-col :span="3">
           <el-select v-model="search.status" placeholder="请选择商户状态">
@@ -11,12 +11,12 @@
               v-for="item in merchantStatus"
               :key="item.value"
               :label="item.label"
-              :value="item.value">
-            </el-option>
+              :value="item.value"
+            />
           </el-select>
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
         </el-col>
       </el-row>
@@ -26,54 +26,76 @@
       :data="list"
       border
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="商户编号"
-        prop="merchant_no"/>
+        prop="merchant_no"
+      />
       <el-table-column
         align="center"
         label="商户名称"
-        prop="merchant_name"/>
+        prop="merchant_name"
+      />
       <el-table-column
         align="center"
         label="商户三方编号"
-        prop="merchant_out_no"/>
+        prop="merchant_out_no"
+      />
       <el-table-column
         align="center"
         label="创建时间"
-        prop="create_time"/>
+        prop="create_time"
+      />
       <el-table-column
-        align="center"
         v-if="!$route.meta.readOnly"
-        label="操作">
+        align="center"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-button
             type="text"
+            size="mini"
             @click="info(scope.row.id)"
-            size="mini">查看详情
+          >查看详情
           </el-button>
           <el-button
             type="text"
+            size="mini"
             @click="subTradeTerminal(scope.row.id)"
-            size="mini">查看交易终端
+          >交易终端管理
           </el-button>
-          <el-popconfirm v-if="scope.row.merchant_status==1"
-                         title="确定冻结商户么？" @onConfirm="freezeMerchant(scope.row.id)">
+          <el-button
+            type="text"
+            size="mini"
+            @click="tradeDeviceList(scope.row.id)"
+          >门店管理
+          </el-button>
+          <el-popconfirm
+            v-if="scope.row.merchant_status==1"
+            title="确定冻结商户么？"
+            @onConfirm="freezeMerchant(scope.row.id)"
+          >
             <el-button
               slot="reference"
               type="text"
               class="red-text-button"
-              size="mini">冻结
+              size="mini"
+            >冻结
             </el-button>
           </el-popconfirm>
-          <el-popconfirm v-if="scope.row.merchant_status==2"
-                         title="确定解冻商户么？" @onConfirm="normalMerchant(scope.row.id)">
+          <el-popconfirm
+            v-if="scope.row.merchant_status==2"
+            title="确定解冻商户么？"
+            @onConfirm="normalMerchant(scope.row.id)"
+          >
             <el-button
               slot="reference"
               type="text"
               class="red-text-button"
-              size="mini">解冻
+              size="mini"
+            >解冻
             </el-button>
           </el-popconfirm>
         </template>

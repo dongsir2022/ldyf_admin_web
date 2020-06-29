@@ -44,11 +44,17 @@ export default {
         this.list = res.data
         this.total = res.total
       }).catch(error => {
+        console.log('fetchData -> error', error)
         this.loading = false
       })
     },
     subTradeTerminal(id) {
       this.$parent.openPage('merchant-tradeTerminal-list', {
+        merchant_id: id
+      })
+    },
+    tradeDeviceList(id) {
+      this.$parent.openPage('merchant-tradeDevice-list', {
         merchant_id: id
       })
     },

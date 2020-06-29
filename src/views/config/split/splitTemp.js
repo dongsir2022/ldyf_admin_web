@@ -27,7 +27,7 @@ export default {
   },
   filters: {
     dict(value) {
-      let map = {
+      const map = {
         1: '%',
         2: '元'
       }

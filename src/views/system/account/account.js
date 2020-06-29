@@ -1,6 +1,8 @@
-import { mapGetters } from 'vuex'
-import { getAccountList, createAccount, deleteAccount, updatePassword, setRole } from '@/api/system/accountApi'
+// import { mapGetters } from 'vuex'
+import { getAccountList, createAccount, deleteAccount, updatePassword, setRole, updateAgencyInfo } from '@/api/system/accountApi'
 import { getRoleList } from '@/api/system/roleApi'
+import { getTreeInfoApi } from '@/api/config/agencyInfoApi'
+// import { isNotBlank } from '@/utils/utils'
 
 export default {
   name: 'system-user',
@@ -9,7 +11,7 @@ export default {
     const validateConfirmPwd = (rule, value, callback) => {
       const password = this.form.password
       const repeatPassword = this.form.confirm_password
-      if (password != repeatPassword || repeatPassword === '') {
+      if (password !== repeatPassword || repeatPassword === '') {
         return callback(new Error('重复密码不正确'))
       } else {
         callback()
@@ -57,7 +59,13 @@ export default {
       saveLoading: false,
       roleLoading: false,
       dialogFormVisible: false,
-      dialogRole: false
+      dialogRole: false,
+      dialogAgency: false,
+      agencyLoading: false,
+      treedata: [],
+      treeloading: false,
+      accountId: '',
+      agency_no: ''
     }
   },
   created() {
@@ -72,6 +80,7 @@ export default {
       }
       this.loading = true
       getAccountList(data).then(res => {
+        console.log('getAccountList -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
@@ -96,6 +105,78 @@ export default {
       this.dialogFormVisible = true
       this.form = { ...data }
       this.isUpdate = true
+    },
+    // 更换所属机构
+    updateAgency(row) {
+      console.log('updateAgency -> row', row)
+      this.dialogAgency = true
+      this.accountId = row.id
+      this.agency_no = row.agency_no
+      this.getTreeData()
+    },
+    // 获取机构树
+    getTreeData() {
+      this.treeloading = true
+      getTreeInfoApi().then(res => {
+        console.log('getData -> res', res)
+        if (res.data && res.data.length) {
+          this.treedata = res.data
+        } else {
+          this.treedata = []
+          this.$message('没有机构的数据')
+        }
+        this.$nextTick(() => {
+          this.$refs.treeForm.setCheckedKeys([this.agency_no])
+        })
+        this.treeloading = false
+      })
+    },
+    // 实现机构树单选
+    handleNodeClick(data, checked, node) {
+      console.log('handleNodeClick -> data, checked, node', data, checked, node)
+      if (checked === true) {
+        this.agency_no = data.agency_no
+        this.$refs.treeForm.setCheckedKeys([data.agency_no])
+      } else {
+        if (this.agency_no === data.agency_no) {
+          this.$refs.treeForm.setCheckedKeys([data.agency_no])
+        }
+      }
+    },
+    // 更换机构保存
+    saveAgency() {
+      if (this.accountId === '' || this.agency_no === '') {
+        this.$message({
+          message: '请选中所属的机构',
+          type: 'info'
+        })
+        return
+      }
+      const params = {
+        id: this.accountId,
+        agency_no: this.agency_no + ''
+      }
+      console.log('saveAgency -> params', params)
+      this.agencyLoading = true
+      updateAgencyInfo(params).then(res => {
+        console.log('saveAgency -> res', res)
+        this.$message({
+          message: '更换机构成功',
+          type: 'success'
+        })
+        this.agencyLoading = false
+        this.dialogAgency = false
+        this.accountId = ''
+        this.agency_no = ''
+        this.getAccountList()
+      }).catch((res) => {
+        console.log('saveAgency -> res', res)
+        this.$message({
+          message: '很遗憾，失败了',
+          type: 'fail'
+        })
+        this.agencyLoading = false
+      })
     },
     deleteAccount(account) {
       this.$confirm('删除后该用户无法登陆，确认要删除吗?', '提示', {
