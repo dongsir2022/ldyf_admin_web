@@ -1,7 +1,6 @@
 import MerchantInfo from '@/components/merchant/merchantInfo'
 import {
   agreeMerchantApprove,
-  getAgentUserInfoApi,
   getMerchantApproveInfo,
   rejectMerchantApprove
 } from '@/api/merchant/merchantApi'
