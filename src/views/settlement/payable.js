@@ -18,12 +18,8 @@ export default {
   created() {
     this.initSearchCompleteTime()
     const merchantId = this.$route.params.merchant_id
-    if (merchantId) {
-      this.merchant_id = merchantId
-      this.fetchData()
-    } else {
-      this.$message.error('获取门店列表错误')
-    }
+    this.merchant_id = merchantId
+    this.fetchData()
   },
   methods: {
     initSearchCompleteTime() {
