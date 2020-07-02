@@ -70,10 +70,6 @@ export default {
     fetchData() {
       getMerchantApproveInfo(this.merchantId).then(res => {
         this.merchantInfo = res.data
-        getAgentUserInfoApi(this.merchantInfo.merchant_info.agent_no).then(res => {
-          this.agentUser = res.data
-          this.loading = false
-        })
       })
     },
     agree() {

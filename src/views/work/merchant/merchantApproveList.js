@@ -8,7 +8,7 @@ export default {
       list: [],
       total: 0,
       page: 1,
-      pageSize: 15,
+      pageSize: 10,
       approveStatus: [
         { value: 1, label: '待审批' },
         { value: 2, label: '已同意' },
