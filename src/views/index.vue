@@ -178,7 +178,7 @@
     </el-row>
     <!-- 地图 -->
     <div class="echarts">
-      <div id="main" style="width: 600px;height:800px;" />
+      <div id="main" style="width: 1000px;height:1300px;" />
     </div>
   </div>
 </template>
