@@ -46,7 +46,7 @@ export default {
         merchant_id: this.merchant_id || '',
         settle_status: this.searchKey.settleStatus
       }
-      console.log('fetchData -> data', data)
+      // console.log('fetchData -> data', data)z
       if (isNotBlank(this.searchKey.completeTime) && this.searchKey.completeTime.length === 2) {
         data['start_date'] = moment(this.searchKey.completeTime[0]).format('YYYY-MM-DD HH:mm:ss')
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')

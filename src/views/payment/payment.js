@@ -49,6 +49,8 @@ export default {
         this.list = res.data
         this.total = res.total
         this.loading = false
+      }).catch(() => {
+        this.loading = false
       })
     },
     initSearchCompleteTime() {

@@ -84,6 +84,8 @@ export default {
         this.loading = false
         this.list = res.data
         this.total = res.total
+      }).catch(() => {
+        this.loading = false
       })
     },
     handleCurrentChange(page) {
@@ -120,10 +122,11 @@ export default {
       getTreeInfoApi().then(res => {
         console.log('getData -> res', res)
         this.treedata = res.data
-
         this.$nextTick(() => {
           this.$refs.treeForm.setCheckedKeys([this.agency_no])
         })
+        this.treeloading = false
+      }).catch(() => {
         this.treeloading = false
       })
     },
@@ -165,12 +168,7 @@ export default {
         this.accountId = ''
         this.agency_no = ''
         this.getAccountList()
-      }).catch((res) => {
-        console.log('saveAgency -> res', res)
-        this.$message({
-          message: '很遗憾，失败了',
-          type: 'fail'
-        })
+      }).catch(() => {
         this.agencyLoading = false
       })
     },

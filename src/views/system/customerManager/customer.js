@@ -84,6 +84,8 @@ export default {
         this.loading = false
         this.list = res.data
         this.total = res.total
+      }).catch(() => {
+        this.loading = false
       })
     },
     // 添加客户经理
@@ -137,12 +139,8 @@ export default {
               this.getData()
               this.dialogFormVisible = false
               this.resetForm()
-            }).catch(res => {
+            }).catch(() => {
               this.saveLoading = false
-              this.$message({
-                message: this.$t('alert.error'),
-                type: 'fail'
-              })
             })
           } else {
             // 新增
@@ -164,10 +162,6 @@ export default {
               this.resetForm()
             }).catch(res => {
               this.saveLoading = false
-              this.$message({
-                message: this.$t('alert.error'),
-                type: 'fail'
-              })
             })
           }
         }
@@ -183,11 +177,6 @@ export default {
             type: 'success'
           })
           this.getData()
-        }).catch(() => {
-          this.$message({
-            message: this.$t('alert.error'),
-            type: 'fail'
-          })
         })
       } else {
         this.$message('缺少客户经理编号')
@@ -233,10 +222,6 @@ export default {
             this.resetFormPd()
           }).catch(() => {
             this.pdLoading = false
-            this.$message({
-              message: this.$t('alert.error'),
-              type: 'fail'
-            })
           })
         }
       })

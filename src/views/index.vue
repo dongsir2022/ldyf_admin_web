@@ -185,18 +185,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Json from '@/assets/shanxipro.json'
-// import jsonTy from '@/assets/140100.json'
-// import jsonDt from '@/assets/140200.json'
-// import jsonYq from '@/assets/140300.json'
-// import jsonCz from '@/assets/140400.json'
-// import jsonJc from '@/assets/140500.json'
-// import jsonSz from '@/assets/140600.json'
-// import jsonJz from '@/assets/140700.json'
-// import jsonYc from '@/assets/140800.json'
-// import jsonXz from '@/assets/140900.json'
-// import jsonLf from '@/assets/141000.json'
-// import jsonLl from '@/assets/141100.json'
+import Json from '@/assets/shanxinew.json'
 
 export default {
   name: 'Home',

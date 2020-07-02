@@ -108,12 +108,7 @@ export default {
           this.submitLoading = false
           this.editVisible = false
           this.resetForm()
-        }).catch(res => {
-          console.log('submit -> res', res)
-          this.$message({
-            message: this.$t('alert.error'),
-            type: 'fail'
-          })
+        }).catch(() => {
           this.submitLoading = false
         })
       } else if (this.type === 'edit') {
@@ -133,12 +128,7 @@ export default {
           this.editVisible = false
           this.resetForm()
           this.editId = ''
-        }).catch(res => {
-          console.log('submit -> res', res)
-          this.$message({
-            message: this.$t('alert.error'),
-            type: 'fail'
-          })
+        }).catch(() => {
           this.submitLoading = false
         })
       }

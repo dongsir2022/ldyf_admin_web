@@ -60,7 +60,7 @@
             @click="info(scope.row.id)"
           >查看详情
           </el-button>
-          <el-button v-if="scope.row.split_status===2" type="text" size="mini" @click="openSplitAuth(scope.row)">开通分账权限
+          <el-button v-if="scope.row.split_status===2" type="text" :loading="splitLoading" size="mini" @click="openSplitAuth(scope.row)">开通分账权限
           </el-button>
           <el-button
             type="text"

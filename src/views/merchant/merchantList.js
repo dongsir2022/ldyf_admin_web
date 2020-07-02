@@ -17,7 +17,8 @@ export default {
       ],
       search: {
         status: 1
-      }
+      },
+      splitLoading: false
     }
   },
   created() {
@@ -27,16 +28,15 @@ export default {
     // 开通分账权限
     openSplitAuth(row) {
       console.log('openSplitAuth -> row', row)
+      this.splitLoading = true
       putOpenSplitAuth({ merchant_id: row.id }).then(res => {
+        this.splitLoading = false
         this.$message({
           message: this.$t('alert.optionSuccess'),
           type: 'success'
         })
       }).catch(() => {
-        this.$message({
-          message: this.$t('alert.error'),
-          type: 'fail'
-        })
+        this.splitLoading = false
       })
     },
     handleCurrentChange(page) {
@@ -58,8 +58,7 @@ export default {
         this.loading = false
         this.list = res.data
         this.total = res.total
-      }).catch(error => {
-        console.log('fetchData -> error', error)
+      }).catch(() => {
         this.loading = false
       })
     },

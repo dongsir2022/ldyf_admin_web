@@ -84,7 +84,7 @@ export default {
         this.submitLoading = false
         this.$refs.addAgencyForm.resetFields()
         this.addAgencyVisible = false
-      }).catch(res => {
+      }).catch(() => {
         this.submitLoading = false
       })
     }
