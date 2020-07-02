@@ -9,9 +9,9 @@ export default {
       list: [],
       total: 0,
       page: 1,
-      pageSize: 15,
-      channelArr: [{ id: '1', name: '结算冻结' }, { id: '2', name: '待结算' }, { id: '3', name: '结算中' }, { id: '4', name: '结算成功' }, { id: '5', name: '结算失败' }],
-      searchKey: { settleStatus: '', completeTime: [] },
+      pageSize: 10,
+      channelArr: [{ id: 1, name: '结算冻结' }, { id: 2, name: '待结算' }, { id: 3, name: '结算中' }, { id: 4, name: '结算成功' }, { id: 5, name: '结算失败' }],
+      searchKey: { settleStatus: 2, completeTime: [] },
       merchant_id: ''
     }
   },

@@ -10,7 +10,7 @@ export default {
       list: [],
       total: 0,
       page: 1,
-      pageSize: 15,
+      pageSize: 10,
       searchKey: { completeTime: [] },
       merchant_id: ''
     }
