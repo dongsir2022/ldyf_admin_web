@@ -22,70 +22,44 @@
         </el-col>
       </el-row>
     </div>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      fit
-      highlight-current-row
-    >
-      <el-table-column
-        align="center"
-        label="创建时间"
-        prop="create_time"
-      />
-      <el-table-column
-        align="center"
-        label="商户订单号"
-        prop="order_no"
-      />
-      <el-table-column
-        align="center"
-        label="应付方"
-        prop="payable_side"
-      />
-      <el-table-column
-        align="center"
-        label="金额"
-        prop="payable_amount"
-      />
-      <el-table-column
-        align="center"
-        label="结算状态"
-      >
+    <el-table v-loading="loading" :data="list" fit highlight-current-row>
+      <el-table-column align="center" label="应付金额">
         <template slot-scope="scope">
-          {{ scope.row.payable_status|settlementStatusDict }}
+          ￥ {{ scope.row.payable_fee }}
         </template>
       </el-table-column>
-      <el-table-column
-        v-if="!$route.meta.readOnly"
-        align="center"
-        label="操作"
-      >
+
+      <el-table-column align="center" label="清分状态">
         <template slot-scope="scope">
-          <el-popconfirm
-            v-if="scope.row.payable_status===0"
-            title="确定取消结算么？"
-            @onConfirm="test"
-          >
-            <el-button
-              slot="reference"
-              type="text"
-              size="mini"
-            >结算
-            </el-button>
-          </el-popconfirm>
-          <el-button
-            v-if="scope.row.payable_status===0"
-            type="text"
-            size="mini"
-            @click="test"
-          >标记结算
-          </el-button>
-          <el-button
-            type="text"
-            size="mini"
-            @click="test"
-          >相关订单
+          <el-tag v-if="scope.row.clear_status===1">待清分</el-tag>
+          <el-tag v-if="scope.row.clear_status===2" type="success">清分成功</el-tag>
+          <el-tag v-if="scope.row.clear_status===3" type="info">清分失败</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="结算状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.settle_status ===1" type="warning">结算冻结</el-tag>
+          <el-tag v-if="scope.row.settle_status ===2" type="info">待结算</el-tag>
+          <el-tag v-if="scope.row.settle_status ===3" type="info">结算中</el-tag>
+          <el-tag v-if="scope.row.settle_status ===4" type="success">结算成功</el-tag>
+          <el-tag v-if="scope.row.settle_status ===5" type="warning">结算失败</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="结算日期">
+        <template slot-scope="scope">
+          {{ $common.getDateTime('YYYY-MM-DD hh:mm:ss', new Date(scope.row.settle_date)) }}
+        </template>
+      </el-table-column>
+      <!-- <el-table-column align="center" label="结算日期" prop="settle_date" /> -->
+      <el-table-column align="center" label="备注" prop="remark" />
+      <el-table-column align="center" label="创建时间" prop="create_time" />
+      <el-table-column align="center" label="更新时间" prop="last_update_time" />
+
+      <el-table-column v-if="!$route.meta.readOnly" align="center" label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" size="mini" @click="getOrder(scope.row)">相关订单
           </el-button>
         </template>
       </el-table-column>

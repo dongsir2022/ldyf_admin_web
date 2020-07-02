@@ -27,20 +27,26 @@ export default {
       this.searchKey.completeTime.push(moment().startOf('day').toDate())
       this.searchKey.completeTime.push(moment().endOf('day').toDate())
     },
+    getOrder(row) {
+      console.log('getOrder -> row', row)
+    },
     handleCurrentChange(page) {
       this.page = page
+      this.fetchData()
     },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
+      this.fetchData()
     },
     fetchData() {
       this.loading = true
       const data = {
         page_num: this.page,
         page_size: this.pageSize,
-        merchant_id: this.merchant_id,
+        merchant_id: this.merchant_id || '',
         settle_status: this.searchKey.settleStatus
       }
+      console.log('fetchData -> data', data)
       if (isNotBlank(this.searchKey.completeTime) && this.searchKey.completeTime.length === 2) {
         data['start_date'] = moment(this.searchKey.completeTime[0]).format('YYYY-MM-DD HH:mm:ss')
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
@@ -51,9 +57,12 @@ export default {
         return
       }
       getPayableList(data).then(res => {
+        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
+      }).catch(() => {
+        this.loading = false
       })
     }
   },

@@ -22,6 +22,8 @@ import '@/icons' // icon
 import '@/permission' // permission control
 import i18n from './lang'
 import echarts from 'echarts'
+
+import common from '@/utils/common'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -45,6 +47,7 @@ Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
 Vue.prototype.$echarts = echarts
+Vue.prototype.$common = common
 Vue.config.productionTip = false
 
 new Vue({
