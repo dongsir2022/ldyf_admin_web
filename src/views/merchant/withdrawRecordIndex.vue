@@ -3,11 +3,11 @@
     <div class="block">
       <el-row :gutter="10">
         <el-col :span="3">
-          <el-input v-model="searchKey" clearable class="filter-item input-tx" placeholder="输入商户名称&编号" />
+          <el-input v-model="searchKey.merchant_id" clearable class="filter-item input-tx" placeholder="输入商户名称&编号" />
         </el-col>
         <el-col :span="7">
           <el-date-picker
-            v-model="searchCreateTime"
+            v-model="searchKey.completeTime"
             type="datetimerange"
             range-separator="至"
             start-placeholder="创建开始日期"

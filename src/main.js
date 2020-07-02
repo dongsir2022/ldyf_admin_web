@@ -21,7 +21,7 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 import i18n from './lang'
-
+import echarts from 'echarts'
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -44,7 +44,7 @@ Vue.use(ElementUI, {
   size: Cookies.get('size') || 'medium', // set element-ui default size
   i18n: (key, value) => i18n.t(key, value)
 })
-
+Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
 new Vue({

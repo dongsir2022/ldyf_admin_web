@@ -1,17 +1,37 @@
 import request from '@/utils/request'
 
-export function getSettlementBatchList(params) {
+export function getSettlementBatchList(data) {
+  console.log('getSettlementBatchList -> data', data)
   return request({
-    url: '/settlement/batch/list',
+    url: '/admin/settle/settleBatchList',
     method: 'get',
-    params: params
+    params: data
   })
 }
 
-export function getSettlementPayableList(params) {
+export function getPayableList(data) {
+  console.log('getPayableList -> data', data)
   return request({
-    url: '/settlement/payable/list',
+    url: '/admin/settle/payableList',
     method: 'get',
-    params: params
+    params: data
+  })
+}
+
+export function getReceivableList(data) {
+  console.log('getReceivableList -> data', data)
+  return request({
+    url: '/admin/settle/receivableList',
+    method: 'get',
+    params: data
+  })
+}
+
+export function getCollectRecordsList(data) {
+  console.log('getCollectRecordsList -> data', data)
+  return request({
+    url: '/admin/settle/collectRecordList',
+    method: 'get',
+    params: data
   })
 }

@@ -1,4 +1,4 @@
-import { freezeMerchant, getMerchantList, normalMerchant } from '@/api/merchant/merchantApi'
+import { freezeMerchant, getMerchantList, normalMerchant, putOpenSplitAuth } from '@/api/merchant/merchantApi'
 
 export default {
   name: 'merchantListIndex',
@@ -24,6 +24,21 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 开通分账权限
+    openSplitAuth(row) {
+      console.log('openSplitAuth -> row', row)
+      putOpenSplitAuth({ merchant_id: row.id }).then(res => {
+        this.$message({
+          message: this.$t('alert.optionSuccess'),
+          type: 'success'
+        })
+      }).catch(() => {
+        this.$message({
+          message: this.$t('alert.error'),
+          type: 'fail'
+        })
+      })
+    },
     handleCurrentChange(page) {
       this.page = page
       this.fetchData()

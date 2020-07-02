@@ -119,12 +119,8 @@ export default {
       this.treeloading = true
       getTreeInfoApi().then(res => {
         console.log('getData -> res', res)
-        if (res.data && res.data.length) {
-          this.treedata = res.data
-        } else {
-          this.treedata = []
-          this.$message('没有机构的数据')
-        }
+        this.treedata = res.data
+
         this.$nextTick(() => {
           this.$refs.treeForm.setCheckedKeys([this.agency_no])
         })

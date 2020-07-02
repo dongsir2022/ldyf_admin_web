@@ -87,7 +87,8 @@ export const componentMap = {
   'config-commonProblem-list': () => import('@/views/config/commonProblemInfo/commonProblemInfoIndex'),
   'reconciliation-internal-list': () => import('@/views/reconciliation/internalBillLogIndex'),
   'reconciliation-external-list': () => import('@/views/reconciliation/externalBillLogIndex'),
-  'config-notice-list': () => import('@/views/config/noticeInfo/noticeInfoIndex')
+  'config-notice-list': () => import('@/views/config/noticeInfo/noticeInfoIndex'),
+  'system-customer-manager': () => import('@/views/system/customerManager/customerManager')
 }
 
 const createRouter = () => new Router({

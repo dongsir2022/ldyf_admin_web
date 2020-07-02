@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="block">
       <el-row :gutter="10">
-        <el-col :span="3">
+        <!-- <el-col :span="3">
           <el-select v-model="searchPayableStatus" placeholder="结算状态">
             <el-option
               v-for="item in channelArr"
@@ -11,10 +11,10 @@
               :value="item"
             />
           </el-select>
-        </el-col>
+        </el-col> -->
         <el-col :span="7">
           <el-date-picker
-            v-model="searchCreateTime"
+            v-model="searchKey.completeTime"
             type="datetimerange"
             range-separator="至"
             start-placeholder="创建开始日期"

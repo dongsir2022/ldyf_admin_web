@@ -157,3 +157,21 @@ export function unbindDeviceOperatorList(params) {
     params: params
   })
 }
+
+// 提现记录
+export function getWithdrowRecordList(params) {
+  return request({
+    url: '/admin/merchant/withdrawRecordList',
+    method: 'get',
+    params: params
+  })
+}
+
+// 开通分账权限
+export function putOpenSplitAuth(params) {
+  return request({
+    url: '/admin/merchant/openSplitAuth',
+    method: 'put',
+    params: params
+  })
+}

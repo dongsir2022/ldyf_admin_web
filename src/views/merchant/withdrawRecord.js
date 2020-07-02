@@ -1,3 +1,7 @@
+import { getWithdrowRecordList } from '@/api/merchant/merchantApi'
+import { isNotBlank } from '@/utils/utils'
+import moment from 'moment'
+
 export default {
   name: 'withdrawRecordIndex',
   data() {
@@ -7,14 +11,24 @@ export default {
       total: 0,
       page: 1,
       pageSize: 15,
-      searchKey: '',
-      searchCreateTime: ''
+      searchKey: {
+        merchant_id: '',
+        completeTime: []
+      }
     }
   },
   created() {
+    this.initSearchCompleteTime()
+    const merchantId = this.$route.params.merchant_id
+    this.searchKey.merchant_id = merchantId || ''
     this.fetchData()
   },
   methods: {
+    initSearchCompleteTime() {
+      this.searchKey.completeTime = []
+      this.searchKey.completeTime.push(moment().startOf('day').toDate())
+      this.searchKey.completeTime.push(moment().endOf('day').toDate())
+    },
     handleCurrentChange(page) {
       this.page = page
     },
@@ -22,39 +36,28 @@ export default {
       this.pageSize = pageSize
     },
     fetchData() {
-      this.total = 3
-      this.list = [
-        {
-          'create_time': '2020-04-01 17:01:00',
-          'merchant_no': 'm202004110001',
-          'merchant_name': '兰州分店',
-          'withdraw_amount': '100.00',
-          'withdraw_fee': '0.02',
-          'withdraw_real_amount': '99.98',
-          'withdraw_bank_no': '1233333333333333',
-          'withdraw_status': 1
-        },
-        {
-          'create_time': '2020-04-01 17:01:00',
-          'merchant_no': 'm202004110001',
-          'merchant_name': '兰州分店',
-          'withdraw_amount': '100.00',
-          'withdraw_fee': '0.02',
-          'withdraw_real_amount': '99.98',
-          'withdraw_bank_no': '1233333333333333',
-          'withdraw_status': 2
-        },
-        {
-          'create_time': '2020-04-01 17:01:00',
-          'merchant_no': 'm202004110001',
-          'merchant_name': '兰州分店',
-          'withdraw_amount': '100.00',
-          'withdraw_fee': '0.02',
-          'withdraw_real_amount': '99.98',
-          'withdraw_bank_no': '1233333333333333',
-          'withdraw_status': 3
-        }
-      ]
+      console.log('completeTime', this.searchKey.completeTime)
+      this.loading = true
+      const data = {
+        page_num: this.page,
+        page_size: this.pageSize,
+        merchant_id: this.searchKey.merchant_id
+      }
+      if (isNotBlank(this.searchKey.completeTime) && this.searchKey.completeTime.length === 2) {
+        data['start_date'] = moment(this.searchKey.completeTime[0]).format('YYYY-MM-DD HH:mm:ss')
+        data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
+      } else {
+        this.loading = false
+        this.initSearchCompleteTime()
+        this.$message.error('请选择要查询完成时间范围')
+        return
+      }
+      console.log('fetchData -> data', data)
+      getWithdrowRecordList(data).then(res => {
+        this.loading = false
+        this.list = res.data
+        this.total = res.total
+      })
     }
   },
   filters: {
