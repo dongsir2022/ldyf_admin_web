@@ -35,3 +35,12 @@ export function getCollectRecordsList(data) {
     params: data
   })
 }
+
+export function getQueryList(data) {
+  console.log('getQueryList -> getQueryList', data)
+  return request({
+    url: '/admin/trade/getTradeList',
+    method: 'get',
+    params: data
+  })
+}

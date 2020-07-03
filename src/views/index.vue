@@ -185,7 +185,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Json from '@/assets/shanxinew.json'
+// import shanxi from '@/assets/echarts/山西省.json'
 
 export default {
   name: 'Home',
@@ -313,7 +313,7 @@ export default {
   },
   mounted() {
     this.echartObj = this.$echarts.init(document.getElementById('main'))
-    this.$echarts.registerMap('山西', Json)
+    // this.$echarts.registerMap('山西', Json)
     // this.$echarts.registerMap('太原', jsonTy)
     // this.$echarts.registerMap('大同', jsonDt)
     // this.$echarts.registerMap('阳泉', jsonYq)·
@@ -365,18 +365,18 @@ export default {
       return this.option
     },
     getSeriesData(item) {
-      return this.radioList[this.radioActive] === item ? Json.features.map(item => {
-        return {
-          name: item.properties.name,
-          value: Math.ceil(Math.random() * 500),
-          obj: {
-            a: Math.ceil(Math.random() * 500),
-            b: Math.ceil(Math.random() * 500),
-            c: Math.ceil(Math.random() * 500),
-            d: Math.ceil(Math.random() * 500)
-          }
-        }
-      }) : []
+      // return this.radioList[this.radioActive] === item ? Json.features.map(item => {
+      //   return {
+      //     name: item.properties.name,
+      //     value: Math.ceil(Math.random() * 500),
+      //     obj: {
+      //       a: Math.ceil(Math.random() * 500),
+      //       b: Math.ceil(Math.random() * 500),
+      //       c: Math.ceil(Math.random() * 500),
+      //       d: Math.ceil(Math.random() * 500)
+      //     }
+      //   }
+      // }) : []
     },
     setOptions(objKey, objVal) {
       if (this.option[objKey] && typeof this.option[objKey] === 'object' && !Array.isArray(this.option[objKey])) {

@@ -25,7 +25,7 @@
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
       <el-table-column align="center" label="应付金额">
         <template slot-scope="scope">
-          ￥ {{ scope.row.payable_fee }}
+          ￥{{ $common.jeFormat(scope.row.payable_fee, 2) }}
         </template>
       </el-table-column>
 
@@ -52,7 +52,6 @@
           {{ $common.getDateTime('YYYY-MM-DD hh:mm:ss', new Date(scope.row.settle_date)) }}
         </template>
       </el-table-column>
-      <!-- <el-table-column align="center" label="结算日期" prop="settle_date" /> -->
       <el-table-column align="center" label="备注" prop="remark" />
       <el-table-column align="center" label="创建时间" prop="create_time" />
       <el-table-column align="center" label="更新时间" prop="last_update_time" />

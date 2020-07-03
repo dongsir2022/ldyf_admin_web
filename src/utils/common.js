@@ -47,6 +47,25 @@ const commonFun = {
       }
     }
     return format
+  },
+
+  /**
+   * 金额小数点后补零
+   * num 金额
+   * length 小数点后长度
+   */
+  jeFormat(num, length) {
+    num = num + ''
+    if (num.includes('.')) {
+      const arr = num.split('.')
+      arr[1] = arr[1].padEnd(length, '0')
+      return arr.join('.')
+    } else {
+      num = num + '.'
+      num = num.padEnd(num.length + length, '0')
+      return num
+    }
   }
+
 }
 export default commonFun
