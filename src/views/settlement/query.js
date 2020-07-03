@@ -19,12 +19,6 @@ export default {
     this.fetchData()
   },
   methods: {
-
-    // 获取相关订单
-    getOrder(row) {
-      console.log('getOrder -> row', row)
-    },
-
     // 获取表格数据
     fetchData() {
       this.loading = true
