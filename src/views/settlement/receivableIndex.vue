@@ -12,6 +12,11 @@
             />
           </el-select>
         </el-col> -->
+        <el-col :span="3">
+          <el-select v-model="searchKey.merchant_id" filterable remote placeholder="请输入商户名" :remote-method="remoteMethod" :loading="selectloading">
+            <el-option v-for="item in options" :key="item.id" :label="item.merchant_name" :value="item.id" />
+          </el-select>
+        </el-col>
         <el-col :span="7">
           <el-date-picker
             v-model="searchKey.completeTime"

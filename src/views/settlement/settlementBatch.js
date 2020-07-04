@@ -21,57 +21,69 @@ export default {
     this.merchant_id = merchantId
     this.fetchData()
   },
+  mounted() {
+    console.log('mounted', this.$parent)
+  },
   methods: {
-    test() {
-
-    },
+    // 初始化时间框参数
     initSearchCompleteTime() {
       this.searchKey.completeTime = []
       this.searchKey.completeTime.push(moment().startOf('day').toDate())
       this.searchKey.completeTime.push(moment().endOf('day').toDate())
     },
-    handleCurrentChange(page) {
-      this.page = page
-    },
-    handleSizeChange(pageSize) {
-      this.pageSize = pageSize
-    },
+    // 获取表格数据
     fetchData() {
       console.log('completeTime', this.searchKey.completeTime)
       this.loading = true
       const data = {
         page_num: this.page,
         page_size: this.pageSize,
-        merchant_id: this.merchant_id
+        merchant_id: isNotBlank(this.merchant_id) ? this.merchant_id : ''
       }
       if (isNotBlank(this.searchKey.completeTime) && this.searchKey.completeTime.length === 2) {
         data['start_date'] = moment(this.searchKey.completeTime[0]).format('YYYY-MM-DD HH:mm:ss')
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
-      } else {
-        this.loading = false
-        this.initSearchCompleteTime()
-        this.$message.error('请选择要查询完成时间范围')
-        return
       }
-      console.log('fetchData -> data', data)
+      // console.log('fetchData -> data', data)
       getSettlementBatchList(data).then(res => {
+        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
       }).catch(() => {
         this.loading = false
       })
-    }
-  },
-  filters: {
-    settlementStatusDict(value) {
-      const map = {
-        1: '成功',
-        2: '失败',
-        3: '已取消',
-        0: '待处理'
-      }
-      return map[value]
+    },
+    // 查看应付明细
+    viewPay(row) {
+      console.log('viewPay -> row', row)
+      this.$parent.openPage('settlement-payable', {
+        settle_batch_id: row.id,
+        settleStatus: row.settle_status
+      })
+    },
+    // 查看应收明细
+    viewReceive(row) {
+      console.log('viewPay -> row', row)
+      this.$parent.openPage('settlement-receivable', {
+        settle_batch_id: row.id
+      })
+    },
+    // 查看收款记录
+    viewRecord(row) {
+      console.log('viewPay -> row', row)
+      this.$parent.openPage('settlement-collect-records', {
+        settle_batch_id: row.id
+      })
+    },
+    // 分页
+    handleCurrentChange(page) {
+      this.page = page
+      this.fetchData()
+    },
+    handleSizeChange(pageSize) {
+      this.pageSize = pageSize
+      this.fetchData()
     }
   }
 }

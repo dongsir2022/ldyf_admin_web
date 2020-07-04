@@ -44,3 +44,13 @@ export function getQueryList(data) {
     params: data
   })
 }
+
+// 商户姓名搜索
+export function nameSearch(data) {
+  console.log('nameSearch -> data', data)
+  return request({
+    url: '/admin/merchant/nameSearch',
+    method: 'get',
+    params: data
+  })
+}
