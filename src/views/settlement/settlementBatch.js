@@ -22,6 +22,9 @@ export default {
     this.fetchData()
   },
   methods: {
+    test() {
+
+    },
     initSearchCompleteTime() {
       this.searchKey.completeTime = []
       this.searchKey.completeTime.push(moment().startOf('day').toDate())

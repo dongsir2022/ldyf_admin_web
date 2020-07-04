@@ -178,28 +178,109 @@
     </el-row>
     <!-- 地图 -->
     <div class="echarts">
-      <div id="main" style="width: 1000px;height:1300px;" />
+      <div ref="main" style="width: 1000px;height:1300px;" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-// import shanxi from '@/assets/echarts/山西省.json'
+import shanxi from '@/assets/echarts/山西省.json'
+import datong from '@/assets/echarts/大同市.json'
+import jincheng from '@/assets/echarts/晋城市.json'
+import jinzhong from '@/assets/echarts/晋中市.json'
+import linfen from '@/assets/echarts/临汾市.json'
+import lvliang from '@/assets/echarts/吕梁市.json'
+import shuozhou from '@/assets/echarts/朔州市.json'
+import taiyuan from '@/assets/echarts/太原市.json'
+import xinzhou from '@/assets/echarts/忻州市.json'
+import yangquan from '@/assets/echarts/阳泉市.json'
+import yuncheng from '@/assets/echarts/运城市.json'
+import changzhi from '@/assets/echarts/长治市.json'
 
+const dataRouter = [
+  {
+    code: '140000',
+    name: '山西省',
+    namePy: 'shanxi',
+    source: shanxi
+  },
+  {
+    code: '140200',
+    name: '大同市',
+    namePy: 'datong',
+    source: datong
+  },
+  {
+    code: '140500',
+    name: '晋城市',
+    namePy: 'jincheng',
+    source: jincheng
+  },
+  {
+    code: '140700',
+    name: '晋中市',
+    namePy: 'jinzhong',
+    source: jinzhong
+  },
+  {
+    code: '141000',
+    name: '临汾市',
+    namePy: 'linfen',
+    source: linfen
+  },
+  {
+    code: '141100',
+    name: '吕梁市',
+    namePy: 'lvliang',
+    source: lvliang
+  },
+  {
+    code: '140600',
+    name: '朔州市',
+    namePy: 'shuozhou',
+    source: shuozhou
+  },
+  {
+    code: '140100',
+    name: '太原市',
+    namePy: 'taiyuan',
+    source: taiyuan
+  },
+  {
+    code: '140900',
+    name: '忻州市',
+    namePy: 'xinzhou',
+    source: xinzhou
+  },
+  {
+    code: '140300',
+    name: '阳泉市',
+    namePy: 'yangquan',
+    source: yangquan
+  },
+  {
+    code: '140800',
+    name: '运城市',
+    namePy: 'yuncheng',
+    source: yuncheng
+  },
+  {
+    code: '140400',
+    name: '长治市',
+    namePy: 'changzhi',
+    source: changzhi
+  }
+]
 export default {
   name: 'Home',
   data() {
     return {
-      radioList: {
-        A: '年度总项目数据查询',
-        B: '军转干部在岗培训项目',
-        C: '专技人员公需科目项目',
-        D: '专技人员新取得中级职称岗前培训项目',
-        E: '事业单位新进人员岗前培训项目'
-      },
-      radioActive: 'A',
-      echartObj: {},
+      dataRouter,
+      echartObj: {}, // echarts实例
+      mapData: [], // 地图加载数据
+      totalData: [], // 全部数据
+      code: '140000',
       option: {
         title: {
           text: '山西省客户分布图',
@@ -209,31 +290,6 @@ export default {
             fontSize: 18,
             fontWeight: 400,
             color: '#b6d7ff'
-          }
-        },
-        tooltip: {
-          padding: 0,
-          backgroundColor: 'transparent',
-          formatter: params => {
-            // params.data
-            return `<table class="map__tooltip o_font20">
-                                    <thead>
-                                       <tr>
-                                           <th>总购买人数</th>
-                                           <th>本年度总购买人数</th>
-                                           <th>本月度总购买人数</th>
-                                           <th>总完成人数</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th>${params.data.obj.a}</th>
-                                            <th>${params.data.obj.b}</th>
-                                            <th>${params.data.obj.c}</th>
-                                            <th>${params.data.obj.d}</th>
-                                         </tr>
-                                    </tbody>
-                                </table>`
           }
         },
         legend: {
@@ -309,23 +365,20 @@ export default {
       'roles',
       'userInfo'
     ])
-
   },
   mounted() {
-    this.echartObj = this.$echarts.init(document.getElementById('main'))
-    // this.$echarts.registerMap('山西', Json)
-    // this.$echarts.registerMap('太原', jsonTy)
-    // this.$echarts.registerMap('大同', jsonDt)
-    // this.$echarts.registerMap('阳泉', jsonYq)·
-    // this.$echarts.registerMap('长治', jsonCz)
-    // this.$echarts.registerMap('晋城', jsonJc)
-    // this.$echarts.registerMap('朔州', jsonSz)
-    // this.$echarts.registerMap('晋中', jsonJz)
-    // this.$echarts.registerMap('运城', jsonYc)
-    // this.$echarts.registerMap('忻州', jsonXz)
-    // this.$echarts.registerMap('临汾', jsonLf)
-    // this.$echarts.registerMap('吕梁', jsonLl)
-    this.echartObj.setOption(this.getOptions(), true)
+    // this.echartObj = this.$echarts.init(this.$refs.main)
+    // const map = this.getJson(this.code)
+    // if (map) {
+    //   this.initEcharts(this.totalData, map[0].source)
+    // } else {
+    //   this.$message({
+    //     message: '地图json未找到',
+    //     type: 'fail'
+
+    //   })
+    // }
+
     // this.echartObj.on('legendselectchanged', params => {
     //   this.radioActive = Object.keys(this.radioList).filter(item => this.radioList[item] === params.name)[0]
     //   this.echartObj.clear()
@@ -338,6 +391,13 @@ export default {
     // })
   },
   methods: {
+    // 地图json
+    getJson(code) {
+      const curData = this.dataRouter.find((item, index) => {
+        return item.code === code
+      })
+      return curData
+    },
     getOptions() {
       this.setOptions('legend', {
         data: Object.values(this.radioList),
