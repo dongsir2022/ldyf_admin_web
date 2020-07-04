@@ -38,17 +38,15 @@
       <el-table-column align="center" label="创建时间" prop="create_time" />
       <el-table-column align="center" label="更新时间" prop="last_update_time" />
 
-      <el-table-column v-if="!$route.meta.readOnly" align="center" label="操作">
+      <el-table-column align="center" label="更新时间" prop="last_update_time" />
+
+      <el-table-column align="center" label="操作">
         <template slot-scope="scope">
-          <el-popconfirm title="确定取消结算么？" @onConfirm="test">
-            <el-button slot="reference" type="text" size="mini">取消结算
-            </el-button>
-          </el-popconfirm>
-          <el-popconfirm title="确定付款么？" @onConfirm="test">
-            <el-button slot="reference" type="text" size="mini">付款
-            </el-button>
-          </el-popconfirm>
-          <el-button type="text" size="mini" @click="test">详情
+          <el-button type="text" size="mini" @click="viewPay(scope.row)">查看应付明细
+          </el-button>
+          <el-button type="text" size="mini" @click="viewReceive(scope.row)">查看应收明细
+          </el-button>
+          <el-button type="text" size="mini" @click="viewRecord(scope.row)">查看收款记录
           </el-button>
         </template>
       </el-table-column>
