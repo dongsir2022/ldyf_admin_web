@@ -48,10 +48,14 @@ export default {
         this.options = []
       }
     },
-    test() {
-
+    // 查看应收明细
+    viewReceive(row) {
+      console.log('viewReceive -> row', row)
+      this.$parent.openPage('settlement-receivable', {
+        collect_record_id: row.id
+      })
     },
-
+    // 初始数据获取
     fetchData() {
       this.loading = true
       const data = {

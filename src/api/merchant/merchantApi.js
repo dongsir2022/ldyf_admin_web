@@ -172,6 +172,6 @@ export function putOpenSplitAuth(params) {
   return request({
     url: '/admin/merchant/openSplitAuth',
     method: 'put',
-    params: params
+    data: params
   })
 }

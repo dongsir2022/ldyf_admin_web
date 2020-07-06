@@ -63,7 +63,7 @@
 
       <el-table-column v-if="!$route.meta.readOnly" align="center" label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="mini" @click="getOrder(scope.row)">相关订单
+          <el-button type="text" size="mini" :loading="orderLoading" @click="getOrder(scope.row)">相关订单
           </el-button>
         </template>
       </el-table-column>
@@ -81,6 +81,45 @@
         @size-change="handleSizeChange"
       />
     </div>
+    <!-- 订单详细 -->
+    <el-dialog title="订单详细" :visible.sync="dialogVisible" width="30%">
+      <el-form ref="orderForm" :model="formData" :rules="rules" label-width="60px">
+        <el-form-item label="订单号" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ formData.trade_no }}</div>
+        </el-form-item>
+        <el-form-item label="清分状态" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ formData.trade_status|tradeFilter }}</div>
+        </el-form-item>
+        <el-form-item label="对账状态" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ formData.reconciliation_status|reconciliationFilter }}</div>
+        </el-form-item>
+        <el-form-item label="总金额" prop="name" label-width="120px">
+          <div style="margin-left:30px;">￥ {{ $common.jeFormat(formData.total_fee,2) }}</div>
+        </el-form-item>
+        <el-form-item label="应收金额" prop="name" label-width="120px">
+          <div style="margin-left:30px;">￥ {{ $common.jeFormat(formData.total_net_fee,2) }}</div>
+        </el-form-item>
+        <el-form-item label="税率" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ formData.pay_rate }}</div>
+        </el-form-item>
+        <el-form-item label="手续费" prop="name" label-width="120px">
+          <div style="margin-left:30px;">￥ {{ $common.jeFormat(formData.pay_rate_fee,2) }}</div>
+        </el-form-item>
+        <el-form-item label="对账时间" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ $common.getDateTime('YYYY-MM-DD', new Date(formData.reconciliation_date)) }}</div>
+        </el-form-item>
+        <el-form-item label="创建时间" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ formData.create_time }}</div>
+        </el-form-item>
+        <el-form-item label="更新时间" prop="name" label-width="120px">
+          <div style="margin-left:30px;">{{ formData.last_update_time }}</div>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="close">关闭</el-button>
+        <!-- <el-button type="primary" :loading="submitLoading" @click="submit">{{ $t('button.sure') }}</el-button> -->
+      </span>
+    </el-dialog>
   </div>
 </template>
 

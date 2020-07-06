@@ -2,9 +2,6 @@
   <div class="app-container">
     <div class="block">
       <el-row :gutter="10">
-        <!-- <el-col :span="3">
-          <el-input v-model="searchKey" clearable class="filter-item input-tx" placeholder="输入收款方" />
-        </el-col> -->
         <el-col :span="3">
           <el-select v-model="searchKey.merchant_id" filterable remote placeholder="请输入商户名" :remote-method="remoteMethod" :loading="selectloading">
             <el-option v-for="item in options" :key="item.id" :label="item.merchant_name" :value="item.id" />
@@ -25,70 +22,27 @@
         </el-col>
       </el-row>
     </div>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      fit
-      highlight-current-row
-    >
-      <el-table-column
-        align="center"
-        label="创建时间"
-        prop="create_time"
-      />
-      <el-table-column
-        align="center"
-        label="商户订单号"
-        prop="order_no"
-      />
-      <el-table-column
-        align="center"
-        label="应付方"
-        prop="payable_side"
-      />
-      <el-table-column
-        align="center"
-        label="金额"
-        prop="payable_fee"
-      />
-      <el-table-column
-        align="center"
-        label="结算状态"
-      >
+    <el-table v-loading="loading" :data="list" fit highlight-current-row>
+      <el-table-column align="center" label="收款金额">
         <template slot-scope="scope">
-          {{ scope.row.payable_status|settlementStatusDict }}
+          ￥{{ $common.jeFormat(scope.row.receivable_fee, 2) }}
         </template>
       </el-table-column>
-      <el-table-column
-        v-if="!$route.meta.readOnly"
-        align="center"
-        label="操作"
-      >
+
+      <el-table-column align="center" label="收款记录状态">
         <template slot-scope="scope">
-          <el-popconfirm
-            v-if="scope.row.payable_status===0"
-            title="确定取消结算么？"
-            @onConfirm="test"
-          >
-            <el-button
-              slot="reference"
-              type="text"
-              size="mini"
-            >结算
-            </el-button>
-          </el-popconfirm>
-          <el-button
-            v-if="scope.row.payable_status===0"
-            type="text"
-            size="mini"
-            @click="test"
-          >标记结算
-          </el-button>
-          <el-button
-            type="text"
-            size="mini"
-            @click="test"
-          >相关订单
+          <el-tag v-if="scope.row.collect_status===1">初始化</el-tag>
+          <el-tag v-if="scope.row.collect_status===2" type="success">成功</el-tag>
+          <el-tag v-if="scope.row.collect_status===3" type="info">失败</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="创建时间" prop="create_time" />
+      <el-table-column align="center" label="更新时间" prop="last_update_time" />
+
+      <el-table-column align="center" label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" size="mini" @click="viewReceive(scope.row)">查看应收明细
           </el-button>
         </template>
       </el-table-column>

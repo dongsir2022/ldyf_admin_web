@@ -89,7 +89,8 @@ export const componentMap = {
   'reconciliation-external-list': () => import('@/views/reconciliation/externalBillLogIndex'),
   'config-notice-list': () => import('@/views/config/noticeInfo/noticeInfoIndex'),
   'system-customer-manager': () => import('@/views/system/customerManager/customerManager'),
-  'settlement-query': () => import('@/views/settlement/queryList')
+  'settlement-query': () => import('@/views/settlement/queryList'),
+  'config-qrCode': () => import('@/views/config/qrCode/qrCodeIndex')
 }
 
 const createRouter = () => new Router({

@@ -1,4 +1,4 @@
-import { getPayableList, nameSearch } from '@/api/settlement/settlement'
+import { getPayableList, nameSearch, getTradeListById } from '@/api/settlement/settlement'
 import { isNotBlank } from '@/utils/utils'
 import moment from 'moment'
 export default {
@@ -14,7 +14,11 @@ export default {
       searchKey: { merchant_id: '', settleStatus: 2, completeTime: [] },
       settle_batch_id: '',
       selectloading: false,
-      options: []
+      options: [],
+      orderLoading: false,
+      dialogVisible: false,
+      formData: {},
+      rules: {}
     }
   },
   created() {
@@ -64,8 +68,28 @@ export default {
         this.options = []
       }
     },
+    // 相关订单
     getOrder(row) {
       console.log('getOrder -> row', row)
+      this.orderLoading = true
+      const data = {
+        trade_id: row.trade_id,
+        page_num: this.page,
+        page_size: this.pageSize
+      }
+      getTradeListById(data).then(res => {
+        console.log('getOrder -> res', res)
+        this.orderLoading = false
+        this.dialogVisible = true
+        this.formData = res.data[0]
+      }).catch(() => {
+        this.orderLoading = false
+      })
+    },
+    // 关闭弹窗
+    close() {
+      this.dialogVisible = false
+      this.formData = {}
     },
     // 获取表格数据
     fetchData() {
@@ -97,6 +121,28 @@ export default {
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
       this.fetchData()
+    }
+  },
+  filters: {
+    tradeFilter(value) {
+      const map = {
+        1: '初始化',
+        2: '清分中',
+        3: '清分成功',
+        4: '清分失败',
+        5: '等待指令清分',
+        6: '取消'
+      }
+      return map[value]
+    },
+    reconciliationFilter(value) {
+      const map = {
+        1: '待对账',
+        2: '对账完成',
+        3: '对账错误',
+        4: '跳过对账'
+      }
+      return map[value]
     }
   }
 }

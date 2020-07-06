@@ -10,8 +10,10 @@ export default {
       total: 0, // 总页数
       page: 1, // 当前页
       pageSize: 10, // 每页条数
-      searchKey: { completeTime: [] }, // 查询条件
-      merchant_id: ''
+      searchKey: { trade_status: '', reconciliationStatus: '', completeTime: [] }, // 查询条件
+      merchant_id: '',
+      tradeArr: [{ id: 1, name: '初始化' }, { id: 2, name: '清分中' }, { id: 3, name: '清分成功' }, { id: 4, name: '清分失败' }, { id: 5, name: '等待指令清分' }, { id: 6, name: '取消' }],
+      reconciliationArr: [{ id: 1, name: '待对账' }, { id: 2, name: '对账完成' }, { id: 3, name: '对账错误' }, { id: 4, name: '跳过对账' }]
     }
   },
   created() {
@@ -25,7 +27,9 @@ export default {
       const data = {
         page_num: this.page,
         page_size: this.pageSize,
-        merchant_id: this.merchant_id || ''
+        merchant_id: this.merchant_id || '',
+        trade_status: this.searchKey.trade_status,
+        reconciliationStatus: this.searchKey.reconciliationStatus
       }
       if (isNotBlank(this.searchKey.completeTime) && this.searchKey.completeTime.length === 2) {
         data['start_date'] = moment(this.searchKey.completeTime[0]).format('YYYY-MM-DD HH:mm:ss')

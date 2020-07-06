@@ -84,54 +84,51 @@ export default {
     },
     // 提交
     submit() {
-      if (!this.editData.title || !this.editData.content) {
-        this.$message({
-          message: '标题或内容不得为空',
-          type: 'info'
-        })
-        return
-      }
-      this.submitLoading = true
-      if (this.type === 'add') {
-        const data = {
-          problem_title: this.editData.title,
-          problem_content: this.editData.content
+      this.$refs.problemForm.validate(valid => {
+        if (valid) {
+          this.submitLoading = true
+          if (this.type === 'add') {
+            const data = {
+              problem_title: this.editData.title,
+              problem_content: this.editData.content
+            }
+            console.log('submit -> data', data)
+            addCommonProblemInfoApi(data).then(res => {
+              console.log('remove -> res', res)
+              this.$message({
+                message: this.$t('alert.optionSuccess'),
+                type: 'success'
+              })
+              this.fetchData()
+              this.submitLoading = false
+              this.editVisible = false
+              this.resetForm()
+            }).catch(() => {
+              this.submitLoading = false
+            })
+          } else if (this.type === 'edit') {
+            const data = {
+              problem_title: this.editData.title,
+              problem_content: this.editData.content,
+              id: this.editId
+            }
+            uptCommonProblemInfoApi(data).then(res => {
+              console.log('remove -> res', res)
+              this.$message({
+                message: this.$t('alert.optionSuccess'),
+                type: 'success'
+              })
+              this.fetchData()
+              this.submitLoading = false
+              this.editVisible = false
+              this.resetForm()
+              this.editId = ''
+            }).catch(() => {
+              this.submitLoading = false
+            })
+          }
         }
-        console.log('submit -> data', data)
-        addCommonProblemInfoApi(data).then(res => {
-          console.log('remove -> res', res)
-          this.$message({
-            message: this.$t('alert.optionSuccess'),
-            type: 'success'
-          })
-          this.fetchData()
-          this.submitLoading = false
-          this.editVisible = false
-          this.resetForm()
-        }).catch(() => {
-          this.submitLoading = false
-        })
-      } else if (this.type === 'edit') {
-        const data = {
-          problem_title: this.editData.title,
-          problem_content: this.editData.content,
-          id: this.editId
-        }
-        uptCommonProblemInfoApi(data).then(res => {
-          console.log('remove -> res', res)
-          this.$message({
-            message: this.$t('alert.optionSuccess'),
-            type: 'success'
-          })
-          this.fetchData()
-          this.submitLoading = false
-          this.editVisible = false
-          this.resetForm()
-          this.editId = ''
-        }).catch(() => {
-          this.submitLoading = false
-        })
-      }
+      })
     },
     resetForm() {
       this.$refs.problemForm.resetFields()

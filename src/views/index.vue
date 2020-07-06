@@ -185,91 +185,67 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import shanxi from '@/assets/echarts/山西省.json'
-import datong from '@/assets/echarts/大同市.json'
-import jincheng from '@/assets/echarts/晋城市.json'
-import jinzhong from '@/assets/echarts/晋中市.json'
-import linfen from '@/assets/echarts/临汾市.json'
-import lvliang from '@/assets/echarts/吕梁市.json'
-import shuozhou from '@/assets/echarts/朔州市.json'
-import taiyuan from '@/assets/echarts/太原市.json'
-import xinzhou from '@/assets/echarts/忻州市.json'
-import yangquan from '@/assets/echarts/阳泉市.json'
-import yuncheng from '@/assets/echarts/运城市.json'
-import changzhi from '@/assets/echarts/长治市.json'
 
 const dataRouter = [
   {
     code: '140000',
     name: '山西省',
-    namePy: 'shanxi',
-    source: shanxi
+    namePy: 'shanxi'
   },
   {
     code: '140200',
     name: '大同市',
-    namePy: 'datong',
-    source: datong
+    namePy: 'datong'
   },
   {
     code: '140500',
     name: '晋城市',
-    namePy: 'jincheng',
-    source: jincheng
+    namePy: 'jincheng'
   },
   {
     code: '140700',
     name: '晋中市',
-    namePy: 'jinzhong',
-    source: jinzhong
+    namePy: 'jinzhong'
   },
   {
     code: '141000',
     name: '临汾市',
-    namePy: 'linfen',
-    source: linfen
+    namePy: 'linfen'
   },
   {
     code: '141100',
     name: '吕梁市',
-    namePy: 'lvliang',
-    source: lvliang
+    namePy: 'lvliang'
   },
   {
     code: '140600',
     name: '朔州市',
-    namePy: 'shuozhou',
-    source: shuozhou
+    namePy: 'shuozhou'
   },
   {
     code: '140100',
     name: '太原市',
-    namePy: 'taiyuan',
-    source: taiyuan
+    namePy: 'taiyuan'
   },
   {
     code: '140900',
     name: '忻州市',
-    namePy: 'xinzhou',
-    source: xinzhou
+    namePy: 'xinzhou'
   },
   {
     code: '140300',
     name: '阳泉市',
-    namePy: 'yangquan',
-    source: yangquan
+    namePy: 'yangquan'
   },
   {
     code: '140800',
     name: '运城市',
-    namePy: 'yuncheng',
-    source: yuncheng
+    namePy: 'yuncheng'
   },
   {
     code: '140400',
     name: '长治市',
-    namePy: 'changzhi',
-    source: changzhi
+    namePy: 'changzhi'
   }
 ]
 export default {
@@ -278,6 +254,7 @@ export default {
     return {
       dataRouter,
       echartObj: {}, // echarts实例
+      mapJson: '',
       mapData: [], // 地图加载数据
       totalData: [], // 全部数据
       code: '140000',
@@ -367,17 +344,19 @@ export default {
     ])
   },
   mounted() {
-    // this.echartObj = this.$echarts.init(this.$refs.main)
-    // const map = this.getJson(this.code)
-    // if (map) {
-    //   this.initEcharts(this.totalData, map[0].source)
-    // } else {
-    //   this.$message({
-    //     message: '地图json未找到',
-    //     type: 'fail'
+    // 实例
+    this.echartObj = this.$echarts.init(this.$refs.main)
+    // 获取json文件
+    // const arr = this.dataRouter.find((item, index) => {
+    //   return item.code === this.code
+    // })
+    // console.log('mounted -> arr', arr)
+    // import('@/assets/echarts/' + arr.namePy + '.json').then((item) => {
+    //   console.log('mounted -> file', item)
+    //   this.mapJson = item
+    // })
 
-    //   })
-    // }
+    //   this.initEcharts(this.totalData, map[0].source)
 
     // this.echartObj.on('legendselectchanged', params => {
     //   this.radioActive = Object.keys(this.radioList).filter(item => this.radioList[item] === params.name)[0]

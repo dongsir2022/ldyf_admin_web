@@ -87,54 +87,51 @@ export default {
     },
     // 提交
     submit() {
-      if (!this.editData.bulletinTitle || !this.editData.bulletinContent) {
-        this.$message({
-          message: '标题或内容不得为空',
-          type: 'info'
-        })
-        return
-      }
-      this.submitLoading = true
-      if (this.type === 'add') {
-        const data = {
-          bulletinTitle: this.editData.bulletinTitle,
-          bulletinContent: this.editData.bulletinContent
+      this.$refs.noticeForm.validate(valid => {
+        if (valid) {
+          this.submitLoading = true
+          if (this.type === 'add') {
+            const data = {
+              bulletinTitle: this.editData.bulletinTitle,
+              bulletinContent: this.editData.bulletinContent
+            }
+            console.log('submit -> data', data)
+            addNoticeInfoApi(data).then(res => {
+              console.log('remove -> res', res)
+              this.$message({
+                message: this.$t('alert.optionSuccess'),
+                type: 'success'
+              })
+              this.fetchData()
+              this.submitLoading = false
+              this.editVisible = false
+              this.resetForm()
+            }).catch(() => {
+              this.submitLoading = false
+            })
+          } else if (this.type === 'edit') {
+            const data = {
+              bulletinTitle: this.editData.bulletinTitle,
+              bulletinContent: this.editData.bulletinContent,
+              id: this.editId
+            }
+            uptNoticeInfoApi(data).then(res => {
+              console.log('remove -> res', res)
+              this.$message({
+                message: this.$t('alert.optionSuccess'),
+                type: 'success'
+              })
+              this.fetchData()
+              this.submitLoading = false
+              this.editVisible = false
+              this.resetForm()
+              this.editId = ''
+            }).catch(() => {
+              this.submitLoading = false
+            })
+          }
         }
-        console.log('submit -> data', data)
-        addNoticeInfoApi(data).then(res => {
-          console.log('remove -> res', res)
-          this.$message({
-            message: this.$t('alert.optionSuccess'),
-            type: 'success'
-          })
-          this.fetchData()
-          this.submitLoading = false
-          this.editVisible = false
-          this.resetForm()
-        }).catch(() => {
-          this.submitLoading = false
-        })
-      } else if (this.type === 'edit') {
-        const data = {
-          bulletinTitle: this.editData.bulletinTitle,
-          bulletinContent: this.editData.bulletinContent,
-          id: this.editId
-        }
-        uptNoticeInfoApi(data).then(res => {
-          console.log('remove -> res', res)
-          this.$message({
-            message: this.$t('alert.optionSuccess'),
-            type: 'success'
-          })
-          this.fetchData()
-          this.submitLoading = false
-          this.editVisible = false
-          this.resetForm()
-          this.editId = ''
-        }).catch(() => {
-          this.submitLoading = false
-        })
-      }
+      })
     },
     resetForm() {
       this.$refs.noticeForm.resetFields()

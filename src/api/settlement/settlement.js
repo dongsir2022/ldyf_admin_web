@@ -54,3 +54,13 @@ export function nameSearch(data) {
     params: data
   })
 }
+
+// 相关订单=通过流水id查询流水
+export function getTradeListById(data) {
+  console.log('nameSearch -> data', data)
+  return request({
+    url: '/admin/trade/getTradeListById',
+    method: 'get',
+    params: data
+  })
+}

@@ -66,7 +66,7 @@ export default {
     onEditorReady(editor) {},
     // 值发生变化
     onEditorChange(editor) {
-      console.log('onEditorChange -> editor', editor)
+      // console.log('onEditorChange -> editor', editor)
       this.$emit('change', editor.html)
     }
   }

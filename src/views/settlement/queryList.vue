@@ -6,6 +6,17 @@
         <el-col :span="7">
           <el-date-picker v-model="searchKey.completeTime" type="datetimerange" range-separator="至" start-placeholder="创建开始日期" end-placeholder="创建结束日期" />
         </el-col>
+        <el-col :span="3">
+          <el-select v-model="searchKey.reconciliationStatus" placeholder="对账状态">
+            <el-option v-for="item in reconciliationArr" :key="item.id" :label="item.name" :value="item.id" />
+          </el-select>
+        </el-col>
+        <el-col :span="3">
+          <el-select v-model="searchKey.trade_status" placeholder="清分状态">
+            <el-option v-for="item in tradeArr" :key="item.id" :label="item.name" :value="item.id" />
+          </el-select>
+        </el-col>
+
         <el-col :span="2">
           <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
