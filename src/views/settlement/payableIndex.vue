@@ -54,7 +54,7 @@
 
       <el-table-column align="center" label="结算日期">
         <template slot-scope="scope">
-          {{ $common.getDateTime('YYYY-MM-DD hh:mm:ss', new Date(scope.row.settle_date)) }}
+          {{ scope.row.settle_date }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="备注" prop="remark" />
