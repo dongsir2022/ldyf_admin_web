@@ -90,7 +90,8 @@ export const componentMap = {
   'config-notice-list': () => import('@/views/config/noticeInfo/noticeInfoIndex'),
   'system-customer-manager': () => import('@/views/system/customerManager/customerManager'),
   'settlement-query': () => import('@/views/settlement/queryList'),
-  'config-qrCode': () => import('@/views/config/qrCode/qrCodeIndex')
+  'config-qrCode': () => import('@/views/config/qrCode/qrCodeIndex'),
+  'config-cloudHorn': () => import('@/views/config/cloudHorn/cloudHornIndex')
 }
 
 const createRouter = () => new Router({

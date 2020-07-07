@@ -36,10 +36,11 @@ export function unbindDeviceNameApi(data) {
 }
 
 // 获取二维码地址信息
-export function getQRCodeAddressMessApi() {
+export function getQRCodeAddressMessApi(data) {
   return request({
     url: '/admin/tradeQRCode/getQRCodeAddressMess',
-    method: 'get'
+    method: 'get',
+    params: data
   })
 }
 
