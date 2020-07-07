@@ -22,6 +22,7 @@ export default {
     }
   },
   created() {
+    this.initCompleteTime()
     console.log('created -> this.$route.params', this.$route.params)
 
     const merchantId = this.$route.params.merchant_id
@@ -121,6 +122,11 @@ export default {
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
       this.fetchData()
+    },
+    initCompleteTime() {
+      this.searchKey.completeTime = []
+      this.searchKey.completeTime.push(moment().startOf('day').toDate())
+      this.searchKey.completeTime.push(moment().endOf('day').toDate())
     }
   },
   filters: {

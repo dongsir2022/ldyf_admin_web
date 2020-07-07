@@ -1,4 +1,4 @@
-import { freezeMerchant, getMerchantList, normalMerchant, putOpenSplitAuth } from '@/api/merchant/merchantApi'
+import { freezeMerchant, getMerchantList, normalMerchant, putOpenSplitAuth, changeLimit } from '@/api/merchant/merchantApi'
 
 export default {
   name: 'merchantListIndex',
@@ -18,13 +18,34 @@ export default {
       search: {
         status: 1
       },
-      splitLoading: false
+      splitLoading: false,
+      alterLoading: false,
+      dialogVisible: false,
+      rules: {
+        amount: [
+          { required: true, message: '请输入限定额度', trigger: 'blur' },
+          { min: 0, message: '不能低于0', trigger: 'blur' }
+        ]
+      },
+      codeData: {
+        amount: '',
+        merchant_id: ''
+      },
+      submitLoading: false
     }
   },
   created() {
     this.fetchData()
   },
   methods: {
+    alter(row) {
+      console.log('alter -> row', row)
+      this.dialogVisible = true
+      this.codeData = {
+        amount: '',
+        merchant_id: row.id
+      }
+    },
     // 开通分账权限
     openSplitAuth(row) {
       console.log('openSplitAuth -> row', row)
@@ -38,6 +59,42 @@ export default {
       }).catch(() => {
         this.splitLoading = false
       })
+    },
+    // 提交
+    submit() {
+      this.$refs.codeForm.validate(valid => {
+        console.log('submit -> valid', valid)
+        if (valid) {
+          this.submitLoading = true
+          const data = {
+            amount: this.codeData.amount,
+            merchant_id: this.codeData.merchant_id
+          }
+          changeLimit(data).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.fetchData()
+            this.submitLoading = false
+            this.dialogVisible = false
+            this.resetForm()
+          }).catch(() => {
+            this.submitLoading = false
+          })
+        }
+      })
+    },
+    close() {
+      this.dialogVisible = false
+      this.resetForm()
+    },
+    resetForm() {
+      this.$refs.codeForm.resetFields()
+      this.codeData = {
+        amount: '',
+        merchant_id: ''
+      }
     },
     handleCurrentChange(page) {
       this.page = page

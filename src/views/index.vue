@@ -185,7 +185,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
+import { getQRCodeAddressMessApi } from '@/api/config/qrCodeApi'
 const dataRouter = [
   {
     code: '140000',
@@ -252,6 +252,7 @@ export default {
   name: 'Home',
   data() {
     return {
+      page: 1,
       dataRouter,
       echartObj: {}, // echarts实例
       mapJson: '',
@@ -344,38 +345,119 @@ export default {
     ])
   },
   mounted() {
-    // 实例
-    this.echartObj = this.$echarts.init(this.$refs.main)
+    // this.fetchData()
+
     // 获取json文件
-    // const arr = this.dataRouter.find((item, index) => {
-    //   return item.code === this.code
-    // })
-    // console.log('mounted -> arr', arr)
-    // import('@/assets/echarts/' + arr.namePy + '.json').then((item) => {
-    //   console.log('mounted -> file', item)
-    //   this.mapJson = item
-    // })
-
-    //   this.initEcharts(this.totalData, map[0].source)
-
-    // this.echartObj.on('legendselectchanged', params => {
-    //   this.radioActive = Object.keys(this.radioList).filter(item => this.radioList[item] === params.name)[0]
-    //   this.echartObj.clear()
-    //   this.echartObj.setOption(this.getOptions())
-    // })
-    // window.addEventListener('resize', () => {
-    //   if (this.echartObj && this.echartObj.resize) {
-    //     this.echartObj.resize()
-    //   }
-    // })
+    const arr = this.getJson(this.code)
+    const dd = require(`../static/${arr.name}.json`)
+    this.mapJson = { ...dd }
+    // 初始化地图
+    // this.initEcharts(this.mapData, this.mapJson)
   },
   methods: {
+    fetchData() {
+      const data = {
+        page_num: this.page,
+        page_size: 100
+      }
+      getQRCodeAddressMessApi(data).then(res => {
+        console.log('fetchData -> res', res)
+        this.mapData = this.mapData.concat(res.data)
+        console.log('fetchData -> this.mapData', this.mapData)
+        // if (res.data && res.data.length) {
+        //   this.page++
+        //   this.fetchData()
+        // }
+      })
+    },
     // 地图json
     getJson(code) {
       const curData = this.dataRouter.find((item, index) => {
         return item.code === code
       })
       return curData
+    },
+    initEcharts(data, map) {
+      const echartObj = this.$echarts.init(this.$refs.main)
+      echartObj.registerMap('山西', map)
+      const option = {
+        title: {
+          text: '山西省客户分布图',
+          top: '3%',
+          left: '5%',
+          textStyle: {
+            fontSize: 18,
+            fontWeight: 400,
+            color: '#b6d7ff'
+          }
+        },
+        legend: {
+          orient: 'vertical',
+          top: '9%',
+          left: '5%',
+          icon: 'circle',
+          data: [],
+          selectedMode: 'single',
+          selected: {},
+          itemWidth: 12,
+          itemHeight: 12,
+          itemGap: 30,
+          inactiveColor: '#b6d7ff',
+          textStyle: {
+            color: '#ec808d',
+            fontSize: 14,
+            fontWeight: 300,
+            padding: [0, 0, 0, 15]
+          }
+        },
+        visualMap: {
+          min: 0,
+          max: 500,
+          show: false,
+          splitNumber: 5,
+          inRange: {
+            color: ['#FACD91', '#74DFB2', '#81D3F8', '#768FDE', '#e9969f'].reverse()
+          },
+          textStyle: {
+            color: '#fff'
+          }
+        },
+        geo: {
+          map: '山西',
+          label: {
+            normal: {
+              show: true,
+              color: '#000'
+            },
+            emphasis: {
+              show: true,
+              color: '#fff'
+            }
+          },
+          roam: false,
+          itemStyle: {
+            normal: {
+              areaColor: '#8db200',
+              borderColor: '#6367ad',
+              borderWidth: 1
+            },
+            emphasis: {
+              areaColor: '#feb6aa' // hover效果
+            }
+          },
+          left: '5%',
+          right: '5%',
+          top: '5%',
+          bottom: '5%'
+        },
+        series: [{
+          name: '年度总项目数据查询',
+          type: 'map',
+          geoIndex: 0, // 不可缺少，否则无tooltip 指示效果
+          data: []
+        }]
+      }
+      echartObj.setOption(option)
     },
     getOptions() {
       this.setOptions('legend', {

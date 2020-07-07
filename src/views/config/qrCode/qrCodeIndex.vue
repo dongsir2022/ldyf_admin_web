@@ -28,6 +28,13 @@
         </template>
       </el-table-column>
 
+      <el-table-column align="center" label="是否绑定店铺">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.trade_device_id===0" type="info">未绑定</el-tag>
+          <el-tag v-else>已绑定</el-tag>
+        </template>
+      </el-table-column>
+
       <el-table-column align="center" label="经度" prop="longitude" />
       <el-table-column align="center" label="纬度" prop="latitude" />
 

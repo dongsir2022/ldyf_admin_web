@@ -27,11 +27,11 @@ export default {
       loading: false,
       rules: {
         name: [
-          {validator: validateName, trigger: 'blur'}
+          { validator: validateName, trigger: 'blur' }
         ],
         description: [
-          {validator: validateDesc, trigger: 'blur'}
-        ],
+          { validator: validateDesc, trigger: 'blur' }
+        ]
       },
       initForm: {
         id: 0,
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     resetForm() {
-      this.form = {...this.initForm}
+      this.form = { ...this.initForm }
     },
     fetchData() {
       this.loading = true
@@ -67,8 +67,8 @@ export default {
       this.assignLoading = false
     },
     updateRole(row) {
-      this.form = {...row}
-      this.dialogFormVisible = true;
+      this.form = { ...row }
+      this.dialogFormVisible = true
       this.assignLoading = false
     },
     deleteRole(row) {
@@ -80,41 +80,41 @@ export default {
         remove(row).then(res => {
           this.$message({
             type: 'success',
-            message: this.$t('alert.optionSuccess'),
-          });
+            message: this.$t('alert.optionSuccess')
+          })
           this.fetchData()
         })
       }).catch(() => {
 
-      });
+      })
     },
     roleAddMenus(id) {
       this.$parent.openPage('system-role-edit', {
         id: id
-      });
+      })
     },
     submitForm() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          this.assignLoading = true;
+          this.assignLoading = true
           if (this.form.id === 0) {
             create(this.form).then(res => {
-              this.assignLoading = false;
+              this.assignLoading = false
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'
-              });
-              this.dialogFormVisible = false;
-              this.fetchData();
+              })
+              this.dialogFormVisible = false
+              this.fetchData()
             })
           } else {
             update(this.form).then(res => {
-              this.assignLoading = false;
+              this.assignLoading = false
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'
-              });
-              this.dialogFormVisible = false;
+              })
+              this.dialogFormVisible = false
               this.fetchData()
             })
           }

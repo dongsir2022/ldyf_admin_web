@@ -1,21 +1,21 @@
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <router-view :key="key"/>
+      <router-view :key="key" />
     </transition>
   </section>
 </template>
 
 <script>
-import {isNotBlank} from "@/utils/utils";
+import { isNotBlank } from '@/utils/utils'
 
 export default {
   name: 'AppMain',
   data() {
     return {
       statusArr: [
-        {value: 0, label: '正常'},
-        {value: 1, label: '作废'}
+        { value: 0, label: '正常' },
+        { value: 1, label: '作废' }
       ]
     }
   },
@@ -29,8 +29,8 @@ export default {
       const view = {
         name: this.$route.name,
         path: this.$route.path
-      };
-      this.$store.dispatch('tagsView/delView', view).then(({visitedViews}) => {
+      }
+      this.$store.dispatch('tagsView/delView', view).then(({ visitedViews }) => {
         if (isNotBlank(name)) {
           this.$router.push({
             name: name,

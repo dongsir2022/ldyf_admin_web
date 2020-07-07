@@ -1,5 +1,5 @@
-import {mapGetters} from 'vuex'
-import {getRoleMenuTree, saveRoleMenus} from '@/api/system/roleApi'
+// import { mapGetters } from 'vuex'
+import { getRoleMenuTree, saveRoleMenus } from '@/api/system/roleApi'
 
 export default {
   name: 'system-role-edit',
@@ -53,22 +53,22 @@ export default {
     handleCheck(data, checkedObj) {
       const keys = checkedObj.checkedKeys
       const checked = keys.indexOf(data.id) > -1
-      let currentNode = this.$refs.tree.getNode(data.id)
+      const currentNode = this.$refs.tree.getNode(data.id)
       this.checkChildNodes(currentNode, checked)
     },
     handleCheckChange(data, checked, indeterminate) {
-      //由于该方法会冒泡，因此子节点的选中逻辑不能在该方法中处理
+      // 由于该方法会冒泡，因此子节点的选中逻辑不能在该方法中处理
 
-      //处理父节点
+      // 处理父节点
       const parentId = data.parent_id
       if (parentId) {
-        //将父节点选中或取消
+        // 将父节点选中或取消
         if (checked) {
           this.$refs.tree.setChecked(parentId, true)
         } else {
-          //如果没有同辈节点选中，则将父节点取消选中
-          let parentNode = this.$refs.tree.getNode(parentId)
-          let childNodes = parentNode.childNodes
+          // 如果没有同辈节点选中，则将父节点取消选中
+          const parentNode = this.$refs.tree.getNode(parentId)
+          const childNodes = parentNode.childNodes
           let existsChildChecked = false
           for (let i = 0; i < childNodes.length; i++) {
             if (childNodes[i].checked) {
@@ -83,11 +83,11 @@ export default {
       }
     },
     checkChildNodes(node, checked) {
-      //递归处理子节点的选中逻辑
+      // 递归处理子节点的选中逻辑
       if (!node.isLeaf) {
-        let childNodes = node.childNodes
+        const childNodes = node.childNodes
         for (let i = 0; i < childNodes.length; i++) {
-          if (childNodes[i].checked != checked) {
+          if (childNodes[i].checked !== checked) {
             this.$refs.tree.setChecked(childNodes[i], checked)
           }
           this.checkChildNodes(childNodes[i], checked)
@@ -95,23 +95,22 @@ export default {
       }
     },
     submitRole() {
-      let checkedMenus = []
-      let checkedNodes = this.$refs.tree.getCheckedNodes()
+      const checkedMenus = []
+      const checkedNodes = this.$refs.tree.getCheckedNodes()
       checkedNodes.forEach((node, number) => {
-        checkedMenus.push({menu_id: node.id, read_only: node.read_only})
+        checkedMenus.push({ menu_id: node.id, read_only: node.read_only })
       })
 
-      let data = {
+      const data = {
         id: this.roleId,
         role_menus: checkedMenus
       }
       saveRoleMenus(data).then(res => {
         this.$message({
           message: '设置成功',
-          type: 'success',
-        });
+          type: 'success'
+        })
         this.closeSelectedTag()
-
       })
     }
   }

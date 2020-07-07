@@ -1,18 +1,11 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row :gutter="10">
-        <el-col :span="3">
-          <el-input v-model="searchKey.merchant_id" clearable class="filter-item input-tx" placeholder="输入商户名称&编号" />
-        </el-col>
-        <el-col :span="7">
-          <el-date-picker
-            v-model="searchKey.completeTime"
-            type="datetimerange"
-            range-separator="至"
-            start-placeholder="创建开始日期"
-            end-placeholder="创建结束日期"
-          />
+      <el-row :gutter="30">
+        <el-col :span="4">
+          <el-select v-model="searchKey.merchant_id" filterable remote placeholder="请输入商户名" :remote-method="remoteMethod" :loading="selectloading">
+            <el-option v-for="item in options" :key="item.id" :label="item.merchant_name" :value="item.id" />
+          </el-select>
         </el-col>
         <el-col :span="2">
           <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
@@ -20,50 +13,41 @@
         </el-col>
       </el-row>
     </div>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      fit
-      highlight-current-row
-    >
-      <el-table-column
-        align="center"
-        label="提现时间"
-        prop="create_time"
-      />
-      <el-table-column
-        align="center"
-        label="商户ID"
-        prop="merchant_no"
-      />
-      <el-table-column
-        align="center"
-        label="提现金额"
-        prop="withdraw_amount"
-      />
-      <el-table-column
-        align="center"
-        label="提现手续费"
-        prop="withdraw_fee"
-      />
-      <el-table-column
-        align="center"
-        label="实际到账金额"
-        prop="withdraw_real_amount"
-      />
-      <el-table-column
-        align="center"
-        label="提现卡号"
-        prop="withdraw_bank_no"
-      />
-      <el-table-column
-        align="center"
-        label="提现状态"
-      >
+    <el-table v-loading="loading" :data="list" fit highlight-current-row>
+      <el-table-column align="center" label="提现人">
         <template slot-scope="scope">
-          {{ scope.row.withdraw_status|dict }}
+          {{ scope.row.withdraw_bank_person }}
         </template>
       </el-table-column>
+
+      <el-table-column align="center" label="提现金额">
+        <template slot-scope="scope">
+          ￥{{ $common.jeFormat(scope.row.withdraw_amount, 2) }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="提现状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.withdraw_status===1">提现中</el-tag>
+          <el-tag v-if="scope.row.withdraw_status===2">提现取消</el-tag>
+          <el-tag v-if="scope.row.withdraw_status===3" type="success">提现成功</el-tag>
+          <el-tag v-if="scope.row.withdraw_status===4" type="info">提现失败</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="提现银行" prop="withdraw_bank_type" />
+      <el-table-column align="center" label="银行卡号" prop="withdraw_bank_no" />
+      <el-table-column align="center" label="银行预留手机号" prop="withdraw_bank_phone" />
+
+      <el-table-column align="center" label="提现手续费">
+        <template slot-scope="scope">
+          ￥{{ $common.jeFormat(scope.row.withdraw_fee, 2) }}
+        </template>
+      </el-table-column>
+
+      <el-table-column align="center" label="创建时间" prop="create_time" />
+      <el-table-column align="center" label="更新时间" prop="last_update_time" />
+
     </el-table>
     <!-- 分页 -->
     <div class="pagination-container block">

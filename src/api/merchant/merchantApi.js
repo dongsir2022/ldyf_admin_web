@@ -175,3 +175,12 @@ export function putOpenSplitAuth(params) {
     data: params
   })
 }
+
+// 修改限额
+export function changeLimit(params) {
+  return request({
+    url: '/admin/merchant/changeLimit',
+    method: 'put',
+    data: params
+  })
+}

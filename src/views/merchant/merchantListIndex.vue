@@ -43,6 +43,11 @@
         label="商户三方编号"
         prop="merchant_out_no"
       />
+      <el-table-column align="center" label="商户限额">
+        <template slot-scope="scope">
+          ￥{{ $common.jeFormat(scope.row.trading_limit, 2) }}
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         label="创建时间"
@@ -61,6 +66,8 @@
           >查看详情
           </el-button>
           <el-button v-if="scope.row.split_status===2" type="text" :loading="splitLoading" size="mini" @click="openSplitAuth(scope.row)">开通分账权限
+          </el-button>
+          <el-button type="text" :loading="alterLoading" size="mini" @click="alter(scope.row)">商户修改限额
           </el-button>
           <el-button
             type="text"
@@ -116,6 +123,18 @@
         @size-change="handleSizeChange"
       />
     </div>
+    <!-- 弹窗 -->
+    <el-dialog title="商户修改限额" :visible.sync="dialogVisible" width="40%">
+      <el-form ref="codeForm" :model="codeData" :rules="rules" label-width="60px">
+        <el-form-item label="限额" prop="amount">
+          <el-input v-model="codeData.amount" type="number" max="999999999.99" min="0.00" step="3" />
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="close">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="submitLoading" @click="submit">{{ $t('button.sure') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 

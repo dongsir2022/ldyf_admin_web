@@ -17,6 +17,7 @@ export default {
     }
   },
   created() {
+    this.initCompleteTime()
     this.merchant_id = this.$route.params.merchant_id
     this.fetchData()
   },
@@ -54,6 +55,11 @@ export default {
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
       this.fetchData()
+    },
+    initCompleteTime() {
+      this.searchKey.completeTime = []
+      this.searchKey.completeTime.push(moment().startOf('day').toDate())
+      this.searchKey.completeTime.push(moment().endOf('day').toDate())
     }
   }
 }

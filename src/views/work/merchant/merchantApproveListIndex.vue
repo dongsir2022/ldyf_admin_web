@@ -8,12 +8,12 @@
               v-for="item in approveStatus"
               :key="item.value"
               :label="item.label"
-              :value="item.value">
-            </el-option>
+              :value="item.value"
+            />
           </el-select>
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" @click='fetchData' :loading="loading">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
         </el-col>
       </el-row>
@@ -23,55 +23,61 @@
       :data="list"
       border
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="商户三方编号"
         width="200"
-        prop="merchant_out_no"/>
+        prop="merchant_out_no"
+      />
       <el-table-column
         align="center"
         label="商户名称"
         width="200"
-        prop="merchant_name"/>
+        prop="merchant_name"
+      />
       <el-table-column
         align="center"
         label="商户内部编号"
         width="300"
-        prop="merchant_no">
-      </el-table-column>
+        prop="merchant_no"
+      />
       <el-table-column
         align="center"
         label="审批状态"
-        width="100">
+        width="100"
+      >
         <template slot-scope="scope">
-          {{scope.row.approve_status|approveStatusDict}}
+          {{ scope.row.approve_status|approveStatusDict }}
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         label="创建时间"
-        prop="create_time">
-      </el-table-column>
+        prop="create_time"
+      />
       <el-table-column
         align="center"
         label="最后更新时间"
-        prop="last_update_time">
-      </el-table-column>
+        prop="last_update_time"
+      />
       <el-table-column
         align="center"
         label="最后更新人"
-        prop="last_update_user">
-      </el-table-column>
+        prop="last_update_user"
+      />
       <el-table-column
-        align="center"
         v-if="!$route.meta.readOnly"
-        label="操作">
+        align="center"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-button
             type="text"
+            size="mini"
             @click="approve(scope.row.id)"
-            size="mini">审批
+          >审批
           </el-button>
         </template>
       </el-table-column>
