@@ -11,7 +11,7 @@ export function getInfoApi(params) {
 export function addApi(params) {
   return request({
     url: '/admin/order/add',
-    method: 'get',
+    method: 'post',
     data: params
   })
 }

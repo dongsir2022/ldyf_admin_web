@@ -17,9 +17,9 @@
         <el-col :span="3">
           <el-input v-model="searchKey.trade_device_phone" placeholder="门店手机号" type="text" maxlength="20" show-word-limit />
         </el-col>
-        <el-col :span="3">
+        <!-- <el-col :span="3">
           <el-input v-model="searchKey.service_type_id" placeholder="服务编号" type="text" maxlength="30" show-word-limit />
-        </el-col>
+        </el-col> -->
         <el-col :span="2">
           <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
           </el-button>
@@ -111,9 +111,9 @@
         <el-form-item label="客户经理编号" prop="account_manager_id" label-width="120px">
           <el-input v-model="codeData.account_manager_id" type="text" maxlength="30" show-word-limit />
         </el-form-item>
-        <el-form-item label="服务编号" prop="service_type_id" label-width="120px">
+        <!-- <el-form-item label="服务编号" prop="service_type_id" label-width="120px">
           <el-input v-model="codeData.service_type_id" type="text" maxlength="30" show-word-limit />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="备注" prop="remark" label-width="120px">
           <el-input v-model="codeData.remark" type="text" maxlength="60" show-word-limit />
         </el-form-item>

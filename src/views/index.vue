@@ -176,6 +176,7 @@
         </el-card>
       </el-col>
     </el-row>
+    <div><el-button class="filter-item backBtn" type="primary" icon="el-icon-back" @click="backLevel">返回</el-button></div>
     <!-- 地图 -->
     <div class="echarts">
       <div ref="main" style="width: 1000px;height:1300px;" />
@@ -186,6 +187,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getQRCodeAddressMessApi } from '@/api/config/qrCodeApi'
+
 const dataRouter = [
   {
     code: '140000',
@@ -254,11 +256,12 @@ export default {
     return {
       page: 1,
       dataRouter,
-      echartObj: {}, // echarts实例
+      map: '', // echarts实例
       mapJson: '',
       mapData: [], // 地图加载数据
       totalData: [], // 全部数据
-      code: '140000',
+      name: '山西省',
+      nameArr: ['山西省'],
       option: {
         title: {
           text: '山西省客户分布图',
@@ -345,16 +348,42 @@ export default {
     ])
   },
   mounted() {
-    // this.fetchData()
+    this.fetchData()
 
-    // 获取json文件
-    const arr = this.getJson(this.code)
-    const dd = require(`../static/${arr.name}.json`)
-    this.mapJson = { ...dd }
-    // 初始化地图
-    // this.initEcharts(this.mapData, this.mapJson)
+    this.map = this.$echarts.init(this.$refs.main)
+    window.onresize = this.map.resize
+    this.map.on('click', (param) => {
+      console.log('initMap -> param', param)
+      event.stopPropagation()// 阻止冒泡
+
+      const cur = this.dataRouter.some((item, index) => {
+        return item.name === param.name
+      })
+
+      if (cur) {
+        this.name = param.name
+        this.nameArr.push(this.name)
+        console.log('initMap -> this.nameArr', this.nameArr)
+        this.toNewMap()
+      }
+    })
+    this.mapJson = require(`../static/${this.name}.json`)
+    this.initMap()
   },
   methods: {
+    backLevel() {
+      console.log('back -> this.nameArr', this.nameArr)
+      if (this.nameArr.length > 1) {
+        this.nameArr.pop()
+        this.name = this.nameArr[this.nameArr.length - 1]
+        this.toNewMap()
+      }
+    },
+    toNewMap() {
+      this.mapJson = require(`../static/${this.name}.json`)
+      this.initMap()
+    },
+    // 获取店铺数据
     fetchData() {
       const data = {
         page_num: this.page,
@@ -363,53 +392,25 @@ export default {
       getQRCodeAddressMessApi(data).then(res => {
         console.log('fetchData -> res', res)
         this.mapData = this.mapData.concat(res.data)
-        console.log('fetchData -> this.mapData', this.mapData)
+        // this.setOptions(this.mapData)
         // if (res.data && res.data.length) {
         //   this.page++
         //   this.fetchData()
         // }
       })
     },
-    // 地图json
-    getJson(code) {
-      const curData = this.dataRouter.find((item, index) => {
-        return item.code === code
-      })
-      return curData
+    // 初始化地图
+    initMap() {
+      this.$echarts.registerMap(this.name, this.mapJson)
+
+      const option = this.getMapOpt()
+      if (option && typeof option === 'object') {
+        this.map.setOption(option, true)
+      }
+      this.map.setOption(option)
     },
-    initEcharts(data, map) {
-      const echartObj = this.$echarts.init(this.$refs.main)
-      echartObj.registerMap('山西', map)
+    getMapOpt() {
       const option = {
-        title: {
-          text: '山西省客户分布图',
-          top: '3%',
-          left: '5%',
-          textStyle: {
-            fontSize: 18,
-            fontWeight: 400,
-            color: '#b6d7ff'
-          }
-        },
-        legend: {
-          orient: 'vertical',
-          top: '9%',
-          left: '5%',
-          icon: 'circle',
-          data: [],
-          selectedMode: 'single',
-          selected: {},
-          itemWidth: 12,
-          itemHeight: 12,
-          itemGap: 30,
-          inactiveColor: '#b6d7ff',
-          textStyle: {
-            color: '#ec808d',
-            fontSize: 14,
-            fontWeight: 300,
-            padding: [0, 0, 0, 15]
-          }
-        },
         visualMap: {
           min: 0,
           max: 500,
@@ -423,7 +424,7 @@ export default {
           }
         },
         geo: {
-          map: '山西',
+          map: this.name,
           label: {
             normal: {
               show: true,
@@ -451,13 +452,13 @@ export default {
           bottom: '5%'
         },
         series: [{
-          name: '年度总项目数据查询',
-          type: 'map',
-          geoIndex: 0, // 不可缺少，否则无tooltip 指示效果
+          name: '测试1',
+          type: 'scatter',
+          coordinateSystem: 'geo',
           data: []
         }]
       }
-      echartObj.setOption(option)
+      return option
     },
     getOptions() {
       this.setOptions('legend', {

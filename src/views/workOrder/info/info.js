@@ -9,7 +9,7 @@ export default {
       total: 0,
       page: 1,
       pageSize: 10,
-      searchKey: { order_no: '', merchant_id: '', trade_device_phone: '', service_type_id: '', order_status: '' },
+      searchKey: { order_no: '', merchant_id: '', trade_device_phone: '', order_status: '' },
       options: [{ id: 1, anme: '未解答' }, { id: 2, anme: '已解答' }, { id: 6, anme: '已解决' }],
       dialogVisible: false,
       rules: {
@@ -18,15 +18,11 @@ export default {
         ],
         account_manager_id: [
           { required: true, message: '请输入客户经理编号', trigger: 'blur' }
-        ],
-        service_type_id: [
-          { required: true, message: '请输入服务编号', trigger: 'blur' }
         ]
       },
       codeData: {
         trade_device_id: '',
         account_manager_id: '',
-        service_type_id: '',
         remark: ''
       },
       submitLoading: false
@@ -45,7 +41,6 @@ export default {
         order_no: this.searchKey.order_no,
         merchant_id: this.searchKey.merchant_id,
         trade_device_phone: this.searchKey.trade_device_phone,
-        service_type_id: this.searchKey.service_type_id,
         order_status: this.searchKey.order_status
       }
 
@@ -65,7 +60,6 @@ export default {
       this.codeData = {
         trade_device_id: '',
         account_manager_id: '',
-        service_type_id: '',
         remark: ''
       }
     },
@@ -78,7 +72,6 @@ export default {
           const data = {
             trade_device_id: this.codeData.trade_device_id,
             account_manager_id: this.codeData.account_manager_id,
-            service_type_id: this.codeData.service_type_id,
             remark: this.codeData.remark
           }
           addApi(data).then(res => {
@@ -105,7 +98,6 @@ export default {
       this.codeData = {
         trade_device_id: '',
         account_manager_id: '',
-        service_type_id: '',
         remark: ''
       }
     },
