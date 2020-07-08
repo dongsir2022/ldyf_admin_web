@@ -91,7 +91,8 @@ export const componentMap = {
   'system-customer-manager': () => import('@/views/system/customerManager/customerManager'),
   'settlement-query': () => import('@/views/settlement/queryList'),
   'config-qrCode': () => import('@/views/config/qrCode/qrCodeIndex'),
-  'config-cloudHorn': () => import('@/views/config/cloudHorn/cloudHornIndex')
+  'config-cloudHorn': () => import('@/views/config/cloudHorn/cloudHornIndex'),
+  'workOrder-info': () => import('@/views/workOrder/info/infoIndex')
 }
 
 const createRouter = () => new Router({

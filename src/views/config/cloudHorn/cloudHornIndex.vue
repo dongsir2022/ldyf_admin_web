@@ -4,7 +4,7 @@
     <div class="block">
       <el-row :gutter="10">
         <el-col :span="7">
-          <el-input v-model="searchKey.device_name" placeholder="云喇叭名称模糊搜索" type="text" maxlength="12" show-word-limit />
+          <el-input v-model="searchKey.device_name" placeholder="云喇叭名称" type="text" maxlength="30" show-word-limit />
         </el-col>
         <el-col :span="2">
           <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
