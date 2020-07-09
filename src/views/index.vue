@@ -179,7 +179,7 @@
     <div><el-button class="filter-item backBtn" type="primary" icon="el-icon-back" @click="backLevel">返回</el-button></div>
     <!-- 地图 -->
     <div class="echarts">
-      <div ref="main" style="width: 1000px;height:1300px;" />
+      <div ref="main" style="width: 1000px;height:1200px;" />
     </div>
   </div>
 </template>
@@ -262,83 +262,13 @@ export default {
       totalData: [], // 全部数据
       name: '山西省',
       nameArr: ['山西省'],
-      option: {
-        title: {
-          text: '山西省客户分布图',
-          top: '3%',
-          left: '5%',
-          textStyle: {
-            fontSize: 18,
-            fontWeight: 400,
-            color: '#b6d7ff'
-          }
-        },
-        legend: {
-          orient: 'vertical',
-          top: '9%',
-          left: '5%',
-          icon: 'circle',
-          data: [],
-          selectedMode: 'single',
-          selected: {},
-          itemWidth: 12,
-          itemHeight: 12,
-          itemGap: 30,
-          inactiveColor: '#b6d7ff',
-          textStyle: {
-            color: '#ec808d',
-            fontSize: 14,
-            fontWeight: 300,
-            padding: [0, 0, 0, 15]
-          }
-        },
-        visualMap: {
-          min: 0,
-          max: 500,
-          show: false,
-          splitNumber: 5,
-          inRange: {
-            color: ['#FACD91', '#74DFB2', '#81D3F8', '#768FDE', '#e9969f'].reverse()
-          },
-          textStyle: {
-            color: '#fff'
-          }
-        },
-        geo: {
-          map: '山西',
-          label: {
-            normal: {
-              show: true,
-              color: '#000'
-            },
-            emphasis: {
-              show: true,
-              color: '#fff'
-            }
-          },
-          roam: false,
-          itemStyle: {
-            normal: {
-              areaColor: '#8db200',
-              borderColor: '#6367ad',
-              borderWidth: 1
-            },
-            emphasis: {
-              areaColor: '#feb6aa' // hover效果
-            }
-          },
-          left: '5%',
-          right: '5%',
-          top: '5%',
-          bottom: '5%'
-        },
-        series: [{
-          name: '年度总项目数据查询',
-          type: 'map',
-          geoIndex: 0, // 不可缺少，否则无tooltip 指示效果
-          data: []
-        }]
-      }
+      // moni: [['112.53	', '37.87', 12],
+      //   ['112.65', '38.05', 23],
+      //   ['112.33', '37.62', 34], ['113.08', '36.18', 5], ['114.2', '39.47', 45]]
+      moni: [
+        { name: '1', value: ['112.53', '37.87'] },
+        { name: '2', value: ['112.65', '38.05'] }
+      ]
     }
   },
   computed: {
@@ -351,7 +281,7 @@ export default {
     this.fetchData()
 
     this.map = this.$echarts.init(this.$refs.main)
-    window.onresize = this.map.resize
+    window.onresize = this.map.resize()
     this.map.on('click', (param) => {
       console.log('initMap -> param', param)
       event.stopPropagation()// 阻止冒泡
@@ -367,8 +297,10 @@ export default {
         this.toNewMap()
       }
     })
+
     this.mapJson = require(`../static/${this.name}.json`)
     this.initMap()
+    this.setOptions()
   },
   methods: {
     backLevel() {
@@ -391,8 +323,16 @@ export default {
       }
       getQRCodeAddressMessApi(data).then(res => {
         console.log('fetchData -> res', res)
-        this.mapData = this.mapData.concat(res.data)
-        // this.setOptions(this.mapData)
+        const retArr = []
+        for (const item of res.data) {
+          if (item) {
+            const arr = [item.longitude, item.latitude, 2]
+            retArr.push(arr)
+          }
+        }
+        console.log('fetchData -> retArr', retArr)
+        this.mapData = this.mapData.concat(retArr)
+        this.setOptions()
         // if (res.data && res.data.length) {
         //   this.page++
         //   this.fetchData()
@@ -408,19 +348,35 @@ export default {
         this.map.setOption(option, true)
       }
       this.map.setOption(option)
+      this.setOptions()
     },
     getMapOpt() {
       const option = {
+        title: {
+          text: this.nameArr.join('-'),
+          textStyle: {
+            color: '#333333',
+            fontStyle: 'normal',
+            fontSize: 20
+          },
+          // subtext: '点击市可以看到该市每个县的店铺分布',
+          textAlign: 'center',
+          left: 'center',
+          top: '20px'
+        },
         visualMap: {
           min: 0,
-          max: 500,
-          show: false,
+          max: 50,
+          // show: false,
           splitNumber: 5,
+          itemWidth: '40px',
+          itemHeight: '20px',
+          top: '20px',
           inRange: {
             color: ['#FACD91', '#74DFB2', '#81D3F8', '#768FDE', '#e9969f'].reverse()
           },
           textStyle: {
-            color: '#fff'
+            color: '#333'
           }
         },
         geo: {
@@ -428,85 +384,69 @@ export default {
           label: {
             normal: {
               show: true,
-              color: '#000'
+              color: '#333333'
             },
             emphasis: {
               show: true,
-              color: '#fff'
+              color: '#457980'
             }
           },
           roam: false,
           itemStyle: {
             normal: {
-              areaColor: '#8db200',
-              borderColor: '#6367ad',
+              areaColor: '#fff',
+              borderColor: '#333333',
               borderWidth: 1
             },
             emphasis: {
-              areaColor: '#feb6aa' // hover效果
+              areaColor: '#d0ebea', // hover效果
+              borderColor: '#457980'
             }
           },
-          left: '5%',
+          left: '20%',
           right: '5%',
           top: '5%',
           bottom: '5%'
         },
+        tooltip: {
+          trigger: 'item',
+          formatter: p => {
+            // console.log('getMapOpt -> p', p)
+            return `<div>名称:${p.name}</div><div>经度:${p.value[0]}</div><div>纬度:${p.value[1]}</div><div>级别:${p.value[2]}</div>`
+          }
+        },
+        legend: {
+          orient: 'vertical',
+          top: 'top',
+          left: 'right',
+          data: this.nameArr,
+          textStyle: {
+            color: '#000'
+          }
+        },
         series: [{
-          name: '测试1',
           type: 'scatter',
           coordinateSystem: 'geo',
+          geoIndex: 0,
+          symbol: 'pin',
+          symbolSize: [20, 30],
           data: []
         }]
       }
       return option
     },
-    getOptions() {
-      this.setOptions('legend', {
-        data: Object.values(this.radioList),
-        selected: (list => {
-          const obj = {}
-          Object.keys(list).map((item, index) => {
-            obj[list[item]] = item === this.radioActive
-          })
-          return obj
-        })(this.radioList)
-      })
-      this.setOptions('series', (() => {
-        const arr = []
-        Object.values(this.radioList)
-          .map((item, index) => {
-            arr[this.radioList[this.radioActive] === item ? 'unshift' : 'push']({
-              name: item,
-              type: 'map',
-              geoIndex: 0, // 不可缺少，否则无tooltip 指示效果
-              data: this.getSeriesData(item)
-            })
-          })
-        return arr
-      })())
-      return this.option
-    },
-    getSeriesData(item) {
-      // return this.radioList[this.radioActive] === item ? Json.features.map(item => {
-      //   return {
-      //     name: item.properties.name,
-      //     value: Math.ceil(Math.random() * 500),
-      //     obj: {
-      //       a: Math.ceil(Math.random() * 500),
-      //       b: Math.ceil(Math.random() * 500),
-      //       c: Math.ceil(Math.random() * 500),
-      //       d: Math.ceil(Math.random() * 500)
-      //     }
-      //   }
-      // }) : []
-    },
-    setOptions(objKey, objVal) {
-      if (this.option[objKey] && typeof this.option[objKey] === 'object' && !Array.isArray(this.option[objKey])) {
-        this.option[objKey] = Object.assign(this.option[objKey], objVal)
-      } else {
-        this.option[objKey] = objVal
+    setOptions() {
+      const option = {
+        series: [{
+          // name: this.name,
+          // type: 'scatter',
+          // coordinateSystem: 'geo',
+          data: this.moni
+        }]
       }
-      this.$set(this.option, objKey, this.option[objKey])
+      this.$nextTick(() => {
+        this.map.setOption(option)
+      })
     },
     judgePermission: function(str) {
       // 权限判断
