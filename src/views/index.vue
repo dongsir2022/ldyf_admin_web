@@ -178,7 +178,7 @@
     </el-row>
 
     <!-- 百度地图 -->
-    <baidu-map :map-data="bdMapData" style="width:1200px;height:800px;" />
+    <!-- <baidu-map :map-data="bdMapData" style="width:1200px;height:800px;" /> -->
     <!-- echarts地图 -->
     <echarts :map-data="mapData" style="width:600px;height:800px;" />
   </div>
@@ -188,10 +188,10 @@
 import { mapGetters } from 'vuex'
 import { getQRCodeAddressMessApi } from '@/api/config/qrCodeApi'
 import echarts from '@/components/map/Echarts'
-import baiduMap from '@/components/map/baiduMap'
+// import baiduMap from '@/components/map/baiduMap'
 export default {
   name: 'Home',
-  components: { echarts, baiduMap },
+  components: { echarts },
   data() {
     return {
       page: 1,
@@ -218,18 +218,18 @@ export default {
       getQRCodeAddressMessApi(data).then(res => {
         // console.log('fetchData -> res', res)
         const retArr = []
-        const baiduArr = []
+        // const baiduArr = []
         for (const item of res.data) {
           if (item) {
             const arr = [item.longitude, item.latitude]
-            const obj = { lng: item.longitude, lat: item.latitude }
+            // const obj = { lng: item.longitude, lat: item.latitude }
             retArr.push(arr)
-            baiduArr.push(obj)
+            // baiduArr.push(obj)
           }
         }
         // console.log('fetchData -> retArr', retArr)
         this.mapData = this.mapData.concat(retArr)
-        this.bdMapData = this.bdMapData.concat(baiduArr)
+        // this.bdMapData = this.bdMapData.concat(baiduArr)
         if (res.data && res.data.length) {
           this.page++
           this.fetchData()

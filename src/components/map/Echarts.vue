@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button class="filter-item backBtn" type="primary" icon="el-icon-back" @click="backLevel">返回</el-button>
+    <!-- <el-button class="filter-item backBtn" type="primary" icon="el-icon-back" @click="backLevel">返回</el-button> -->
     <div ref="main" style="width: 100%;height:100%;" />
   </div>
 </template>
@@ -100,24 +100,24 @@ export default {
   mounted() {
     this.map = this.$echarts.init(this.$refs.main)
     window.onresize = this.map.resize
-    this.map.on('click', (param) => {
-      // console.log('initMap -> param', param)
-      event.stopPropagation()// 阻止冒泡
+    // this.map.on('click', (param) => {
+    //   // console.log('initMap -> param', param)
+    //   event.stopPropagation()// 阻止冒泡
 
-      const cur = this.dataRouter.some((item, index) => {
-        return item.name === param.name
-      })
+    //   const cur = this.dataRouter.some((item, index) => {
+    //     return item.name === param.name
+    //   })
 
-      if (cur) {
-        this.name = param.name
-        this.nameArr.push(this.name)
-        // // console.log('initMap -> this.nameArr', this.nameArr)
-        this.map.dispose()
-        this.map = this.$echarts.init(this.$refs.main)
+    //   if (cur) {
+    //     this.name = param.name
+    //     this.nameArr.push(this.name)
+    //     // // console.log('initMap -> this.nameArr', this.nameArr)
+    //     this.map.dispose()
+    //     this.map = this.$echarts.init(this.$refs.main)
 
-        this.toNewMap()
-      }
-    })
+    //     this.toNewMap()
+    //   }
+    // })
 
     this.mapJson = require(`@/static/${this.name}.json`)
     this.initMap()
@@ -156,7 +156,6 @@ export default {
             fontStyle: 'normal',
             fontSize: 20
           },
-          // subtext: '点击市可以看到该市每个县的店铺分布',
           textAlign: 'center',
           left: 'center',
           top: '20px'
