@@ -1,4 +1,4 @@
-import { getInfoApi, addApi } from '@/api/workOrder/infoApi'
+import { getInfoApi } from '@/api/workOrder/infoApi'
 // import { isNotBlank } from '@/utils/utils'
 export default {
   name: 'qrCodeIndex',
@@ -10,22 +10,22 @@ export default {
       page: 1,
       pageSize: 10,
       searchKey: { order_no: '', merchant_id: '', trade_device_phone: '', order_status: '' },
-      options: [{ id: 1, anme: '未解答' }, { id: 2, anme: '已解答' }, { id: 6, anme: '已解决' }],
-      dialogVisible: false,
-      rules: {
-        trade_device_id: [
-          { required: true, message: '请输入门店编号', trigger: 'blur' }
-        ],
-        account_manager_id: [
-          { required: true, message: '请输入客户经理编号', trigger: 'blur' }
-        ]
-      },
-      codeData: {
-        trade_device_id: '',
-        account_manager_id: '',
-        remark: ''
-      },
-      submitLoading: false
+      options: [{ id: 1, anme: '未解答' }, { id: 2, anme: '已解答' }, { id: 6, anme: '已解决' }]
+      // dialogVisible: false,
+      // rules: {
+      //   trade_device_id: [
+      //     { required: true, message: '请输入门店编号', trigger: 'blur' }
+      //   ],
+      //   account_manager_id: [
+      //     { required: true, message: '请输入客户经理编号', trigger: 'blur' }
+      //   ]
+      // },
+      // codeData: {
+      //   trade_device_id: '',
+      //   account_manager_id: '',
+      //   remark: ''
+      // },
+      // submitLoading: false
     }
   },
   created() {
@@ -55,52 +55,52 @@ export default {
       })
     },
     // 新增
-    add() {
-      this.dialogVisible = true
-      this.codeData = {
-        trade_device_id: '',
-        account_manager_id: '',
-        remark: ''
-      }
-    },
+    // add() {
+    //   this.dialogVisible = true
+    //   this.codeData = {
+    //     trade_device_id: '',
+    //     account_manager_id: '',
+    //     remark: ''
+    //   }
+    // },
     // 提交
-    submit() {
-      this.$refs.codeForm.validate(valid => {
-        console.log('submit -> valid', valid)
-        if (valid) {
-          this.submitLoading = true
-          const data = {
-            trade_device_id: this.codeData.trade_device_id,
-            account_manager_id: this.codeData.account_manager_id,
-            remark: this.codeData.remark
-          }
-          addApi(data).then(res => {
-            this.$message({
-              message: '新增工单成功',
-              type: 'success'
-            })
-            this.fetchData()
-            this.submitLoading = false
-            this.dialogVisible = false
-            this.resetForm()
-          }).catch(() => {
-            this.submitLoading = false
-          })
-        }
-      })
-    },
-    close() {
-      this.dialogVisible = false
-      this.resetForm()
-    },
-    resetForm() {
-      this.$refs.codeForm.resetFields()
-      this.codeData = {
-        trade_device_id: '',
-        account_manager_id: '',
-        remark: ''
-      }
-    },
+    // submit() {
+    //   this.$refs.codeForm.validate(valid => {
+    //     console.log('submit -> valid', valid)
+    //     if (valid) {
+    //       this.submitLoading = true
+    //       const data = {
+    //         trade_device_id: this.codeData.trade_device_id,
+    //         account_manager_id: this.codeData.account_manager_id,
+    //         remark: this.codeData.remark
+    //       }
+    //       addApi(data).then(res => {
+    //         this.$message({
+    //           message: '新增工单成功',
+    //           type: 'success'
+    //         })
+    //         this.fetchData()
+    //         this.submitLoading = false
+    //         this.dialogVisible = false
+    //         this.resetForm()
+    //       }).catch(() => {
+    //         this.submitLoading = false
+    //       })
+    //     }
+    //   })
+    // },
+    // close() {
+    //   this.dialogVisible = false
+    //   this.resetForm()
+    // },
+    // resetForm() {
+    //   this.$refs.codeForm.resetFields()
+    //   this.codeData = {
+    //     trade_device_id: '',
+    //     account_manager_id: '',
+    //     remark: ''
+    //   }
+    // },
     // 分页
     handleCurrentChange(page) {
       this.page = page

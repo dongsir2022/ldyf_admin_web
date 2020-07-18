@@ -7,11 +7,3 @@ export function getInfoApi(params) {
     params: params
   })
 }
-
-export function addApi(params) {
-  return request({
-    url: '/admin/order/add',
-    method: 'post',
-    data: params
-  })
-}

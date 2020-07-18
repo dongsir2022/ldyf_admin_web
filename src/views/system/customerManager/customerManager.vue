@@ -4,7 +4,7 @@
     <div class="block">
       <el-button v-if="!$route.meta.readOnly" class="filter-item" type="primary" icon="el-icon-circle-plus" @click="addAccount">添加客户经理
       </el-button>
-      <el-button class="filter-item" type="primary" icon="el-icon-refresh" :loading="loading" @click="getData">刷新
+      <el-button class="filter-item" type="primary" icon="el-icon-refresh" :loading="loading" @click="fetchData">刷新
       </el-button>
     </div>
     <!-- 表格 -->
@@ -40,12 +40,14 @@
           <el-button type="text" size="mini" @click="update(scope.row)">修改
           </el-button>
           <el-popconfirm confirm-button-text="确认" cancel-button-text="不用了" title="删除后该用户无法登陆，确认要删除吗?" @onConfirm="remove(scope.row.id)">
-            <el-button slot="reference" type="text" class="red-text" size="mini">删除
+            <el-button slot="reference" type="text" class="red-text" size="mini" style="margin-left:5px;">删除
             </el-button>
           </el-popconfirm>
           <!-- <el-button type="text" size="mini" @click="deleteAccount(scope.row)">删除
           </el-button> -->
-          <el-button type="text" size="mini" @click="resetPassword(scope.row,scope.$index)">重置密码
+          <el-button type="text" size="mini" style="margin-left:5px;" @click="resetPassword(scope.row,scope.$index)">重置密码
+          </el-button>
+          <el-button type="text" size="mini" style="margin-left:5px;" @click="updateAgency(scope.row,scope.$index)">更换所属机构
           </el-button>
         </template>
       </el-table-column>
@@ -101,6 +103,30 @@
       <div slot="footer" class="dialog-footer">
         <el-button @click="cancelPd">{{ $t('button.cancel') }}</el-button>
         <el-button type="primary" :loading="pdLoading" @click="saveNewPd">{{ $t('button.submit') }}</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog width="40%" title="更换所属机构" :visible.sync="dialogAgency" class="user-dialog">
+      <!-- 所属机构树 -->
+      <el-tree
+        ref="treeForm"
+        v-loading="treeloading"
+        :data="treedata"
+        default-expand-all
+        node-key="agency_no"
+        empty-text="暂无数据"
+        highlight-current
+        show-checkbox
+        check-strictly
+        @check-change="handleNodeClick"
+      >
+        <span slot-scope="{ node, data }" class="custom-tree-node">
+          <span>{{ data.agency_name }}({{ data.agency_no }})</span>
+        </span>
+      </el-tree>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogAgency = false">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="agencyLoading" @click="saveAgency">{{ $t('button.submit') }}</el-button>
       </div>
     </el-dialog>
   </div>

@@ -57,28 +57,23 @@
         </el-row>
       </el-col>
     </el-row>
-    <el-divider content-position="left">联系人信息</el-divider>
+    <el-divider content-position="left">法人信息</el-divider>
     <el-form :label-width="labelWidth">
       <el-row>
         <el-col :span="6">
-          <el-form-item label="联系人：">
+          <el-form-item label="法人姓名：">
             {{ data.merchant_info_ext.contact_name }}
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="联系人类型：">
-            {{ data.merchant_info_ext.contact_type|contactTypeDict }}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="6">
-          <el-form-item label="联系人身份证：">
+          <el-form-item label="法人身份证：">
             {{ data.merchant_info_ext.contact_id_card }}
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="联系人身份证有效期限：">
+          <el-form-item label="法人身份证有效期限：">
             {{ data.merchant_info_ext.contact_id_card_period_begin }} 至
             {{ data.merchant_info_ext.contact_id_card_period_end }}
           </el-form-item>
@@ -86,19 +81,19 @@
       </el-row>
       <el-row>
         <el-col :span="6">
-          <el-form-item label="联系人电话：">
+          <el-form-item label="法人电话：">
             {{ data.merchant_info_ext.contact_phone }}
           </el-form-item>
         </el-col>
         <el-col :span="6">
-          <el-form-item label="联系人邮箱：">
+          <el-form-item label="法人邮箱：">
             {{ data.merchant_info_ext.contact_email }}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="9">
-          <el-form-item label="联系人身份证照片：">
+          <el-form-item label="法人身份证照片：">
             <el-image
               style="width: 300px; height: 200px"
               :src="data.merchant_info_ext.contact_id_card_before"
@@ -108,10 +103,25 @@
         </el-col>
         <el-col :span="8">
           <el-image
-            style="width: 300px; height: 200px"
+            style="width: 300px; height: 200px;margin-left:30px;"
             :src="data.merchant_info_ext.contact_id_card_after"
             :preview-src-list="[data.merchant_info_ext.contact_id_card_after]"
           />
+        </el-col>
+      </el-row>
+    </el-form>
+    <el-divider content-position="left">代办人信息</el-divider>
+    <el-form :label-width="labelWidth">
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="代办人名称：">
+            {{ data.merchant_info_ext.agent_name }}
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="代办人电话：">
+            {{ data.merchant_info_ext.agent_phone }}
+          </el-form-item>
         </el-col>
       </el-row>
     </el-form>
@@ -136,6 +146,11 @@
       </el-row>
       <el-row>
         <el-col :span="6">
+          <el-form-item label="结算银行卡开户名：">
+            {{ data.merchant_info_ext.account_name }}
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
           <el-form-item label="结算银行卡账户类型：">
             {{ data.merchant_info_ext.bank_type|bankType }}
           </el-form-item>
@@ -153,22 +168,34 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-divider content-position="left">其它</el-divider>
+    <el-divider content-position="left">商户实景照片</el-divider>
     <el-form :label-width="labelWidth">
       <el-row>
-        <el-col :span="6">
-          <el-form-item label="商户三方平台编号：">
-            {{ data.merchant_info.merchant_out_no }}
+        <el-col :span="7">
+          <el-form-item label="门头照：">
+            <el-image
+              style="width: 260px; height: 200px"
+              :src="data.merchant_info_ext.business_place_photo"
+              :preview-src-list="[data.merchant_info_ext.business_place_photo]"
+            />
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="微信商户识别号：">
-            {{ data.merchant_info.wechat_no }}
+        <el-col :span="7">
+          <el-form-item label="内景照：">
+            <el-image
+              style="width: 260px; height: 200px"
+              :src="data.merchant_info_ext.business_house_photo"
+              :preview-src-list="[data.merchant_info_ext.business_house_photo]"
+            />
           </el-form-item>
         </el-col>
-        <el-col :span="6">
-          <el-form-item label="支付宝商户识别号：">
-            {{ data.merchant_info.alipay_no }}
+        <el-col :span="7">
+          <el-form-item label="收银台照：">
+            <el-image
+              style="width: 260px; height: 200px"
+              :src="data.merchant_info_ext.business_cashier_photo"
+              :preview-src-list="[data.merchant_info_ext.business_cashier_photo]"
+            />
           </el-form-item>
         </el-col>
       </el-row>

@@ -1,6 +1,7 @@
 // import { mapGetters } from 'vuex'
-import { getAccountManagerList, deleteCustomer, updatePassword, createCustomer, updateCustomer } from '@/api/system/customerApi'
+import { getAccountManagerList, deleteCustomer, updatePassword, createCustomer, updateCustomer, updAgencyNo } from '@/api/system/customerApi'
 // import { isNotBlank } from '@/utils/utils'
+import { getTreeInfoApi } from '@/api/config/agencyInfoApi'
 
 export default {
   name: 'customerManager',
@@ -65,22 +66,28 @@ export default {
       },
       pdLoading: false,
       id: '',
-      saveLoading: false
+      saveLoading: false,
+      dialogAgency: false,
+      agencyLoading: false,
+      treedata: [],
+      treeloading: false,
+      customId: '',
+      agency_no: ''
     }
   },
   created() {
-    this.getData()
+    this.fetchData()
   },
   methods: {
     // 页面表格数据查询
-    getData() {
+    fetchData() {
       const data = {
         page_num: this.page,
         page_size: this.pageSize
       }
       this.loading = true
       getAccountManagerList(data).then(res => {
-        console.log('getData -> res', res)
+        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
@@ -136,7 +143,7 @@ export default {
                 type: 'success'
               })
               this.page = 1
-              this.getData()
+              this.fetchData()
               this.dialogFormVisible = false
               this.resetForm()
             }).catch(() => {
@@ -157,7 +164,7 @@ export default {
                 type: 'success'
               })
               this.page = 1
-              this.getData()
+              this.fetchData()
               this.dialogFormVisible = false
               this.resetForm()
             }).catch(res => {
@@ -176,7 +183,7 @@ export default {
             message: this.$t('alert.optionSuccess'),
             type: 'success'
           })
-          this.getData()
+          this.fetchData()
         })
       } else {
         this.$message('缺少客户经理编号')
@@ -224,6 +231,70 @@ export default {
             this.pdLoading = false
           })
         }
+      })
+    },
+    // 更换所属机构
+    updateAgency(row) {
+      console.log('updateAgency -> row', row)
+      this.dialogAgency = true
+      this.customId = row.id
+      this.agency_no = row.agency_no
+      this.getTreeData()
+    },
+    // 获取机构树
+    getTreeData() {
+      this.treeloading = true
+      getTreeInfoApi().then(res => {
+        console.log('getData -> res', res)
+        this.treedata = res.data
+        this.$nextTick(() => {
+          this.$refs.treeForm.setCheckedKeys([this.agency_no])
+        })
+        this.treeloading = false
+      }).catch(() => {
+        this.treeloading = false
+      })
+    },
+    // 实现机构树单选
+    handleNodeClick(data, checked, node) {
+      console.log('handleNodeClick -> data, checked, node', data, checked, node)
+      if (checked === true) {
+        this.agency_no = data.agency_no
+        this.$refs.treeForm.setCheckedKeys([data.agency_no])
+      } else {
+        if (this.agency_no === data.agency_no) {
+          this.$refs.treeForm.setCheckedKeys([data.agency_no])
+        }
+      }
+    },
+    // 更换机构保存
+    saveAgency() {
+      if (this.customId === '' || this.agency_no === '') {
+        this.$message({
+          message: '请选中所属的机构',
+          type: 'info'
+        })
+        return
+      }
+      const params = {
+        id: this.customId,
+        agency_no: this.agency_no + ''
+      }
+      console.log('saveAgency -> params', params)
+      this.agencyLoading = true
+      updAgencyNo(params).then(res => {
+        console.log('saveAgency -> res', res)
+        this.$message({
+          message: '更换机构成功',
+          type: 'success'
+        })
+        this.agencyLoading = false
+        this.dialogAgency = false
+        this.customId = ''
+        this.agency_no = ''
+        this.fetchData()
+      }).catch(() => {
+        this.agencyLoading = false
       })
     },
     // 分页

@@ -50,7 +50,8 @@ export default {
       },
       splitForm: {
         rate: 0.002,
-        agent: 0.00001
+        agent: 0.00001,
+        trade_limit: 1000
       },
       agentUser: {},
       loading: false
@@ -75,7 +76,8 @@ export default {
       this.loading = true
       const data = {
         rate: this.splitForm.rate,
-        agent_rate: this.splitForm.agent
+        agent_rate: this.splitForm.agent,
+        trade_limit: this.splitForm.trade_limit
       }
       agreeMerchantApprove(this.merchantId, data).then(res => {
         this.$message({

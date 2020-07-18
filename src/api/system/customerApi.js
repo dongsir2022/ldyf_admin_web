@@ -39,3 +39,11 @@ export function updatePassword(params) {
   })
 }
 
+// 更换所属机构
+export function updAgencyNo(params) {
+  return request({
+    url: '/admin/accountManager/updAgencyNo',
+    method: 'put',
+    data: params
+  })
+}
