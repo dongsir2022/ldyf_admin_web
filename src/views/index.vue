@@ -5,18 +5,18 @@
         <el-card>
           <el-row>
             <el-col>
-              <el-row class="majorInfo" type="flex" justify="start">
+              <el-row class="majorInfo" type="flex" justify="start" :loading="sumNowLoading">
                 <el-col :span="18" class="info">
                   <el-row>
                     <span class="title">今日总交易额</span>
                   </el-row>
                   <el-row>
-                    <span class="content">100000.00 元</span>
+                    <span class="content">{{ sumNow.total_transaction }} 元</span>
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_up'" />
-                      <span :class="'content content_up'">100%</span>
+                      <i :class="sumNow.compared>=0?'icon_up':'icon_down'" />
+                      <span :class="'content content_up'">{{ (Math.abs(sumNow.compared) * 100).toFixed(2) }}%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
                   </el-row>
@@ -36,12 +36,12 @@
                     <span class="title">今日总交易笔数</span>
                   </el-row>
                   <el-row>
-                    <span class="content">500000 次</span>
+                    <span class="content">{{ countNow.count_transaction }} 次</span>
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_down'" />
-                      <span :class="'content content_down'">10%</span>
+                      <i :class="countNow.compared>=0?'icon_up':'icon_down'" />
+                      <span :class="'content content_down'">{{ (Math.abs(countNow.compared) * 100).toFixed(2) }}%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
                   </el-row>
@@ -61,12 +61,12 @@
                     <span class="title">今日总交易手续费</span>
                   </el-row>
                   <el-row>
-                    <span class="content">5000.00 元</span>
+                    <span class="content">{{ chargeNow.serviceCharge }} 元</span>
                   </el-row>
                   <el-row class="desc" type="flex" justify="start">
                     <el-col :span="24">
-                      <i :class="'icon_up'" />
-                      <span :class="'content content_up'">100%</span>
+                      <i :class="chargeNow.compared>=0?'icon_up':'icon_down'" />
+                      <span :class="'content content_up'">{{ (Math.abs(chargeNow.compared) * 100).toFixed(2) }}%</span>
                       <span class="suffix">比昨天</span>
                     </el-col>
                   </el-row>
@@ -76,31 +76,7 @@
           </el-row>
         </el-card>
       </el-col>
-      <el-col>
-        <el-card>
-          <el-row>
-            <el-col>
-              <el-row class="majorInfo" type="flex" justify="start">
-                <el-col :span="18" class="info">
-                  <el-row>
-                    <span class="title">今日总提现金额</span>
-                  </el-row>
-                  <el-row>
-                    <span class="content">90000.00 元</span>
-                  </el-row>
-                  <el-row class="desc" type="flex" justify="start">
-                    <el-col :span="24">
-                      <i :class="'icon_down'" />
-                      <span :class="'content content_down'">100%</span>
-                      <span class="suffix">比昨天</span>
-                    </el-col>
-                  </el-row>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-        </el-card>
-      </el-col>
+
     </el-row>
     <el-row :gutter="20" type="flex" justify="space-between" class="block">
       <el-col>
@@ -113,7 +89,7 @@
                     <span class="title">总交易额</span>
                   </el-row>
                   <el-row>
-                    <span class="content">10000000.00 元</span>
+                    <span class="content">{{ sumTotal.total_transaction }} 元</span>
                   </el-row>
                 </el-col>
               </el-row>
@@ -131,7 +107,7 @@
                     <span class="title">总交易笔数</span>
                   </el-row>
                   <el-row>
-                    <span class="content">10000000 次</span>
+                    <span class="content">{{ countTotal.count_transaction }} 次</span>
                   </el-row>
                 </el-col>
               </el-row>
@@ -149,7 +125,7 @@
                     <span class="title">总交易手续费</span>
                   </el-row>
                   <el-row>
-                    <span class="content">500000.00 次</span>
+                    <span class="content">{{ chargeTotal.serviceCharge }} 元</span>
                   </el-row>
                 </el-col>
               </el-row>
@@ -157,24 +133,7 @@
           </el-row>
         </el-card>
       </el-col>
-      <el-col>
-        <el-card>
-          <el-row>
-            <el-col>
-              <el-row class="majorInfo" type="flex" justify="start">
-                <el-col :span="18" class="info">
-                  <el-row>
-                    <span class="title">待提现总金额</span>
-                  </el-row>
-                  <el-row>
-                    <span class="content">200000.00 元</span>
-                  </el-row>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-        </el-card>
-      </el-col>
+
     </el-row>
 
     <!-- 百度地图 -->
@@ -189,6 +148,8 @@ import { mapGetters } from 'vuex'
 import { getQRCodeAddressMessApi } from '@/api/config/qrCodeApi'
 import echarts from '@/components/map/Echarts'
 // import baiduMap from '@/components/map/baiduMap'
+
+import { getCountForTradeApi, getSumForTradeApi, getSumForServiceChargeApi, getTradeCountApi, getTradeSumApi, getServiceChargeSumApi } from '@/api/indexApi'
 export default {
   name: 'Home',
   components: { echarts },
@@ -196,7 +157,14 @@ export default {
     return {
       page: 1,
       mapData: [], // 地图加载数据
-      bdMapData: []
+      bdMapData: [],
+      countNow: {},
+      sumNow: {},
+      chargeNow: {},
+      countTotal: {},
+      sumTotal: {},
+      chargeTotal: {},
+      sumNowLoading: false
     }
   },
   computed: {
@@ -207,8 +175,60 @@ export default {
   },
   mounted() {
     this.fetchData()
+    this.getCountNow()
+    this.getSumNow()
+    this.getChargeNow()
+    this.getCountTotal()
+    this.getSumTotal()
+    this.getChargeTotal()
   },
   methods: {
+    // 获取每日交易数量
+    getCountNow() {
+      getCountForTradeApi().then(res => {
+        console.log('getCountNow -> res', res)
+        this.countNow = res.data
+      })
+    },
+    // 每日交易总额
+    getSumNow() {
+      this.sumNowLoading = true
+      getSumForTradeApi().then(res => {
+        console.log('getSumNow -> res', res)
+        this.sumNow = res.data
+        this.sumNowLoading = false
+      }).catch(() => {
+        this.sumNowLoading = false
+      })
+    },
+    // 每日交易手续费
+    getChargeNow() {
+      getSumForServiceChargeApi().then(res => {
+        console.log('getChargeNow -> res', res)
+        this.chargeNow = res.data
+      })
+    },
+    // 获取交易数量
+    getCountTotal() {
+      getTradeCountApi().then(res => {
+        console.log('getCountTotal -> res', res)
+        this.countTotal = res.data
+      })
+    },
+    // 交易总额
+    getSumTotal() {
+      getTradeSumApi().then(res => {
+        console.log('getSumTotal -> res', res)
+        this.sumTotal = res.data
+      })
+    },
+    // 交易手续费
+    getChargeTotal() {
+      getServiceChargeSumApi().then(res => {
+        console.log('getChargeTotal -> res', res)
+        this.chargeTotal = res.data
+      })
+    },
     // 获取店铺数据
     fetchData() {
       const data = {
