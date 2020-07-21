@@ -48,6 +48,10 @@ export default {
     this.fetchData()
   },
   methods: {
+    search() {
+      this.page = 1
+      this.fetchData()
+    },
     // 远程搜索值变化
     remoteMethod(query) {
       console.log('remoteMethod -> query', query)

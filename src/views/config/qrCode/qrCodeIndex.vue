@@ -9,7 +9,7 @@
           </el-select>
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
         </el-col>
         <el-col :span="2.5">
@@ -24,7 +24,7 @@
 
       <el-table-column align="center" label="二维码图片">
         <template slot-scope="scope">
-          <el-image style="width: 50px; height: 50px" :src="scope.row.code_url" fit="cover" />
+          <el-image style="width: 50px; height: 50px" :src="scope.row.code_url" fit="cover" :preview-src-list="[scope.row.code_url]" />
         </template>
       </el-table-column>
 

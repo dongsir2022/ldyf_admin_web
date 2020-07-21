@@ -3,7 +3,7 @@
     <!-- 查询框 -->
     <div class="block">
       <el-row :gutter="10">
-        <el-col :span="7">
+        <el-col :span="8">
           <el-date-picker v-model="searchKey.completeTime" type="datetimerange" range-separator="至" start-placeholder="创建开始日期" end-placeholder="创建结束日期" />
         </el-col>
         <el-col :span="3">
@@ -18,7 +18,7 @@
         </el-col>
 
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
         </el-col>
       </el-row>

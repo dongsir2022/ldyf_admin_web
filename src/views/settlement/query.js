@@ -22,6 +22,10 @@ export default {
     this.fetchData()
   },
   methods: {
+    search() {
+      this.page = 1
+      this.fetchData()
+    },
     // 获取表格数据
     fetchData() {
       this.loading = true

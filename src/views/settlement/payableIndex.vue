@@ -12,7 +12,7 @@
             <el-option v-for="item in options" :key="item.id" :label="item.merchant_name" :value="item.id" />
           </el-select>
         </el-col>
-        <el-col :span="7">
+        <el-col :span="8">
           <el-date-picker
             v-model="searchKey.completeTime"
             type="datetimerange"
@@ -22,7 +22,7 @@
           />
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
         </el-col>
       </el-row>

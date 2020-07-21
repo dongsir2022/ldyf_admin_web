@@ -25,6 +25,10 @@ export default {
     console.log('mounted', this.$parent)
   },
   methods: {
+    search() {
+      this.page = 1
+      this.fetchData()
+    },
     // 初始化时间框参数
     initSearchCompleteTime() {
       this.searchKey.completeTime = []

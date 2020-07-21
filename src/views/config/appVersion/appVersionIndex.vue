@@ -16,7 +16,7 @@
           />
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
         </el-col>
       </el-row>

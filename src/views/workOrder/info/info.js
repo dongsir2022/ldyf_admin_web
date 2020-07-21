@@ -32,6 +32,10 @@ export default {
     this.fetchData()
   },
   methods: {
+    search() {
+      this.page = 1
+      this.fetchData()
+    },
     // 获取初始数据
     fetchData() {
       this.loading = true

@@ -38,6 +38,10 @@ export default {
     this.fetchData()
   },
   methods: {
+    search() {
+      this.page = 1
+      this.fetchData()
+    },
     alter(row) {
       console.log('alter -> row', row)
       this.dialogVisible = true

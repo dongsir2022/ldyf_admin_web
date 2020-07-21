@@ -21,7 +21,7 @@
           <el-input v-model="searchKey.service_type_id" placeholder="服务编号" type="text" maxlength="30" show-word-limit />
         </el-col> -->
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="fetchData">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
         </el-col>
         <!-- <el-col :span="2.5">

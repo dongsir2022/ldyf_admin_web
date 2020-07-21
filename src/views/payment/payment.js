@@ -19,6 +19,10 @@ export default {
     this.fetchData()
   },
   methods: {
+    search() {
+      this.page = 1
+      this.fetchData()
+    },
     handleCurrentChange(page) {
       this.page = page
       this.fetchData()
