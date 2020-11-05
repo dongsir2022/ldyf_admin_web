@@ -32,9 +32,9 @@
     </div>
     <!-- 表格 -->
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
-      <el-table-column align="center" label="工单编号" prop="order_no" width="120" />
+      <el-table-column align="center" label="工单编号" prop="order_no" width="150" />
 
-      <el-table-column align="center" label="工单内容" width="150">
+      <el-table-column align="center" label="工单内容" width="200">
         <template slot-scope="scope">
           <el-popover placement="top-start" width="200" trigger="hover" :content="scope.row.order_content">
             <div>{{ scope.row.order_content }}</div>
@@ -51,10 +51,18 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="商户" prop="trade_device_name" />
-      <el-table-column align="center" label="商户电话" prop="trade_device_phone" />
+      <!-- <el-table-column align="center" label="商户" width="200">
+        <template slot-scope="scope">
+          <el-popover placement="top-start" width="200" trigger="hover" :content="scope.row.trade_device_name">
+            <div>{{ scope.row.trade_device_name }}</div>
+            <div slot="reference" type="text" style="overflow:hidden;text-overflow: ellipsis;white-space: nowrap;">{{ scope.row.trade_device_name }}</div>
+          </el-popover>
+        </template>
+      </el-table-column> -->
+      <el-table-column align="center" label="商户" prop="trade_device_name" width="240" />
+      <el-table-column align="center" label="商户电话" prop="trade_device_phone" width="180" />
 
-      <el-table-column align="center" label="商户地址" width="150">
+      <el-table-column align="center" label="商户地址" width="200">
         <template slot-scope="scope">
           <el-popover placement="top-start" width="200" trigger="hover" :content="scope.row.trade_device_address">
             <div>{{ scope.row.trade_device_address }}</div>
@@ -63,8 +71,8 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="解答经理" prop="account_manager_name" />
-      <el-table-column align="center" label="解答经理电话" prop="account_manager_phone" />
+      <el-table-column align="center" label="解答经理" prop="account_manager_name" width="150" />
+      <el-table-column align="center" label="解答经理电话" prop="account_manager_phone" width="180" />
       <el-table-column align="center" label="经理解答内容" width="150">
         <template slot-scope="scope">
           <el-popover placement="top-start" width="200" trigger="hover" :content="scope.row.account_answer">
@@ -74,10 +82,10 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="创建时间" prop="remark" />
+      <el-table-column align="center" label="创建时间" prop="remark" width="180" />
 
-      <el-table-column align="center" label="创建时间" prop="create_time" />
-      <el-table-column align="center" label="最后修改时间" prop="last_update_time" />
+      <el-table-column align="center" label="创建时间" prop="create_time" width="180" />
+      <el-table-column align="center" label="最后修改时间" prop="last_update_time" width="180" />
 
       <!-- <el-table-column align="center" label="操作">
         <template slot-scope="scope">

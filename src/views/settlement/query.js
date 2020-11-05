@@ -41,9 +41,8 @@ export default {
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
       }
 
-      // console.log('fetchData -> data', data)
+      //
       getQueryList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total

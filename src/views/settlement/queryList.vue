@@ -63,7 +63,7 @@
           ￥ {{ $common.jeFormat(scope.row.total_net_fee,2) }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="税率">
+      <el-table-column align="center" label="手续费率">
         <template slot-scope="scope">
           {{ scope.row.pay_rate }}
         </template>

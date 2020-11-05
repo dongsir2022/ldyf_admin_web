@@ -22,7 +22,7 @@ export default {
     this.fetchData()
   },
   mounted() {
-    console.log('mounted', this.$parent)
+
   },
   methods: {
     search() {
@@ -37,7 +37,6 @@ export default {
     },
     // 获取表格数据
     fetchData() {
-      console.log('completeTime', this.searchKey.completeTime)
       this.loading = true
       const data = {
         page_num: this.page,
@@ -48,9 +47,8 @@ export default {
         data['start_date'] = moment(this.searchKey.completeTime[0]).format('YYYY-MM-DD HH:mm:ss')
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
       }
-      // console.log('fetchData -> data', data)
+      //
       getSettlementBatchList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
@@ -60,7 +58,6 @@ export default {
     },
     // 查看应付明细
     viewPay(row) {
-      console.log('viewPay -> row', row)
       this.$parent.openPage('settlement-payable', {
         settle_batch_id: row.id,
         settleStatus: row.settle_status
@@ -68,14 +65,12 @@ export default {
     },
     // 查看应收明细
     viewReceive(row) {
-      console.log('viewPay -> row', row)
       this.$parent.openPage('settlement-receivable', {
         settle_batch_id: row.id
       })
     },
     // 查看收款记录
     viewRecord(row) {
-      console.log('viewPay -> row', row)
       this.$parent.openPage('settlement-collect-records', {
         settle_batch_id: row.id
       })

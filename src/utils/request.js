@@ -27,7 +27,7 @@ service.interceptors.request.use(
       config.headers['Authorization'] = getToken()
     }
     config.headers['Access-Control-Allow-Origin'] = 'http://localhost'
-    console.log('发送请求', config.method, config.url, config.data)
+
     return config
   },
   error => {

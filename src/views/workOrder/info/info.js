@@ -48,9 +48,7 @@ export default {
         order_status: this.searchKey.order_status
       }
 
-      console.log('fetchData -> data', data)
       getInfoApi(data).then(res => {
-        console.log('fetchData -> res', res)
         this.list = res.data
         this.total = res.total
         this.loading = false
@@ -70,7 +68,7 @@ export default {
     // 提交
     // submit() {
     //   this.$refs.codeForm.validate(valid => {
-    //     console.log('submit -> valid', valid)
+    //
     //     if (valid) {
     //       this.submitLoading = true
     //       const data = {

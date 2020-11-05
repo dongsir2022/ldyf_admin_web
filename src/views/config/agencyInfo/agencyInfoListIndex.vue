@@ -58,7 +58,6 @@ export default {
     // 获取数据
     getData() {
       getTreeInfoApi().then(res => {
-        console.log('getData -> res', res)
         if (res.data && res.data.length) {
           this.treedata = res.data
         } else {
@@ -70,8 +69,6 @@ export default {
     },
     // 打开弹窗
     append(node, data) {
-      console.log('append -> data', data)
-      console.log('append -> node', node)
       if (node.level >= 3) {
         this.$message({
           message: '只允许添加三级',
@@ -90,7 +87,6 @@ export default {
         p_agency_id: this.addAgencyForm.pAgencyId
       }
       createAgencyInfoApi(data).then(res => {
-        console.log('createAgencyInfo -> res', res)
         this.$message({
           message: '添加成功',
           type: 'success'

@@ -27,7 +27,7 @@ export default {
     this.fetchData()
   },
   methods: {
-    search() {
+    search1() {
       this.page = 1
       this.fetchData()
     },
@@ -57,8 +57,7 @@ export default {
           this.total = res.total
         }
         this.loading = false
-      }).catch(error => {
-        console.log('fetchData -> error', error)
+      }).catch(() => {
         this.loading = false
       })
     },

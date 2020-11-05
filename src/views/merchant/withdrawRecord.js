@@ -32,7 +32,6 @@ export default {
     },
     // 远程搜索值变化
     remoteMethod(query) {
-      console.log('remoteMethod -> query', query)
       if (query !== '') {
         this.selectloading = true
         const data = {
@@ -41,7 +40,6 @@ export default {
           name: query
         }
         nameSearch(data).then(res => {
-          console.log('remoteMethod -> res', res)
           this.selectloading = false
           this.options = res.data
         }).catch(() => {
@@ -65,9 +63,7 @@ export default {
         merchant_id: this.searchKey.merchant_id
       }
 
-      console.log('fetchData -> data', data)
       getWithdrowRecordList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total

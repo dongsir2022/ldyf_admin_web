@@ -99,7 +99,7 @@
         <el-form-item label="应收金额" prop="name" label-width="120px">
           <div style="margin-left:30px;">￥ {{ $common.jeFormat(formData.total_net_fee,2) }}</div>
         </el-form-item>
-        <el-form-item label="税率" prop="name" label-width="120px">
+        <el-form-item label="手续费率" prop="name" label-width="120px">
           <div style="margin-left:30px;">{{ formData.pay_rate }}</div>
         </el-form-item>
         <el-form-item label="手续费" prop="name" label-width="120px">

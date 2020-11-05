@@ -55,7 +55,7 @@ export default {
     }
   },
   mounted() {
-    console.log('this is my editor', this.editor)
+
   },
   methods: {
     // 失去焦点
@@ -66,7 +66,7 @@ export default {
     onEditorReady(editor) {},
     // 值发生变化
     onEditorChange(editor) {
-      // console.log('onEditorChange -> editor', editor)
+      //
       this.$emit('change', editor.html)
     }
   }

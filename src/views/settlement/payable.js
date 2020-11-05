@@ -23,7 +23,6 @@ export default {
   },
   created() {
     this.initCompleteTime()
-    console.log('created -> this.$route.params', this.$route.params)
 
     const merchantId = this.$route.params.merchant_id
     this.searchKey.merchant_id = merchantId
@@ -54,7 +53,6 @@ export default {
     },
     // 远程搜索值变化
     remoteMethod(query) {
-      console.log('remoteMethod -> query', query)
       if (query !== '') {
         this.selectloading = true
         const data = {
@@ -63,7 +61,6 @@ export default {
           name: query
         }
         nameSearch(data).then(res => {
-          console.log('remoteMethod -> res', res)
           this.selectloading = false
           this.options = res.data
         }).catch(() => {
@@ -75,7 +72,6 @@ export default {
     },
     // 相关订单
     getOrder(row) {
-      console.log('getOrder -> row', row)
       this.orderLoading = true
       const data = {
         trade_id: row.trade_id,
@@ -83,7 +79,6 @@ export default {
         page_size: this.pageSize
       }
       getTradeListById(data).then(res => {
-        console.log('getOrder -> res', res)
         this.orderLoading = false
         this.dialogVisible = true
         this.formData = res.data[0]
@@ -111,7 +106,6 @@ export default {
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
       }
       getPayableList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total

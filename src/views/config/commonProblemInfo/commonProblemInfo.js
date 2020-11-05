@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     editorChange(data) {
-      console.log('editorChange -> data', data)
       this.editData.content = data
     },
     handleCurrentChange(page) {
@@ -52,7 +51,6 @@ export default {
         page_size: this.pageSize
       }
       getCommonProblemInfoListApi(data).then(res => {
-        console.log('fetchData -> res', res)
         this.list = res.data
         this.total = res.total
         this.loading = false
@@ -60,7 +58,6 @@ export default {
     },
     // 修改
     update(rowData) {
-      console.log('update -> rowData', rowData)
       this.type = 'edit'
       this.editId = rowData.id
       this.editVisible = true
@@ -92,9 +89,8 @@ export default {
               problem_title: this.editData.title,
               problem_content: this.editData.content
             }
-            console.log('submit -> data', data)
+
             addCommonProblemInfoApi(data).then(res => {
-              console.log('remove -> res', res)
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'
@@ -113,7 +109,6 @@ export default {
               id: this.editId
             }
             uptCommonProblemInfoApi(data).then(res => {
-              console.log('remove -> res', res)
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'

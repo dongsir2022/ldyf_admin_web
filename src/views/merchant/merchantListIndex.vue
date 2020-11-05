@@ -16,7 +16,7 @@
           </el-select>
         </el-col>
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search1">查询
           </el-button>
         </el-col>
       </el-row>
@@ -69,12 +69,12 @@
           </el-button>
           <el-button type="text" :loading="alterLoading" size="mini" @click="alter(scope.row)">商户修改限额
           </el-button>
-          <el-button
+          <!-- <el-button
             type="text"
             size="mini"
             @click="subTradeTerminal(scope.row.id)"
           >交易终端管理
-          </el-button>
+          </el-button> -->
           <el-button
             type="text"
             size="mini"

@@ -38,6 +38,7 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
+
       if (hasGetUserInfo) {
         if (hasPermission(store.getters.permission_names, store.getters.permission_paths, to)) {
           next()
@@ -55,8 +56,8 @@ router.beforeEach(async(to, from, next) => {
               next({ path: '/' })
             }
           })
-        }).catch(error => {
-          console.log('error', error)
+        }).catch(() => {
+
         })
       }
     }

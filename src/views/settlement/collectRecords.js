@@ -35,7 +35,6 @@ export default {
     },
     // 远程搜索值变化
     remoteMethod(query) {
-      console.log('remoteMethod -> query', query)
       if (query !== '') {
         this.selectloading = true
         const data = {
@@ -44,7 +43,6 @@ export default {
           name: query
         }
         nameSearch(data).then(res => {
-          console.log('remoteMethod -> res', res)
           this.selectloading = false
           this.options = res.data
         }).catch(() => {
@@ -56,7 +54,6 @@ export default {
     },
     // 查看应收明细
     viewReceive(row) {
-      console.log('viewReceive -> row', row)
       this.$parent.openPage('settlement-receivable', {
         collect_record_id: row.id
       })
@@ -75,7 +72,6 @@ export default {
         data['end_date'] = moment(this.searchKey.completeTime[1]).format('YYYY-MM-DD HH:mm:ss')
       }
       getCollectRecordsList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total

@@ -38,12 +38,11 @@ export default {
     this.fetchData()
   },
   methods: {
-    search() {
+    search1() {
       this.page = 1
       this.fetchData()
     },
     alter(row) {
-      console.log('alter -> row', row)
       this.dialogVisible = true
       this.codeData = {
         amount: '',
@@ -52,7 +51,6 @@ export default {
     },
     // 开通分账权限
     openSplitAuth(row) {
-      console.log('openSplitAuth -> row', row)
       this.splitLoading = true
       putOpenSplitAuth({ merchant_id: row.id }).then(res => {
         this.splitLoading = false
@@ -67,7 +65,6 @@ export default {
     // 提交
     submit() {
       this.$refs.codeForm.validate(valid => {
-        console.log('submit -> valid', valid)
         if (valid) {
           this.submitLoading = true
           const data = {

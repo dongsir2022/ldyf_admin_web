@@ -42,9 +42,7 @@ export default {
         device_name: this.searchKey.device_name
       }
 
-      console.log('fetchData -> data', data)
       getList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.list = res.data
         this.total = res.total
         this.loading = false
@@ -59,10 +57,8 @@ export default {
     },
     // 删除
     remove(row) {
-      console.log('remove -> row', row)
       this.removeLoading = true
       removeCloudHorn(row.id).then(res => {
-        console.log('remove -> res', res)
         this.fetchData()
         this.$message({
           message: '删除成功',
@@ -75,10 +71,8 @@ export default {
     },
     // 禁用
     disabled(row) {
-      console.log('disabled -> row', row)
       this.disabledLoading = true
       disableThing(row.id).then(res => {
-        console.log('remove -> res', res)
         this.fetchData()
         this.$message({
           message: '禁用成功',
@@ -91,10 +85,8 @@ export default {
     },
     // 解禁
     undisabled(row) {
-      console.log('undisabled -> row', row)
       this.undisabledLoading = true
       enableThing(row.id).then(res => {
-        console.log('remove -> res', res)
         this.fetchData()
         this.$message({
           message: '解禁成功',
@@ -108,7 +100,6 @@ export default {
     // 提交
     submit() {
       this.$refs.codeForm.validate(valid => {
-        console.log('submit -> valid', valid)
         if (valid) {
           this.submitLoading = true
           const data = {

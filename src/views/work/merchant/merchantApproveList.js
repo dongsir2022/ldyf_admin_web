@@ -23,7 +23,7 @@ export default {
     this.fetchData()
   },
   methods: {
-    search() {
+    search1() {
       this.page = 1
       this.fetchData()
     },

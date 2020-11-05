@@ -1,10 +1,10 @@
 import request from '@/utils/request'
 
-export function getAppVersionDataApi(params) {
+export function getAppVersionDataApi(data) {
   return request({
     url: '/admin/appVersion/list',
     method: 'get',
-    params: params
+    data: data
   })
 }
 

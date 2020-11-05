@@ -101,7 +101,7 @@ export default {
     this.map = this.$echarts.init(this.$refs.main)
     window.onresize = this.map.resize
     // this.map.on('click', (param) => {
-    //   // console.log('initMap -> param', param)
+    //   //
     //   event.stopPropagation()// 阻止冒泡
 
     //   const cur = this.dataRouter.some((item, index) => {
@@ -111,7 +111,7 @@ export default {
     //   if (cur) {
     //     this.name = param.name
     //     this.nameArr.push(this.name)
-    //     // // console.log('initMap -> this.nameArr', this.nameArr)
+    //     // //
     //     this.map.dispose()
     //     this.map = this.$echarts.init(this.$refs.main)
 
@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     backLevel() {
-      // // console.log('back -> this.nameArr', this.nameArr)
+      // //
       if (this.nameArr.length > 1) {
         this.nameArr.pop()
         this.name = this.nameArr[this.nameArr.length - 1]
@@ -207,7 +207,7 @@ export default {
         // tooltip: {
         //   trigger: 'item',
         //   formatter: p => {
-        // //     // console.log('getMapOpt -> p', p)
+        // //     //
         //     return `<div>名称:${p.name}</div><div>经度:${p.value[0]}</div><div>纬度:${p.value[1]}</div><div>级别:${p.value[2]}</div>`
         //   }
         // },

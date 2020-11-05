@@ -26,7 +26,6 @@ export default {
   methods: {
     getData() {
       getTreeInfoApi().then(res => {
-        console.log('getData -> res', res)
         if (res.data && res.data.length) {
           this.data = res.data
         } else {

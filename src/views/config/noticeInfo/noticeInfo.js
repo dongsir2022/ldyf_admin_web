@@ -34,7 +34,6 @@ export default {
   },
   methods: {
     editorChange(data) {
-      console.log('editorChange -> data', data)
       this.editData.bulletinContent = data
     },
     // 分页
@@ -54,7 +53,6 @@ export default {
         page_size: this.pageSize
       }
       getNoticeInfoApi(data).then(res => {
-        console.log('fetchData -> res', res)
         this.list = res.data
         this.total = res.total
         this.loading = false
@@ -62,7 +60,6 @@ export default {
     },
     // 修改
     update(rowData) {
-      console.log('update -> rowData', rowData)
       this.type = 'edit'
       this.editId = rowData.id
       this.editVisible = true
@@ -72,7 +69,6 @@ export default {
     // 删除
     remove(id) {
       delNoticeInfoApi(id).then(res => {
-        console.log('remove -> res', res)
         this.$message({
           message: this.$t('alert.optionSuccess'),
           type: 'success'
@@ -95,9 +91,8 @@ export default {
               bulletinTitle: this.editData.bulletinTitle,
               bulletinContent: this.editData.bulletinContent
             }
-            console.log('submit -> data', data)
+
             addNoticeInfoApi(data).then(res => {
-              console.log('remove -> res', res)
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'
@@ -116,7 +111,6 @@ export default {
               id: this.editId
             }
             uptNoticeInfoApi(data).then(res => {
-              console.log('remove -> res', res)
               this.$message({
                 message: this.$t('alert.optionSuccess'),
                 type: 'success'

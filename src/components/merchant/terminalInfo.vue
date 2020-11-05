@@ -147,12 +147,12 @@ export default {
   watch: {
     // terminalInfo() {
     //   this.data = this.terminalInfo
-    //   console.log(this.data)
+    //
     //   this.loading = false
     // }
   },
   created() {
-    console.log(this.data)
+
   }
 }
 </script>

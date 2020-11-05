@@ -87,7 +87,6 @@ export default {
       }
       this.loading = true
       getAccountManagerList(data).then(res => {
-        console.log('fetchData -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
@@ -113,7 +112,6 @@ export default {
     },
     // 修改
     update(row) {
-      console.log('update -> row', row)
       this.id = row.id
       this.dialogTitle = '修改'
       this.dialogFormVisible = true
@@ -125,7 +123,6 @@ export default {
     // 保存新建信息或修改信息
     saveAccount() {
       this.$refs.form.validate(valid => {
-        console.log('saveAccount -> valid', valid)
         if (valid) {
           this.saveLoading = true
           if (this.id) {
@@ -136,7 +133,6 @@ export default {
               phone: this.form.mobilePhone
             }
             updateCustomer(data).then(res => {
-              console.log('saveAccount -> res', res)
               this.saveLoading = false
               this.$message({
                 message: this.$t('alert.optionSuccess'),
@@ -157,7 +153,6 @@ export default {
               password: this.form.password
             }
             createCustomer(data).then(res => {
-              console.log('saveAccount -> res', res)
               this.saveLoading = false
               this.$message({
                 message: this.$t('alert.optionSuccess'),
@@ -176,7 +171,6 @@ export default {
     },
     // 删除
     remove(id) {
-      console.log('remove -> id', id)
       if (id) {
         deleteCustomer(id).then(res => {
           this.$message({
@@ -191,7 +185,6 @@ export default {
     },
     // 重置密码
     resetPassword(row) {
-      console.log('resetPassword -> row', row)
       this.dialogPd = true
       this.id = row.id
     },
@@ -209,7 +202,6 @@ export default {
     // 保存新密码
     saveNewPd() {
       this.$refs.formPd.validate(valid => {
-        console.log('saveNewPd -> valid', valid)
         if (valid) {
           this.pdLoading = true
           const data = {
@@ -217,7 +209,6 @@ export default {
             password: this.formPd.password
           }
           updatePassword(data).then(res => {
-            console.log('saveNewPd -> res', res)
             this.$message({
               message: this.$t('alert.optionSuccess'),
               type: 'success'
@@ -235,7 +226,6 @@ export default {
     },
     // 更换所属机构
     updateAgency(row) {
-      console.log('updateAgency -> row', row)
       this.dialogAgency = true
       this.customId = row.id
       this.agency_no = row.agency_no
@@ -245,7 +235,6 @@ export default {
     getTreeData() {
       this.treeloading = true
       getTreeInfoApi().then(res => {
-        console.log('getData -> res', res)
         this.treedata = res.data
         this.$nextTick(() => {
           this.$refs.treeForm.setCheckedKeys([this.agency_no])
@@ -257,7 +246,6 @@ export default {
     },
     // 实现机构树单选
     handleNodeClick(data, checked, node) {
-      console.log('handleNodeClick -> data, checked, node', data, checked, node)
       if (checked === true) {
         this.agency_no = data.agency_no
         this.$refs.treeForm.setCheckedKeys([data.agency_no])
@@ -280,10 +268,9 @@ export default {
         id: this.customId,
         agency_no: this.agency_no + ''
       }
-      console.log('saveAgency -> params', params)
+
       this.agencyLoading = true
       updAgencyNo(params).then(res => {
-        console.log('saveAgency -> res', res)
         this.$message({
           message: '更换机构成功',
           type: 'success'

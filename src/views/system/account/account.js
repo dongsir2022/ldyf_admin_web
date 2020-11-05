@@ -80,7 +80,6 @@ export default {
       }
       this.loading = true
       getAccountList(data).then(res => {
-        console.log('getAccountList -> res', res)
         this.loading = false
         this.list = res.data
         this.total = res.total
@@ -110,7 +109,6 @@ export default {
     },
     // 更换所属机构
     updateAgency(row) {
-      console.log('updateAgency -> row', row)
       this.dialogAgency = true
       this.accountId = row.id
       this.agency_no = row.agency_no
@@ -120,7 +118,6 @@ export default {
     getTreeData() {
       this.treeloading = true
       getTreeInfoApi().then(res => {
-        console.log('getData -> res', res)
         this.treedata = res.data
         this.$nextTick(() => {
           this.$refs.treeForm.setCheckedKeys([this.agency_no])
@@ -132,7 +129,6 @@ export default {
     },
     // 实现机构树单选
     handleNodeClick(data, checked, node) {
-      console.log('handleNodeClick -> data, checked, node', data, checked, node)
       if (checked === true) {
         this.agency_no = data.agency_no
         this.$refs.treeForm.setCheckedKeys([data.agency_no])
@@ -155,10 +151,9 @@ export default {
         id: this.accountId,
         agency_no: this.agency_no + ''
       }
-      console.log('saveAgency -> params', params)
+
       this.agencyLoading = true
       updateAgencyInfo(params).then(res => {
-        console.log('saveAgency -> res', res)
         this.$message({
           message: '更换机构成功',
           type: 'success'

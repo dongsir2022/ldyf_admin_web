@@ -42,9 +42,7 @@ export default {
         bind_status: isNotBlank(this.bind_status) ? this.bind_status : ''
       }
 
-      console.log('fetchData -> data', data)
       getQRCodeListApi(data).then(res => {
-        console.log('fetchData -> res', res)
         this.list = res.data
         this.total = res.total
         this.loading = false
@@ -68,20 +66,17 @@ export default {
     },
     // 绑定云喇叭
     bind(row) {
-      console.log('bind -> row', row)
       this.dialogVisible = true
       this.codeData.name = ''
       this.codeData.codeNo = row.code_no
     },
     // 解绑云喇叭
     unbind(row) {
-      console.log('unbind -> row', row)
       this.unbindLoading = true
       const data = {
         code_no: row.code_no
       }
       unbindDeviceNameApi(data).then(res => {
-        console.log('unbind -> res', res)
         this.fetchData()
         this.unbindLoading = false
         this.$message({
@@ -95,7 +90,6 @@ export default {
     // 提交
     submit() {
       this.$refs.codeForm.validate(valid => {
-        console.log('submit -> valid', valid)
         if (valid) {
           this.submitLoading = true
           const data = {

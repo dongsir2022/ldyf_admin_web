@@ -15,7 +15,7 @@
             label-position="left"
           >
             <el-form-item>
-              <span class="login-form-title">Quick Book</span>
+              <span class="login-form-title">联都e付收单系统</span>
             </el-form-item>
             <el-form-item prop="username">
               <el-input
@@ -105,7 +105,6 @@ export default {
             this.loading = false
           })
         } else {
-          console.log('error submit!!')
           return false
         }
       })
@@ -156,7 +155,7 @@ export default {
           .login-form-title {
             width: 100%;
             height: 44px;
-            font-size: 44px;
+            font-size: 30px;
             font-family: Microsoft YaHei;
             font-weight: 400;
             color: rgba(51, 51, 51, 1);

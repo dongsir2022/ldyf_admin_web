@@ -186,7 +186,6 @@ export default {
     // 获取每日交易数量
     getCountNow() {
       getCountForTradeApi().then(res => {
-        console.log('getCountNow -> res', res)
         this.countNow = res.data
       })
     },
@@ -194,7 +193,6 @@ export default {
     getSumNow() {
       this.sumNowLoading = true
       getSumForTradeApi().then(res => {
-        console.log('getSumNow -> res', res)
         this.sumNow = res.data
         this.sumNowLoading = false
       }).catch(() => {
@@ -204,28 +202,24 @@ export default {
     // 每日交易手续费
     getChargeNow() {
       getSumForServiceChargeApi().then(res => {
-        console.log('getChargeNow -> res', res)
         this.chargeNow = res.data
       })
     },
     // 获取交易数量
     getCountTotal() {
       getTradeCountApi().then(res => {
-        console.log('getCountTotal -> res', res)
         this.countTotal = res.data
       })
     },
     // 交易总额
     getSumTotal() {
       getTradeSumApi().then(res => {
-        console.log('getSumTotal -> res', res)
         this.sumTotal = res.data
       })
     },
     // 交易手续费
     getChargeTotal() {
       getServiceChargeSumApi().then(res => {
-        console.log('getChargeTotal -> res', res)
         this.chargeTotal = res.data
       })
     },
@@ -236,7 +230,7 @@ export default {
         page_size: 100
       }
       getQRCodeAddressMessApi(data).then(res => {
-        // console.log('fetchData -> res', res)
+        //
         const retArr = []
         // const baiduArr = []
         for (const item of res.data) {
@@ -247,7 +241,7 @@ export default {
             // baiduArr.push(obj)
           }
         }
-        // console.log('fetchData -> retArr', retArr)
+        //
         this.mapData = this.mapData.concat(retArr)
         // this.bdMapData = this.bdMapData.concat(baiduArr)
         if (res.data && res.data.length) {
