@@ -73,7 +73,6 @@ export default {
       })
     },
     agree() {
-      alert(1111)
       this.loading = true
       const data = {
         rate: this.splitForm.rate,
