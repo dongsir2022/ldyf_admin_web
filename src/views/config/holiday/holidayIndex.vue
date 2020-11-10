@@ -22,7 +22,7 @@
                 icon="el-icon-info"
                 icon-color="red"
                 title="确认删除该节假日么？"
-                @onConfirm="removeHoliday(holidayMap[data.day])"
+                @confirm="removeHoliday(holidayMap[data.day])"
               >
                 <el-button slot="reference" type="text" style="color: red">删除</el-button>
               </el-popconfirm>

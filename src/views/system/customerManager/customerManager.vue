@@ -39,7 +39,7 @@
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="update(scope.row)">修改
           </el-button>
-          <el-popconfirm confirm-button-text="确认" cancel-button-text="不用了" title="删除后该用户无法登陆，确认要删除吗?" @onConfirm="remove(scope.row.id)">
+          <el-popconfirm confirm-button-text="确认" cancel-button-text="不用了" title="删除后该用户无法登陆，确认要删除吗?" @confirm="remove(scope.row.id)">
             <el-button slot="reference" type="text" class="red-text" size="mini" style="margin-left:5px;">删除
             </el-button>
           </el-popconfirm>

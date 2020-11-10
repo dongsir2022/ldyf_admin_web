@@ -46,7 +46,7 @@
         <template slot-scope="scope">
           <el-popconfirm
             title="确定冻结商户么？"
-            @onConfirm="freezeMerchant(scope.row)"
+            @confirm="freezeMerchant(scope.row)"
           >
             <el-button
               slot="reference"

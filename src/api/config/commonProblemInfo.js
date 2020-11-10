@@ -19,7 +19,7 @@ export function addCommonProblemInfoApi(data) {
 export function uptCommonProblemInfoApi(data) {
   return request({
     url: '/admin/commonProblem/updProblem',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -27,6 +27,6 @@ export function uptCommonProblemInfoApi(data) {
 export function delCommonProblemInfoApi(id) {
   return request({
     url: '/admin/commonProblem/delProblem/' + id,
-    method: 'delete'
+    method: 'post'
   })
 }

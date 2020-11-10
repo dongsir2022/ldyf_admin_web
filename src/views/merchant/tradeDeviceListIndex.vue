@@ -112,8 +112,8 @@
             </el-button>
             <el-popconfirm
               v-if="scope.row.account_lock==1"
-              title="确定冻结账户么？"
-              @onConfirm="freezeDeviceOperator(scope.row.id)"
+              title="确定冻结账户么11？"
+              @confirm="freezeDeviceOperator(scope.row.id)"
             >
               <el-button
                 slot="reference"
@@ -125,8 +125,8 @@
             </el-popconfirm>
             <el-popconfirm
               v-if="scope.row.account_lock==0"
-              title="确定解冻账户么？"
-              @onConfirm="normalDeviceOperator(scope.row.id)"
+              title="确定解冻账户么11？"
+              @confirm="normalDeviceOperator(scope.row.id)"
             >
               <el-button
                 slot="reference"
@@ -136,7 +136,7 @@
               >解冻
               </el-button>
             </el-popconfirm>
-            <el-popconfirm title="确定解除绑定么？" @onConfirm="unbindDeviceOperator(scope.row.id)">
+            <el-popconfirm title="确定解除绑定么？" @confirm="unbindDeviceOperator(scope.row.id)">
               <el-button
                 slot="reference"
                 type="text"
@@ -169,7 +169,7 @@
         <el-table-column property="create_time" align="center" label="创建时间" />
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-popconfirm title="确定绑定么？" @onConfirm="bindingDeviceOperator(scope.row.id)">
+            <el-popconfirm title="确定绑定么？" @confirm="bindingDeviceOperator(scope.row.id)">
               <el-button
                 slot="reference"
                 type="text"

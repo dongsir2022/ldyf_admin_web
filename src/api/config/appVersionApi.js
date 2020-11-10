@@ -19,14 +19,14 @@ export function createAppVersionApi(data) {
 export function removeAppVersionApi(id) {
   return request({
     url: '/admin/appVersion/remove/' + id,
-    method: 'delete'
+    method: 'post'
   })
 }
 
 export function updateAppVersionApi(data) {
   return request({
     url: '/admin/appVersion/update',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -34,6 +34,6 @@ export function updateAppVersionApi(data) {
 export function disableAppVersionApi(id) {
   return request({
     url: '/admin/appVersion/disable/' + id,
-    method: 'put'
+    method: 'post'
   })
 }

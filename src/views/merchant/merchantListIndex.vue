@@ -84,7 +84,7 @@
           <el-popconfirm
             v-if="scope.row.merchant_status==1"
             title="确定冻结商户么？"
-            @onConfirm="freezeMerchant(scope.row.id)"
+            @confirm="freezeMerchant(scope.row.id)"
           >
             <el-button
               slot="reference"
@@ -97,7 +97,7 @@
           <el-popconfirm
             v-if="scope.row.merchant_status==2"
             title="确定解冻商户么？"
-            @onConfirm="normalMerchant(scope.row.id)"
+            @confirm="normalMerchant(scope.row.id)"
           >
             <el-button
               slot="reference"

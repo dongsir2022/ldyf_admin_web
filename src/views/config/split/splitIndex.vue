@@ -62,7 +62,7 @@
           </el-button>
           <el-popconfirm
             title="确定删除么？"
-            @onConfirm="freezeMerchant(scope.row)"
+            @confirm="freezeMerchant(scope.row)"
           >
             <el-button
               slot="reference"

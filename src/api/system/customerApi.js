@@ -19,7 +19,7 @@ export function createCustomer(data) {
 export function updateCustomer(data) {
   return request({
     url: '/admin/accountManager/updAccountManager',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -27,14 +27,14 @@ export function updateCustomer(data) {
 export function deleteCustomer(id) {
   return request({
     url: '/admin/accountManager/delAccountManager/' + id,
-    method: 'delete'
+    method: 'post'
   })
 }
 
 export function updatePassword(params) {
   return request({
     url: '/admin/accountManager/updAccountManager',
-    method: 'put',
+    method: 'ppost',
     data: params
   })
 }
@@ -43,7 +43,7 @@ export function updatePassword(params) {
 export function updAgencyNo(params) {
   return request({
     url: '/admin/accountManager/updAgencyNo',
-    method: 'put',
+    method: 'post',
     data: params
   })
 }

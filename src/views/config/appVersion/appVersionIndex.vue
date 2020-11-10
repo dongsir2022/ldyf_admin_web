@@ -81,7 +81,7 @@
             confirm-button-text="好的"
             cancel-button-text="不用了"
             title="确定禁用么？"
-            @onConfirm="disableAppVersion(scope.row)"
+            @confirm="disableAppVersion(scope.row)"
           >
             <el-button
               slot="reference"
@@ -95,7 +95,7 @@
             confirm-button-text="好的"
             cancel-button-text="不用了"
             title="确定删除么？"
-            @onConfirm="removeAppVersion(scope.row)"
+            @confirm="removeAppVersion(scope.row)"
           >
             <el-button
               slot="reference"

@@ -18,14 +18,14 @@ export function getMerchantInfo(id) {
 export function normalMerchant(id) {
   return request({
     url: '/admin/merchant/normal/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
 export function freezeMerchant(id) {
   return request({
     url: '/admin/merchant/freeze/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
@@ -55,7 +55,7 @@ export function getMerchantApproveInfo(id) {
 export function agreeMerchantApprove(id, data) {
   return request({
     url: '/admin/merchantApprove/agree/' + id,
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -63,7 +63,7 @@ export function agreeMerchantApprove(id, data) {
 export function rejectMerchantApprove(id) {
   return request({
     url: '/admin/merchantApprove/reject/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
@@ -108,21 +108,21 @@ export function getDeviceOperatorList(params) {
 export function freezeDeviceOperator(id) {
   return request({
     url: '/admin/merchantLoginAccount/freeze/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
 export function normalDeviceOperator(id) {
   return request({
     url: '/admin/merchantLoginAccount/normal/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
 export function deviceOperatorChangePassword(data) {
   return request({
     url: '/admin/merchantLoginAccount/changePassword',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -138,14 +138,14 @@ export function createDeviceOperator(data) {
 export function unbindDeviceOperator(id) {
   return request({
     url: '/admin/merchantLoginAccount/unbind/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
 export function bindingDeviceOperator(data) {
   return request({
     url: '/admin/merchantLoginAccount/binding',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -171,7 +171,7 @@ export function getWithdrowRecordList(params) {
 export function putOpenSplitAuth(params) {
   return request({
     url: '/admin/merchant/openSplitAuth',
-    method: 'put',
+    method: 'post',
     data: params
   })
 }
@@ -180,7 +180,7 @@ export function putOpenSplitAuth(params) {
 export function changeLimit(params) {
   return request({
     url: '/admin/merchant/changeLimit',
-    method: 'put',
+    method: 'post',
     data: params
   })
 }

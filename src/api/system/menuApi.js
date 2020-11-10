@@ -10,7 +10,7 @@ export function getMenuTree() {
 export function remove(params) {
   return request({
     url: '/admin/menu/delete',
-    method: 'DELETE',
+    method: 'POST',
     data: params
   })
 }

@@ -68,7 +68,7 @@
           </el-button>
           <el-popconfirm
             title="确定删除么？"
-            @onConfirm="test"
+            @confirm="test"
           >
             <el-button
               slot="reference"

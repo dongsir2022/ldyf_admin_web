@@ -26,7 +26,7 @@ export function update(params) {
 export function remove(params) {
   return request({
     url: '/admin/role/delete',
-    method: 'DELETE',
+    method: 'POST',
     data: params
   })
 }

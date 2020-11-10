@@ -22,10 +22,10 @@
       </el-card>
     </div>
     <div v-if="merchantInfo.merchant_info.approve_status===1" class="block" style="text-align:center;margin-bottom:20px;">
-      <el-popconfirm title="是否同意该审批？" @onConfirm="agree">
+      <el-popconfirm title="是否同意该审批？" @confirm="agree">
         <el-button slot="reference" type="primary" plain :loading="loading">同意</el-button>
       </el-popconfirm>
-      <el-popconfirm title="是否驳回该审批？" @onConfirm="reject">
+      <el-popconfirm title="是否驳回该审批？" @confirm="reject">
         <el-button slot="reference" type="danger" plain :loading="loading" style="margin-left:50px;">驳回</el-button>
       </el-popconfirm>
     </div>

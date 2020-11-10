@@ -19,7 +19,7 @@ export function addNoticeInfoApi(data) {
 export function uptNoticeInfoApi(data) {
   return request({
     url: '/admin/bulletin/updBulletin',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -27,6 +27,6 @@ export function uptNoticeInfoApi(data) {
 export function delNoticeInfoApi(id) {
   return request({
     url: '/admin/bulletin/delBulletin/' + id,
-    method: 'delete'
+    method: 'post'
   })
 }

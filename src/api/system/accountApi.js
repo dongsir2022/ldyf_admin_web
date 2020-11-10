@@ -19,7 +19,7 @@ export function createAccount(data) {
 export function updateAccount(data) {
   return request({
     url: '/admin/account/update',
-    method: 'put',
+    method: 'post',
     data: data
   })
 }
@@ -27,7 +27,7 @@ export function updateAccount(data) {
 export function deleteAccount(params) {
   return request({
     url: '/admin/account/delete',
-    method: 'DELETE',
+    method: 'POST',
     data: params
   })
 }
@@ -51,7 +51,7 @@ export function setRole(params) {
 export function updateAgencyInfo(params) {
   return request({
     url: '/admin/account/update/agencyno',
-    method: 'put',
+    method: 'post',
     data: params
   })
 }

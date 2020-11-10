@@ -22,7 +22,7 @@ export function register(data) {
 export function removeCloudHorn(id) {
   return request({
     url: '/admin/device/remove/' + id,
-    method: 'delete'
+    method: 'post'
   })
 }
 
@@ -30,7 +30,7 @@ export function removeCloudHorn(id) {
 export function disableThing(id) {
   return request({
     url: '/admin/device/disableThing/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 
@@ -38,7 +38,7 @@ export function disableThing(id) {
 export function enableThing(id) {
   return request({
     url: '/admin/device/enableThing/' + id,
-    method: 'put'
+    method: 'post'
   })
 }
 

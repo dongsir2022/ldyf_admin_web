@@ -27,7 +27,7 @@
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="update(scope.row)">编辑
           </el-button>
-          <el-popconfirm confirm-button-text="好的" cancel-button-text="不用了" title="确定删除么？" @onConfirm="remove(scope.row.id)">
+          <el-popconfirm confirm-button-text="好的" cancel-button-text="不用了" title="确定删除么？" @confirm="remove(scope.row.id)">
             <el-button slot="reference" type="text" class="red-text" size="mini">删除
             </el-button>
           </el-popconfirm>

@@ -73,12 +73,14 @@ export default {
       })
     },
     agree() {
+      alert(1111)
       this.loading = true
       const data = {
         rate: this.splitForm.rate,
         agent_rate: this.splitForm.agent,
         trade_limit: this.splitForm.trade_limit
       }
+      console.log(data)
       agreeMerchantApprove(this.merchantId, data).then(res => {
         this.$message({
           message: '审批同意成功',

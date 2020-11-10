@@ -24,7 +24,7 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: process.env.NODE_ENV === 'production' ? '/admin/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/ldyf/admin/' : '/',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',
@@ -38,8 +38,8 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        // target: 'http://39.98.80.87:8390/',
-        target: 'http://192.168.0.108:9031/',
+        // target: 'http://39.98.80.87:8390/', // 阿里服务
+        target: 'http://buytest.ydnsh.com/ldyf/', // 测试地址
         changeOrigin: true,
         pathRewrite: { '^/api': '/hjjf' }
       }

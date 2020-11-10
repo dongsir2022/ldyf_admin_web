@@ -11,7 +11,7 @@ export function createHoliday(data) {
 export function removeHoliday(id) {
   return request({
     url: '/admin/holiday/remove/' + id,
-    method: 'delete'
+    method: 'post'
   })
 }
 
