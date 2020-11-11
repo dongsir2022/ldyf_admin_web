@@ -4,7 +4,7 @@ export function getAppVersionDataApi(data) {
   return request({
     url: '/admin/appVersion/list',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

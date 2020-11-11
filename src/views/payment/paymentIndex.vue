@@ -35,32 +35,8 @@
       />
       <el-table-column
         align="center"
-        width="200"
-        label="完成时间"
-        prop="complete_time"
-      />
-      <el-table-column
-        align="center"
-        width="300"
-        label="商户名称"
-        prop="merchant_name"
-      />
-      <el-table-column
-        align="center"
-        width="300"
-        label="商户识别号"
-        prop="merchant_no"
-      />
-      <el-table-column
-        align="center"
-        width="200"
-        label="费率/封顶"
-        prop="rate"
-      />
-      <el-table-column
-        align="center"
-        width="200"
-        label="交易金额"
+        width="100"
+        label="支付金额"
       >
         <template slot-scope="scope">
           {{ scope.row.pay_amount|moneyFormat }}
@@ -68,15 +44,58 @@
       </el-table-column>
       <el-table-column
         align="center"
-        width="200"
-        label="收款银行卡号"
-        prop="card_no"
-      />
+        width="100"
+        label="支付状态"
+      >
+        <template slot-scope="scope">
+          <span v-if="scope.row.pay_status === '10A'">支付中</span>
+          <span v-if="scope.row.pay_status === '10B'">支付成功</span>
+          <span v-if="scope.row.pay_status === '10C'">支付失败</span>
+          <span v-if="scope.row.pay_status === '10D'">退款</span>
+          <span v-if="scope.row.pay_status === '10E'">已关闭</span>
+          <span v-if="scope.row.pay_status === '10F'">已撤销</span>
+          <span v-if="scope.row.pay_status === '10G'">交易结束不可退款</span>
+          <span v-if="scope.row.pay_status === '10H'">退款-初始化</span>
+          <span v-if="scope.row.pay_status === '10I'">退款-失败</span>
+          <span v-if="scope.row.pay_status === '10J'">退款-成功</span>
+          <!-- {{ scope.row.pay_status|moneyFormat1 }} -->
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         width="200"
-        label="创建时间"
-        prop="create_time"
+        label="商户识别号"
+        prop="merchant_no"
+      />
+      <el-table-column
+        align="center"
+        width="150"
+        label="交易完成时间"
+        prop="complete_time"
+      />
+      <el-table-column
+        align="center"
+        width="120"
+        label="交易渠道类型"
+        prop="order_type"
+      />
+      <el-table-column
+        align="center"
+        width="120"
+        label="商户外部识别号"
+        prop="out_merchant_no"
+      />
+      <el-table-column
+        align="center"
+        width="120"
+        label="主扫还是被扫"
+        prop="pay_type"
+      />
+      <el-table-column
+        align="center"
+        width="220"
+        label="渠道订单号"
+        prop="transaction_Id"
       />
     </el-table>
     <!-- 分页 -->
