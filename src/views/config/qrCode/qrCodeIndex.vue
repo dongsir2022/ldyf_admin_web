@@ -15,7 +15,6 @@
         <el-col :span="2.5">
           <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" :loading="createLoading" @click="add">创建二维码</el-button>
         </el-col>
-
       </el-row>
     </div>
     <!-- 表格 -->

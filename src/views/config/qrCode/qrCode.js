@@ -1,4 +1,4 @@
-import { getQRCodeListApi, createQRCodeApi, bingTradeDeviceNameApi, unbindDeviceNameApi } from '@/api/config/qrCodeApi'
+import { getQRCodeListApi, bingTradeDeviceNameApi, batchGenerationQRCodeApi, unbindDeviceNameApi } from '@/api/config/qrCodeApi'
 import { isNotBlank } from '@/utils/utils'
 export default {
   name: 'qrCodeIndex',
@@ -53,14 +53,36 @@ export default {
     // 新增
     add() {
       this.createLoading = true
-      createQRCodeApi().then(res => {
+      this.$prompt('请输入创建数量', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputPattern: /^[0-9]*$/,
+        inputErrorMessage: '输入数量不正确'
+      }).then(({ value }) => {
         this.$message({
-          message: '创建成功',
-          type: 'success'
+          type: 'success',
+          message: '你输入的数量是: ' + value
         })
-        this.fetchData()
         this.createLoading = false
+        const data = {
+          count: value
+        }
+        // 批量创建二维码
+        batchGenerationQRCodeApi(data).then(res => {
+          this.$message({
+            message: '创建成功',
+            type: 'success'
+          })
+          this.fetchData()
+          this.createLoading = false
+        }).catch(() => {
+          this.createLoading = false
+        })
       }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消输入'
+        })
         this.createLoading = false
       })
     },

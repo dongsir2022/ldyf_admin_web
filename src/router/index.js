@@ -88,6 +88,7 @@ export const componentMap = {
   'reconciliation-internal-list': () => import('@/views/reconciliation/internalBillLogIndex'),
   'reconciliation-external-list': () => import('@/views/reconciliation/externalBillLogIndex'),
   'config-notice-list': () => import('@/views/config/noticeInfo/noticeInfoIndex'),
+  'config-download-center': () => import('@/views/config/downloadCenter/downloadCenterIndex'),
   'system-customer-manager': () => import('@/views/system/customerManager/customerManager'),
   'settlement-query': () => import('@/views/settlement/queryList'),
   'config-qrCode': () => import('@/views/config/qrCode/qrCodeIndex'),

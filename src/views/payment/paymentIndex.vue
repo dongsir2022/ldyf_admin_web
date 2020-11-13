@@ -63,13 +63,13 @@
       </el-table-column>
       <el-table-column
         align="center"
-        width="200"
+        width="300"
         label="商户识别号"
         prop="merchant_no"
       />
       <el-table-column
         align="center"
-        width="150"
+        width="200"
         label="交易完成时间"
         prop="complete_time"
       />
@@ -81,7 +81,7 @@
       />
       <el-table-column
         align="center"
-        width="120"
+        width="200"
         label="商户外部识别号"
         prop="out_merchant_no"
       />
@@ -93,7 +93,7 @@
       />
       <el-table-column
         align="center"
-        width="220"
+        width="300"
         label="渠道订单号"
         prop="transaction_Id"
       />

@@ -10,10 +10,20 @@ export function getQRCodeListApi(params) {
 }
 
 // 生成二维码
-export function createQRCodeApi() {
+export function createQRCodeApi(params) {
   return request({
     url: '/admin/tradeQRCode/getQRCode',
-    method: 'post'
+    method: 'post',
+    params: params
+  })
+}
+
+// 批量生成二维码
+export function batchGenerationQRCodeApi(params) {
+  return request({
+    url: '/admin/batchProcessing/qrCode',
+    method: 'post',
+    params: params
   })
 }
 
