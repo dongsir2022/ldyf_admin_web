@@ -22,7 +22,6 @@ export default {
         page_size: this.pageSize
       }
       queryBatchProcessingListApi(data).then(res => {
-        console.log(res)
         this.list = res.data
         this.total = res.total
         this.loading = false
