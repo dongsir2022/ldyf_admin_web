@@ -1,5 +1,11 @@
-import { getQRCodeListApi, bingTradeDeviceNameApi, batchGenerationQRCodeApi, unbindDeviceNameApi } from '@/api/config/qrCodeApi'
-import { isNotBlank } from '@/utils/utils'
+import {
+  getQRCodeListApi,
+  bingTradeDeviceNameApi,
+  batchGenerationQRCodeApi,
+  unbindDeviceNameApi
+} from '@/api/config/qrCodeApi'
+import {isNotBlank} from '@/utils/utils'
+
 export default {
   name: 'qrCodeIndex',
   data() {
@@ -10,11 +16,11 @@ export default {
       page: 1,
       pageSize: 10,
       bind_status: '',
-      options: [{ id: 0, anme: '未绑定' }, { id: 1, anme: '绑定' }],
+      options: [{id: 0, name: '未绑定'}, {id: 1, name: '绑定'}],
       dialogVisible: false,
       rules: {
         name: [
-          { required: true, message: '请输入云喇叭名称', trigger: 'blur' }
+          {required: true, message: '请输入云喇叭名称', trigger: 'blur'}
         ]
       },
       codeData: {
@@ -58,7 +64,7 @@ export default {
         cancelButtonText: '取消',
         inputPattern: /^[0-9]*$/,
         inputErrorMessage: '输入数量不正确'
-      }).then(({ value }) => {
+      }).then(({value}) => {
         this.$message({
           type: 'success',
           message: '你输入的数量是: ' + value
@@ -111,7 +117,7 @@ export default {
     },
     // 提交
     submit() {
-      this.$refs.codeForm.validate(valid => {
+      this.$refs['codeForm'].validate(valid => {
         if (valid) {
           this.submitLoading = true
           const data = {
@@ -130,6 +136,9 @@ export default {
           }).catch(() => {
             this.submitLoading = false
           })
+        } else {
+          this.close()
+          return false;
         }
       })
     },

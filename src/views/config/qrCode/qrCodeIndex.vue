@@ -5,7 +5,7 @@
       <el-row :gutter="10">
         <el-col :span="3">
           <el-select v-model="bind_status" clearable placeholder="请选择绑定状态">
-            <el-option v-for="item in options" :key="item.id" :label="item.anme" :value="item.id" />
+            <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="2">
@@ -19,7 +19,7 @@
     </div>
     <!-- 表格 -->
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
-      <el-table-column align="center" label="二维码编号" prop="code_no" width="120" />
+      <el-table-column align="center" label="二维码编号" prop="code_no" width="270" />
 
       <el-table-column align="center" label="二维码图片">
         <template slot-scope="scope">
@@ -66,7 +66,7 @@
     </div>
     <!-- 弹窗 -->
     <el-dialog title="绑定云喇叭" :visible.sync="dialogVisible" width="40%">
-      <el-form ref="codeForm" :model="codeData" :rules="rules" label-width="60px">
+      <el-form ref="codeForm" :model="codeData" :rules="rules" label-width="60px" @submit.native.prevent>
         <!-- <el-tooltip v-if="codeData.type==='create'" placement="top-start">
           <div slot="content">选择绑定云喇叭，可一步到位；不选择，后面也可以手动绑定</div>
           <el-checkbox v-model="codeData.bindStatus" style="margin-bottom:20px;margin-left:30px;">绑定云喇叭</el-checkbox>

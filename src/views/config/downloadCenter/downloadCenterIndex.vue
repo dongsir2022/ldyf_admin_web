@@ -3,7 +3,7 @@
     <div class="block">
       <el-row :gutter="10">
         <el-col :span="2">
-          <el-button class="filter-item" type="primary" :loading="loading" @click="fetchData">刷新
+          <el-button class="filter-item" icon="el-icon-refresh" type="primary" :loading="loading" @click="fetchData">刷新
           </el-button>
         </el-col>
       </el-row>
