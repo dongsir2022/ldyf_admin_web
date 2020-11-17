@@ -50,7 +50,10 @@
         <template slot-scope="scope">
           <span v-if="scope.row.pay_status === '10A'">支付中</span>
           <span v-if="scope.row.pay_status === '10B'">支付成功</span>
-          <span v-if="scope.row.pay_status === '10C'">支付失败</span>
+          <el-col :span="1">
+            <el-button size="small" type="primary" class="filter-item" v-if="scope.row.pay_status === '10C'" @click="paymentFailed(scope.row)">支付失败</el-button>
+          </el-col>
+
           <span v-if="scope.row.pay_status === '10D'">退款</span>
           <span v-if="scope.row.pay_status === '10E'">已关闭</span>
           <span v-if="scope.row.pay_status === '10F'">已撤销</span>

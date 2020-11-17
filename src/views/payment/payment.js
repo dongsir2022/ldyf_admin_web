@@ -61,6 +61,21 @@ export default {
       this.searchKey.completeTime = []
       this.searchKey.completeTime.push(moment().startOf('day').toDate())
       this.searchKey.completeTime.push(moment().endOf('day').toDate())
+    },
+    paymentFailed(row) {
+      const h = this.$createElement;
+      this.$msgbox({
+        title: '报文信息',
+        message: h('p', null, [
+          h('span', null, '请求参数: '),
+          h('i', { style: 'color: teal' }, row.req_msg),
+          h('br'),
+          h('span', null, '返回参数: '),
+          h('i', { style: 'color: teal' }, row.resp_msg)
+        ]),
+        confirmButtonText: '关闭',
+        callback: action => {}
+      })
     }
   },
   filters: {
