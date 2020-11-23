@@ -62,19 +62,31 @@ export default {
       this.searchKey.completeTime.push(moment().startOf('day').toDate())
       this.searchKey.completeTime.push(moment().endOf('day').toDate())
     },
-    paymentFailed(row) {
+    paymentFailed: function (row) {
       const h = this.$createElement;
       this.$msgbox({
         title: '报文信息',
-        message: h('p', null, [
-          h('span', null, '请求参数: '),
-          h('i', { style: 'color: teal' }, row.req_msg),
+        message: h('div', null, [
+          h('strong', null, '请求参数: '),
+          h('span', {
+            style: {
+              'color': 'teal',
+              'word-break': 'normal',
+              'word-wrap': 'break-word !important'
+            }
+          }, row.req_msg),
           h('br'),
-          h('span', null, '返回参数: '),
-          h('i', { style: 'color: teal' }, row.resp_msg)
+          h('strong', null, '返回参数: '),
+          h('span', {
+            style: {
+              'color': 'teal',
+              'word-break': 'normal',
+              'word-wrap': 'break-word !important'
+            }}, row.resp_msg)
         ]),
         confirmButtonText: '关闭',
-        callback: action => {}
+        callback: action => {
+        }
       })
     }
   },
