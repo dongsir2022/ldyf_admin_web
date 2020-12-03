@@ -2,21 +2,83 @@
   <div class="app-container">
     <!-- 空 -->
     <div class="block" />
-    <!-- 主体树 -->
-    <el-tree v-loading="loading" :data="treedata" default-expand-all node-key="id">
-      <span slot-scope="{ node, data }" class="custom-tree-node">
-        <span>{{ data.agency_name }}({{ data.agency_no }})</span>
-        <span style="margin-left: 20px">
-          <el-button v-if="node.level!==3" type="text" size="mini" @click.stop="() => append(node, data)">添加下属行</el-button>
-        </span>
-      </span>
-    </el-tree>
+    <!--    树形数据与懒加载-->
+    <el-table
+      :data="treedata"
+      style="width: 100%"
+      row-key="id"
+      default-expand-all
+      border
+      lazy
+      v-loading="loading"
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+      <el-table-column
+        align="center"
+        prop="agency_name"
+        label="行社名称"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        prop="agency_no"
+        label="行社编号"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        prop="bank_agency_no"
+        label="银行内部机构号"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        prop="clear_bank_no"
+        label="清算行行号"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        prop="pay_bank_no"
+        label="支付行行号"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        prop="card_no_front"
+        label="卡bin"
+        width="200">
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="操作"
+      >
+        <template slot-scope="scope">
+            <el-button
+              type="primary"
+              size="mini"
+              v-if="scope.row.p_agency_id < 2"
+              @click.stop="() => append(scope.row.p_agency_id, scope)">添加下属行</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <!-- 弹窗 -->
     <el-dialog title="添加下属行" :visible.sync="addAgencyVisible" width="35%">
       <!-- 表单 -->
-      <el-form ref="addAgencyForm" :model="addAgencyForm" :rules="rules" label-width="80px">
+      <el-form ref="addAgencyForm" :model="addAgencyForm" :rules="rules" label-width="120px">
         <el-form-item label="机构名称" prop="agencyName">
-          <el-input v-model="addAgencyForm.agencyName" maxlength="30" show-word-limit />
+          <el-input v-model="addAgencyForm.agencyName" show-word-limit />
+        </el-form-item>
+        <el-form-item label="银行内部机构号" prop="bankAgencyNo">
+          <el-input v-model="addAgencyForm.bankAgencyNo" show-word-limit />
+        </el-form-item>
+        <el-form-item label="清算行行号" prop="clearBankNo">
+          <el-input v-model="addAgencyForm.clearBankNo" show-word-limit />
+        </el-form-item>
+        <el-form-item label="支付行行号" prop="payBankNo">
+          <el-input v-model="addAgencyForm.payBankNo" show-word-limit />
+        </el-form-item>
+        <el-form-item label="卡bin" prop="cardNoFront">
+          <el-input v-model="addAgencyForm.cardNoFront" show-word-limit />
         </el-form-item>
       </el-form>
       <!-- 按钮 -->
@@ -41,12 +103,28 @@ export default {
       addAgencyVisible: false,
       addAgencyForm: {
         agencyName: '',
-        pAgencyId: ''
+        pAgencyId: '',
+        bankAgencyNo: '',
+        clearBankNo: '',
+        payBankNo: '',
+        cardNoFront: ''
       },
       rules: {
         agencyName: [
           { required: true, message: '请输入机构名称', trigger: 'blur' }
-        ]
+        ],
+        bankAgencyNo: [
+          { required: true, message: '银行内部机构号', trigger: 'blur' }
+        ],
+        clearBankNo: [
+          { required: true, message: '清算行行号', trigger: 'blur' }
+        ],
+        payBankNo: [
+          { required: true, message: '支付行行号', trigger: 'blur' }
+        ],
+        cardNoFront: [
+          { required: true, message: '卡bin', trigger: 'blur' }
+        ],
       },
       submitLoading: false
     }
@@ -68,15 +146,15 @@ export default {
       })
     },
     // 打开弹窗
-    append(node, data) {
-      if (node.level >= 3) {
+    append(id, scope) {
+      if (id > 2) {
         this.$message({
           message: '只允许添加三级',
           type: 'warning'
         })
       } else {
         this.addAgencyVisible = true
-        this.addAgencyForm.pAgencyId = data.id
+        this.addAgencyForm.pAgencyId = scope.row.id
       }
     },
     // 向后台发送表单,并重新拉取数据
@@ -84,6 +162,10 @@ export default {
       this.submitLoading = true
       const data = {
         agency_name: this.addAgencyForm.agencyName,
+        bank_agency_no: this.addAgencyForm.bankAgencyNo,
+        clear_bank_no: this.addAgencyForm.clearBankNo,
+        pay_bank_no: this.addAgencyForm.payBankNo,
+        card_no_front: this.addAgencyForm.cardNoFront,
         p_agency_id: this.addAgencyForm.pAgencyId
       }
       createAgencyInfoApi(data).then(res => {
@@ -104,5 +186,5 @@ export default {
 }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/common.scss";
+@import "src/styles/common.scss";
 </style>
