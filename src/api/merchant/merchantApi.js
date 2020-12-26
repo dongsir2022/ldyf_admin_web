@@ -184,3 +184,39 @@ export function changeLimit(params) {
     data: params
   })
 }
+
+// 开通微信支付
+export function putOpenWx(params) {
+  return request({
+    url: '/admin/atMerchant/wxPush',
+    method: 'post',
+    data: params
+  })
+}
+
+// 开通支付宝支付
+export function putOpenAli(params) {
+  return request({
+    url: '/admin/atMerchant/aliPush',
+    method: 'post',
+    data: params
+  })
+}
+
+// 开通云闪付支付
+export function putOpenUnion(params) {
+  return request({
+    url: '/admin/atMerchant/unionPush',
+    method: 'post',
+    data: params
+  })
+}
+
+// 修改商户费率
+export function changePayRate(params) {
+  return request({
+    url: '/admin/merchant/changePayRate',
+    method: 'post',
+    data: params
+  })
+}

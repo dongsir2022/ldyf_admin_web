@@ -62,8 +62,8 @@ export default {
       this.searchKey.completeTime.push(moment().startOf('day').toDate())
       this.searchKey.completeTime.push(moment().endOf('day').toDate())
     },
-    paymentFailed: function (row) {
-      const h = this.$createElement;
+    paymentFailed: function(row) {
+      const h = this.$createElement
       this.$msgbox({
         title: '报文信息',
         message: h('div', null, [

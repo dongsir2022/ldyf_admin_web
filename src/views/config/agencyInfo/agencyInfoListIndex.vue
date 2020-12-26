@@ -57,7 +57,8 @@
               type="primary"
               size="mini"
               v-if="scope.row.p_agency_id < 2"
-              @click.stop="() => append(scope.row.p_agency_id, scope)">添加下属行</el-button>
+              @click.stop="() => append(scope.row.p_agency_id, scope)">添加下属行
+            </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -124,7 +125,7 @@ export default {
         ],
         cardNoFront: [
           { required: true, message: '卡bin', trigger: 'blur' }
-        ],
+        ]
       },
       submitLoading: false
     }

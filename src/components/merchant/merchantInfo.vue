@@ -10,19 +10,13 @@
             </el-form-item>
           </el-row>
           <el-row>
-            <el-col :span="10">
-              <el-form-item label="营业执照编号：">
+            <el-col :span="10" v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty != 4">
+              <el-form-item label="统一社会信用代码：">
                 {{ data.merchant_info_ext.business_license }}
               </el-form-item>
             </el-col>
-            <el-col :span="12">
-              <el-form-item label="法人姓名：">
-                {{ data.merchant_info_ext.business_person }}
-              </el-form-item>
-            </el-col>
           </el-row>
-          <el-row />
-          <el-row>
+          <el-row v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty != 4">
             <el-col :span="24">
               <el-form-item label="营业执照有效期限：">
                 {{ data.merchant_info_ext.business_period_begin }} 至 {{ data.merchant_info_ext.business_period_end }}
@@ -46,72 +40,81 @@
           <!--  新增字段-->
           <el-row>
             <el-form-item label="所属行业：">
-              {{ data.merchant_info_ext.mccid}}
+              {{ data.merchant_info_ext.mccname }}
             </el-form-item>
           </el-row>
           <el-row>
             <el-form-item label="商户性质：">
-              {{ data.merchant_info_ext.comproperty|compropertyType}}
+              {{ data.merchant_info_ext.comproperty|compropertyType }}
             </el-form-item>
           </el-row>
-          <el-row>
-            <el-form-item label="账户号：">
-              {{ data.merchant_info_ext.acctid}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="账户类型：">
-              {{ data.merchant_info_ext.accttype|acctType}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="卡折类型：">
-              {{ data.merchant_info_ext.accttp|accttpType}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="所属银行：">
-              {{ data.merchant_info_ext.bankcode}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="支付行号：">
-              {{ data.merchant_info_ext.cnapsno}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="经营者手持身份证照片：">
+          <!--  商户性质个人时  -->
+          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty != 4" :label-width="labelWidth">
+            <el-row>
+              <el-form-item label="合同有效日期：">
+                {{ data.merchant_info_ext.contractdate }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="控股股东姓名：">
+                {{ data.merchant_info_ext.holdername }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="控股股东身份证：">
+                {{ data.merchant_info_ext.holderidno }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="控股股东有效期：">
+                {{ data.merchant_info_ext.holderexpire }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="注册资本：">
+                {{ data.merchant_info_ext.registerfund|registerfundType }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="员工人数：">
+                {{ data.merchant_info_ext.stafftotal|stafftotalType }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="经营区域：">
+                {{ data.merchant_info_ext.operatelimit|operatelimitType }}
+              </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="经营地段：">
+                {{ data.merchant_info_ext.inspect|inspectType }}
+              </el-form-item>
+            </el-row>
+          </el-form>
+          <!--  商户性质个人时  -->
+          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty == 4" :label-width="labelWidth">
+            <el-row>
+                <el-form-item label="经营场所证明文件：">
+                  <el-image
+                    style="width: 300px; height: 200px;margin-left:30px;"
+                    :src="data.merchant_info_ext.bizplacepic"
+                    :preview-src-list="[data.merchant_info_ext.bizplacepic]"
+                  />
+                </el-form-item>
+            </el-row>
+            <el-row>
+              <el-form-item label="经营者与店铺门头合照：">
                 <el-image
-                  style="width: 300px; height: 200px"
-                  :src="data.merchant_info_ext.legalpic"
-                  :preview-src-list="[data.merchant_info_ext.legalpic]"
+                  style="width: 300px; height: 200px;margin-left:30px;"
+                  :src="data.merchant_info_ext.peasonheadpic"
+                  :preview-src-list="[data.merchant_info_ext.peasonheadpic]"
                 />
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="合同有效日期：">
-              {{ data.merchant_info_ext.contractdate}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="性别：">
-              {{ data.merchant_info_ext.sex|sexType}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="职业：">
-              {{ data.merchant_info_ext.occupation|occupationType}}
-            </el-form-item>
-          </el-row>
-          <el-row>
-            <el-form-item label="地址：">
-              {{ data.merchant_info_ext.personaddr}}
-            </el-form-item>
-          </el-row>
-          <!--  新增字段结束-->
+              </el-form-item>
+            </el-row>
+          </el-form>
         </el-form>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="6" v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty != 4">
         <el-row>
           <el-col>
             <el-image
@@ -123,64 +126,41 @@
         </el-row>
       </el-col>
     </el-row>
-    <!--    商户性质为企业-->
-    <el-divider content-position="left" v-if="data.merchant_info_ext.comproperty === 1">企业</el-divider>
-    <el-form :label-width="labelWidth"  v-if="data.merchant_info_ext.comproperty === 1">
+    <!--    商户性质为企业结算账户对私时-->
+    <el-divider v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty == 1 && data.merchant_info_ext.bank_type == 'PRIVATE'" content-position="left">企业</el-divider>
+    <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty == 1 && data.merchant_info_ext.bank_type == 'PRIVATE'" :label-width="labelWidth">
       <el-row>
         <el-col :span="6">
           <el-form-item label="对公账户号：">
-            {{ data.merchant_info_ext.corporatenum }}
+            {{ data.merchant_info_ext.corporate_num }}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="6">
           <el-form-item label="对公账户开户省：">
-            {{ data.merchant_info_ext.corporateprovice }}
+            {{ data.merchant_info_ext.corporate_provice }}
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label="对公账号开户市：">
-            {{ data.merchant_info_ext.corporatecity }}
+            {{ data.merchant_info_ext.corporate_city }}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="6">
           <el-form-item label="所属银行：">
-            {{ data.merchant_info_ext.bankname }}
+            {{ data.merchant_info_ext.public_bank_name }}
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="支付行号：">
-            {{ data.merchant_info_ext.bankpayment }}
+            {{ data.merchant_info_ext.bank_payment }}
           </el-form-item>
         </el-col>
       </el-row>
     </el-form>
-    <!--  商户性质个人时  -->
-    <el-divider content-position="left" v-if="data.merchant_info_ext.comproperty === 4">个人</el-divider>
-    <el-form :label-width="labelWidth"  v-if="data.merchant_info_ext.comproperty === 4">
-      <el-row>
-        <el-form-item label="经营场所证明文件：">
-          <el-image
-            style="width: 300px; height: 200px;margin-left:30px;"
-            :src="data.merchant_info_ext.bizplacepic"
-            :preview-src-list="[data.merchant_info_ext.bizplacepic]"
-          />
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="经营者与店铺门头合照：">
-          <el-image
-            style="width: 300px; height: 200px;margin-left:30px;"
-            :src="data.merchant_info_ext.peasonheadpic"
-            :preview-src-list="[data.merchant_info_ext.peasonheadpic]"
-          />
-        </el-form-item>
-      </el-row>
-    </el-form>
-    <!--      新增end-->
     <!--  法人信息  -->
     <el-divider content-position="left">法人信息</el-divider>
     <el-form :label-width="labelWidth">
@@ -188,6 +168,23 @@
         <el-col :span="6">
           <el-form-item label="法人姓名：">
             {{ data.merchant_info_ext.contact_name }}
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="性别：">
+            {{ data.merchant_info_ext.sex|sexType }}
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="职业：">
+            {{ data.merchant_info_ext.occupation|occupationType }}
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="地址：">
+            {{ data.merchant_info_ext.personaddr }}
           </el-form-item>
         </el-col>
       </el-row>
@@ -234,83 +231,14 @@
           />
         </el-col>
       </el-row>
-      <!--  新增start-->
       <el-row>
-        <el-form-item label="社会信用号：">
-          {{ data.merchant_info_ext.creditcode}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="法人代表证件类型：">
-          {{ data.merchant_info_ext.legalidtype|legalidType}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="法人证件有效期：">
-          {{ data.merchant_info_ext.legalidexpire}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="营业执照照片：">
+        <el-form-item label="手持身份证照片：">
           <el-image
-            style="width: 300px; height: 200px;margin-left:30px;"
-            :src="data.merchant_info_ext.corpbuspic"
-            :preview-src-list="[data.merchant_info_ext.corpbuspic]"
+            style="width: 300px; height: 200px"
+            :src="data.merchant_info_ext.legalpic"
+            :preview-src-list="[data.merchant_info_ext.legalpic]"
           />
         </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="控股股东姓名：">
-          {{ data.merchant_info_ext.holdername}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="控股股东身份证：">
-          {{ data.merchant_info_ext.holderidno}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="控股股东有效期：">
-          {{ data.merchant_info_ext.holderexpire}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="注册资本：">
-          {{ data.merchant_info_ext.registerfund|registerfundType}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="员工人数：">
-          {{ data.merchant_info_ext.stafftotal|stafftotalType}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="经营区域：">
-          {{ data.merchant_info_ext.operatelimit|operatelimitType}}
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <el-form-item label="经营地段：">
-          {{ data.merchant_info_ext.inspect|inspectType}}
-        </el-form-item>
-      </el-row>
-
-
-    </el-form>
-<!--    代办人-->
-    <el-divider content-position="left">代办人信息</el-divider>
-    <el-form :label-width="labelWidth">
-      <el-row>
-        <el-col :span="6">
-          <el-form-item label="代办人名称：">
-            {{ data.merchant_info_ext.agent_name }}
-          </el-form-item>
-        </el-col>
-        <el-col :span="6">
-          <el-form-item label="代办人电话：">
-            {{ data.merchant_info_ext.agent_phone }}
-          </el-form-item>
-        </el-col>
       </el-row>
     </el-form>
     <!--  业务联系人  -->
@@ -319,12 +247,12 @@
       <el-row>
         <el-col :span="6">
           <el-form-item label="业务联系人姓名：">
-            {{ data.merchant_info_ext.busconactperson}}
+            {{ data.merchant_info_ext.busconactperson }}
           </el-form-item>
         </el-col>
         <el-col :span="6">
           <el-form-item label="业务联系人电话：">
-            {{ data.merchant_info_ext.busconacttel}}
+            {{ data.merchant_info_ext.busconacttel }}
           </el-form-item>
         </el-col>
       </el-row>
@@ -360,11 +288,23 @@
             {{ data.merchant_info_ext.bank_type|bankType }}
           </el-form-item>
         </el-col>
-      <el-col :span="6">
-        <el-form-item label="结算人身份证号：">
-          {{ data.merchant_info_ext.settidno}}
-        </el-form-item>
-      </el-col>
+        <el-col :span="6" v-if="data.merchant_info_ext.bank_type == 'PRIVATE'">
+          <el-form-item label="结算人身份证号：">
+            {{ data.merchant_info_ext.settidno }}
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="6">
+          <el-form-item label="支付行号：">
+            {{ data.merchant_info_ext.cnapsno }}
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item label="卡折类型：">
+            {{ data.merchant_info_ext.accttp|accttpType }}
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-row>
         <el-col :span="9">
@@ -378,8 +318,8 @@
         </el-col>
       </el-row>
     </el-form>
-    <el-divider content-position="left">商户实景照片</el-divider>
-    <el-form :label-width="labelWidth">
+    <el-divider content-position="left"  v-if="data.merchant_info_ext.comproperty != 4">商户实景照片</el-divider>
+    <el-form :label-width="labelWidth"  v-if="data.merchant_info_ext.comproperty != 4">
       <el-row>
         <el-col :span="7">
           <el-form-item label="门头照：">
@@ -436,7 +376,7 @@ export default {
     compropertyType(val) {
       const map = {
         1: '企业',
-        3: '个体户',
+        3: '个体工商户',
         4: '个人'
       }
       return map[val]

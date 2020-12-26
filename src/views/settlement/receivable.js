@@ -105,9 +105,11 @@ export default {
     },
     handleCurrentChange(page) {
       this.page = page
+      this.fetchData()
     },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
+      this.fetchData()
     },
     initCompleteTime() {
       this.searchKey.completeTime = []

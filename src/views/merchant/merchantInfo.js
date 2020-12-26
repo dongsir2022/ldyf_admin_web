@@ -42,7 +42,7 @@ export default {
           'contact_type': '',
           'create_time': '',
           'create_user': '',
-          //新增
+          // 新增
           'mccid': '',
           'comproperty': '',
           'acctid': '',

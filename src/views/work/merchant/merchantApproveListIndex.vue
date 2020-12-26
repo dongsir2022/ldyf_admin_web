@@ -74,10 +74,18 @@
       >
         <template slot-scope="scope">
           <el-button
+            v-if="scope.row.approve_status !== 2"
             type="text"
             size="mini"
             @click="approve(scope.row.id)"
           >审批
+          </el-button>
+          <el-button
+            v-else
+            type="text"
+            size="mini"
+            @click="approve(scope.row.id)"
+          >查看详情
           </el-button>
         </template>
       </el-table-column>
@@ -99,5 +107,5 @@
 </template>
 <script src="./merchantApproveList.js"/>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/common.scss";
+@import "src/styles/common.scss";
 </style>

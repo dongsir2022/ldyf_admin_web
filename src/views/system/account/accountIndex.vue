@@ -84,7 +84,7 @@
         </el-form-item>
 
         <el-form-item prop="password" label="密码">
-          <el-input v-model="form.password" maxlenth="20" placeholder="6-20位，区分大小写" type="password" auto-complete="off" class="input-tx" />
+          <el-input v-model="form.password" maxlenth="20" placeholder="6-20位数字字母特殊符号组合" type="password" auto-complete="off" class="input-tx" />
         </el-form-item>
 
         <el-form-item prop="confirmPassword" label="确认密码">

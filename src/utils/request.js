@@ -55,15 +55,19 @@ service.interceptors.response.use(
       let refreshResult = false
       if (isNotBlank(token)) {
         refreshToken(token).then(res => {
-          refreshResult = true
-          setToken(res.token.value)
+          if (res.code !== 200) {
+            removeCookie()
+          } else {
+            refreshResult = true
+            setToken(res.token.value)
+          }
         }).catch(res => {
           removeCookie()
         })
       }
       if (!refreshResult) {
         router.replace({
-          path: '/'
+          path: '/login'
         })
       }
     } else {

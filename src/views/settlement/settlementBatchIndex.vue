@@ -24,6 +24,7 @@
           <el-tag v-if="scope.row.settle_status===1">待结算</el-tag>
           <el-tag v-if="scope.row.settle_status===2" type="success">结算成功</el-tag>
           <el-tag v-if="scope.row.settle_status===3" type="danger">结算失败</el-tag>
+          <el-tag v-if="scope.row.settle_status===4" type="warning">非工作日结算</el-tag>
         </template>
       </el-table-column>
 
@@ -69,5 +70,5 @@
 
 <script src="./settlementBatch.js"/>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/common.scss";
+@import "src/styles/common.scss";
 </style>
