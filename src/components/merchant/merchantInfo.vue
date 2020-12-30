@@ -127,8 +127,8 @@
       </el-col>
     </el-row>
     <!--    商户性质为企业结算账户对私时-->
-    <el-divider v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 1 && data.merchant_info_ext.bank_type == 'PRIVATE'" content-position="left">企业</el-divider>
-    <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 1 && data.merchant_info_ext.bank_type == 'PRIVATE'" :label-width="labelWidth">
+    <el-divider v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 1 && data.merchant_info_ext.bank_type === 'PRIVATE'" content-position="left">企业</el-divider>
+    <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 1 && data.merchant_info_ext.bank_type === 'PRIVATE'" :label-width="labelWidth">
       <el-row>
         <el-col :span="6">
           <el-form-item label="对公账户号：">
@@ -306,7 +306,7 @@
             {{ data.merchant_info_ext.accttp|accttpType }}
           </el-form-item>
         </el-col>
-        <el-col v-if="data.merchant_info_ext.bank_type == 'PRIVATE'" :span="6">
+        <el-col v-if="data.merchant_info_ext.bank_type === 'PRIVATE'" :span="6">
           <el-form-item label="预留手机号：">
             {{ data.merchant_info_ext.reserved_phone }}
           </el-form-item>

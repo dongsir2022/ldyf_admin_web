@@ -111,8 +111,8 @@
             >修改密码
             </el-button>
             <el-popconfirm
-              v-if="scope.row.account_lock==1"
-              title="确定冻结账户么11？"
+              v-if="scope.row.account_lock === 1"
+              title="确定冻结账户么？"
               @confirm="freezeDeviceOperator(scope.row.id)"
             >
               <el-button
@@ -124,8 +124,8 @@
               </el-button>
             </el-popconfirm>
             <el-popconfirm
-              v-if="scope.row.account_lock==0"
-              title="确定解冻账户么11？"
+              v-if="scope.row.account_lock === 0"
+              title="确定解冻账户么？"
               @confirm="normalDeviceOperator(scope.row.id)"
             >
               <el-button

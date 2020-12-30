@@ -148,7 +148,7 @@ export default {
       this.setOptions()
     },
     getMapOpt() {
-      const option = {
+      return {
         title: {
           text: this.nameArr.join('-'),
           textStyle: {
@@ -229,7 +229,6 @@ export default {
           data: []
         }]
       }
-      return option
     },
     setOptions() {
       const option = {
