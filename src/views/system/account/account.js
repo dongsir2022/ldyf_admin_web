@@ -231,7 +231,7 @@ export default {
             updatePassword(this.form).then(res => {
               this.saveLoading = false
               this.$message({
-                message: this.$t('common.optionSuccess'),
+                message: this.$t('alert.optionSuccess'),
                 type: 'success'
               })
               this.dialogFormVisible = false
@@ -250,7 +250,7 @@ export default {
             createAccount(data).then(res => {
               this.saveLoading = false
               this.$message({
-                message: this.$t('common.optionSuccess'),
+                message: this.$t('alert.optionSuccess'),
                 type: 'success'
               })
               this.dialogFormVisible = false

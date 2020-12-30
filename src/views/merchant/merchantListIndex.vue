@@ -95,7 +95,7 @@
             type="text"
             size="mini"
             :loading="alterLoading"
-            @click="tradeDeviceList3(scope.row)"
+            @click="modifyPaymentRate(scope.row)"
           >修改支付费率
           </el-button>
           <!-- <el-button
@@ -108,15 +108,15 @@
             type="text"
             size="mini"
             @click="alterModifyBankCardNum(scope.row)"
-          >修改银行卡号
+          >修改银行卡信息
           </el-button>
+          <!--
           <el-button
             type="text"
             size="mini"
-            @click="tradeDeviceList(scope.row.id)"
+            @click="modifySettlementAccount(scope.row.id)"
           >修改结算账户信息
-          </el-button>
-
+          </el-button>-->
           <el-button
             type="text"
             size="mini"
@@ -125,6 +125,7 @@
           </el-button>
           <!-- 微信支付-->
           <el-button
+            v-if="!scope.row.wechat_no"
             type="text"
             size="mini"
             @click="openingWechant(scope.row.id)"
@@ -132,20 +133,20 @@
           </el-button>
           <!--    支付宝支付      -->
           <el-button
+            v-if="!scope.row.alipay_no"
             type="text"
             size="mini"
-            @confirm="openingAlipay(scope.row.id)"
+            @click="openingAlipay(scope.row.id)"
           >开通支付宝支付
           </el-button>
-
           <!--  云闪付支付     -->
           <el-button
+            v-if="!scope.row.union_no"
             type="text"
             size="mini"
-            @confirm="openingUnoin(scope.row.id)"
+            @click="openingUnoin(scope.row.id)"
           >开通云闪付支付
           </el-button>
-
           <el-popconfirm
             v-if="scope.row.merchant_status==1"
             title="确定冻结商户么？"
@@ -188,9 +189,9 @@
         @size-change="handleSizeChange"
       />
     </div>
-    <!-- 弹窗 -->
-    <el-dialog title="商户修改限额" :visible.sync="dialogVisible" width="40%">
-      <el-form ref="codeForm" :model="codeData"  label-width="60px">
+    <!-- 商户限额 -->
+    <el-dialog title="商户修改限额" :visible.sync="dialogVisible" width="30%">
+      <el-form ref="codeForm" :model="codeData" label-width="60px">
         <el-form-item label="限额" prop="amount">
           <el-input-number v-model="codeData.amount" :precision="4" :max="999999999" :min="0" :step="100" />
         </el-form-item>
@@ -201,27 +202,51 @@
       </span>
     </el-dialog>
     <!--    费率-->
-    <el-dialog title="商户修改费率" :visible.sync="dialogVisible3" width="40%">
-      <el-form ref="codeForm3" :model="rateCodeData"  label-width="60px">
+    <el-dialog title="商户修改费率" :visible.sync="dialogVisible3" width="30%">
+      <el-form ref="rateCodeForm" :model="rateCodeData" label-width="60px">
         <el-form-item label="费率" prop="amount">
           <el-input-number v-model="rateCodeData.amount" :precision="4" :step="0.0001" :max="0.006" :min="0.0001" />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="close3">{{ $t('button.cancel') }}</el-button>
-        <el-button type="primary" :loading="submitLoading" @click="submit3">{{ $t('button.sure') }}</el-button>
+        <el-button @click="rateClose">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="submitLoading" @click="rateSubmit">{{ $t('button.sure') }}</el-button>
       </span>
     </el-dialog>
     <!--  修改银行卡号  -->
-    <el-dialog title="修改银行卡号" :visible.sync="dialogVisible1" width="40%">
-      <el-form ref="codeForm" :model="bankCodeData" :rules="bankRules" label-width="100px">
-        <el-form-item label="银行卡号" prop="amount">
-          <el-input v-model="bankCodeData.amount" type="number" max="999999999.99" min="0.00" step="3" />
+    <el-dialog title="修改银行卡信息" :visible.sync="dialogVisible1" width="30%">
+      <el-form ref="codeForm1" :model="bankCodeData" :rules="bankRules" label-width="100px">
+        <el-form-item label="银行卡号" prop="bankCardNo">
+          <el-input v-model="bankCodeData.bankCardNo" />
+        </el-form-item>
+        <el-form-item label="银行名称" prop="bankName">
+          <el-input v-model="bankCodeData.bankName" />
+        </el-form-item>
+        <el-form-item label="支行名称" prop="bankNameSub">
+          <el-input v-model="bankCodeData.bankNameSub" />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="bankClose">{{ $t('button.cancel') }}</el-button>
         <el-button type="primary" :loading="submitLoading" @click="bankSubmit">{{ $t('button.sure') }}</el-button>
+      </span>
+    </el-dialog>
+    <!--  修改结算账户信息  -->
+    <el-dialog title="修改结算账户信息" :visible.sync="dialogVisible4" width="30%">
+      <el-form ref="codeForm4" :model="settlementCodeData" label-width="100px">
+        <el-form-item label="银行卡号" prop="bankCardNo">
+          <el-input v-model="settlementCodeData.bankCardNo" />
+        </el-form-item>
+        <el-form-item label="银行名称" prop="bankName">
+          <el-input v-model="settlementCodeData.bankName" />
+        </el-form-item>
+        <el-form-item label="支行名称" prop="bankNameSub">
+          <el-input v-model="settlementCodeData.bankNameSub" />
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="settlementClose">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="submitLoading" @click="settlementSubmit">{{ $t('button.sure') }}</el-button>
       </span>
     </el-dialog>
   </div>

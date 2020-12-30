@@ -33,8 +33,8 @@ export function deleteCustomer(id) {
 
 export function updatePassword(params) {
   return request({
-    url: '/admin/accountManager/updAccountManager',
-    method: 'ppost',
+    url: '/admin/accountManager/updPassword',
+    method: 'post',
     data: params
   })
 }

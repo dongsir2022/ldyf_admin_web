@@ -220,3 +220,12 @@ export function changePayRate(params) {
     data: params
   })
 }
+
+// 修改银行卡号
+export function changeMess(params) {
+  return request({
+    url: '/admin/merchant/changeMess',
+    method: 'post',
+    data: params
+  })
+}

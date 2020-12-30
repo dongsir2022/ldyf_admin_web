@@ -1,4 +1,4 @@
-import { freezeMerchant, getMerchantList, normalMerchant, putOpenSplitAuth, changeLimit, putOpenWx, putOpenAli, putOpenUnion, changePayRate } from '@/api/merchant/merchantApi'
+import { freezeMerchant, getMerchantList, normalMerchant, putOpenSplitAuth, changeLimit, putOpenWx, putOpenAli, putOpenUnion, changePayRate, changeMess } from '@/api/merchant/merchantApi'
 
 export default {
   name: 'merchantListIndex',
@@ -23,6 +23,7 @@ export default {
       dialogVisible: false,
       dialogVisible1: false,
       dialogVisible3: false,
+      dialogVisible4: false,
       codeData: {
         amount: 0,
         merchant_id: '',
@@ -39,14 +40,28 @@ export default {
       },
       submitLoading: false,
       bankRules: {
-        amount: [
+        bankCardNo: [
           { required: true, message: '请输入银行卡号', trigger: 'blur' },
-          { min: 0, message: '不能低于0', trigger: 'blur' }
+          { pattern: /^[1-9]\d{9,29}$/, message: '请输入正确的银行卡号', trigger: 'blur' }
+        ],
+        bankName: [
+          { required: true, message: '请输入银行名称', trigger: 'blur' }
+        ],
+        bankNameSub: [
+          { required: true, message: '请输入支行名称', trigger: 'blur' }
         ]
       },
       bankCodeData: {
-        amount: '',
-        merchant_id: ''
+        id: '',
+        bankCardNo: '',
+        bankName: '',
+        bankNameSub: ''
+      },
+      settlementCodeData: {
+        id: '',
+        bankCardNo: '',
+        bankName: '',
+        bankNameSub: ''
       }
     }
   },
@@ -57,30 +72,6 @@ export default {
     search1() {
       this.page = 1
       this.fetchData()
-    },
-    alter(row) {
-      this.dialogVisible = true
-      this.codeData = {
-        amount: 100,
-        merchant_id: row.id
-      }
-    },
-    tradeDeviceList3(row) {
-      this.dialogVisible3 = true
-      this.rateCodeData = {
-        amount: 0.0001,
-        rate: 0.002,
-        agent: 0.00001,
-        trade_limit: 1000,
-        id: row.id
-      }
-    },
-    alterModifyBankCardNum(row) {
-      this.dialogVisible1 = true
-      this.bankCodeData = {
-        amount: '',
-        merchant_id: row.id
-      }
     },
     // 开通分账权限
     openSplitAuth(row) {
@@ -95,7 +86,15 @@ export default {
         this.splitLoading = false
       })
     },
-    // 提交
+    // 打开限额
+    alter(row) {
+      this.dialogVisible = true
+      this.codeData = {
+        amount: 100,
+        merchant_id: row.id
+      }
+    },
+    // 提交限额
     submit() {
       this.$refs.codeForm.validate(valid => {
         if (valid) {
@@ -119,8 +118,33 @@ export default {
         }
       })
     },
-    submit3() {
-      this.$refs.codeForm3.validate(valid => {
+    // 重置限额
+    resetForm() {
+      this.$refs.codeForm.resetFields()
+      this.codeData = {
+        amount: 0,
+        merchant_id: ''
+      }
+    },
+    // 关闭限额
+    close() {
+      this.dialogVisible = false
+      this.resetForm()
+    },
+    // 打开费率
+    modifyPaymentRate(row) {
+      this.dialogVisible3 = true
+      this.rateCodeData = {
+        amount: 0.0001,
+        rate: 0.002,
+        agent: 0.00001,
+        trade_limit: 1000,
+        id: row.id
+      }
+    },
+    // 提交费率
+    rateSubmit() {
+      this.$refs.rateCodeForm.validate(valid => {
         if (valid) {
           this.submitLoading = true
           const data = {
@@ -135,30 +159,16 @@ export default {
             this.fetchData()
             this.submitLoading = false
             this.dialogVisible3 = false
-            this.resetForm3()
+            this.resetRateForm()
           }).catch(() => {
             this.submitLoading = false
           })
         }
       })
     },
-    close() {
-      this.dialogVisible = false
-      this.resetForm()
-    },
-    close3() {
-      this.dialogVisible3 = false
-      this.resetForm3()
-    },
-    resetForm() {
-      this.$refs.codeForm.resetFields()
-      this.codeData = {
-        amount: 0,
-        merchant_id: ''
-      }
-    },
-    resetForm3() {
-      this.$refs.codeForm3.resetFields()
+    // 重置费率
+    resetRateForm() {
+      this.$refs.rateCodeForm.resetFields()
       this.rateCodeData = {
         amount: 0,
         id: '',
@@ -167,16 +177,30 @@ export default {
         trade_limit: 1000
       }
     },
-    // 修改银行卡号
+    // 关闭费率
+    rateClose() {
+      this.dialogVisible3 = false
+      this.resetRateForm()
+    },
+    // 打开银行卡
+    alterModifyBankCardNum(row) {
+      this.dialogVisible1 = true
+      this.bankCodeData = {
+        id: row.id
+      }
+    },
+    // 提交银行卡
     bankSubmit() {
-      this.$refs.codeForm.validate(valid => {
+      this.$refs.codeForm1.validate(valid => {
         if (valid) {
           this.submitLoading = true
           const data = {
-            amount: this.bankCodeData.amount,
-            merchant_id: this.bankCodeData.merchant_id
+            id: this.bankCodeData.id,
+            bankName: this.bankCodeData.bankName,
+            bankNameSub: this.bankCodeData.bankNameSub,
+            bankCardNo: this.bankCodeData.bankCardNo
           }
-          changeLimit(data).then(res => {
+          changeMess(data).then(res => {
             this.$message({
               message: '修改成功',
               type: 'success'
@@ -191,16 +215,69 @@ export default {
         }
       })
     },
+    // 重置银行卡
+    resetBankForm() {
+      this.$refs.codeForm1.resetFields()
+      this.bankCodeData = {
+        id: '',
+        bankCardNo: '',
+        bankName: '',
+        bankNameSub: ''
+      }
+    },
+    // 关闭银行卡
     bankClose() {
       this.dialogVisible1 = false
       this.resetBankForm()
     },
-    resetBankForm() {
-      this.$refs.codeForm.resetFields()
-      this.bankCodeData = {
-        amount: '',
-        merchant_id: ''
+    // 打开结算
+    modifySettlementAccount(row) {
+      this.dialogVisible4 = true
+      this.settlementCodeData = {
+        id: row.id
       }
+    },
+    // 提交结算
+    settlementSubmit() {
+      this.$refs.codeForm4.validate(valid => {
+        if (valid) {
+          this.submitLoading = true
+          const data = {
+            id: this.settlementCodeData.id,
+            bankName: this.settlementCodeData.bankName,
+            bankNameSub: this.settlementCodeData.bankNameSub,
+            bankCardNo: this.settlementCodeData.bankCardNo
+          }
+          // 此处修改为结算接口
+          changeMess(data).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.fetchData()
+            this.submitLoading = false
+            this.dialogVisible4 = false
+            this.resetSettlementForm()
+          }).catch(() => {
+            this.submitLoading = false
+          })
+        }
+      })
+    },
+    // 重置结算
+    resetSettlementForm() {
+      this.$refs.codeForm4.resetFields()
+      this.settlementCodeData = {
+        id: '',
+        bankCardNo: '',
+        bankName: '',
+        bankNameSub: ''
+      }
+    },
+    // 关闭结算
+    settlementClose() {
+      this.dialogVisible4 = false
+      this.resetSettlementForm()
     },
     handleCurrentChange(page) {
       this.page = page
@@ -319,14 +396,6 @@ export default {
           message: err.message,
           type: 'error'
         })
-      })
-    },
-    changePayRate(id) {
-      changePayRate({
-        id: id,
-        payRate: ''
-      }).then(res => {
-
       })
     }
   }

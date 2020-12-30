@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Quick Book',
+  title: '登录 ',
 
   /**
    * @type {boolean} true | false

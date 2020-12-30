@@ -208,6 +208,13 @@
         <el-form-item label="联系电话" prop="phone">
           <el-input v-model="createDeviceOperatorForm.phone" autocomplete="off" />
         </el-form-item>
+        <el-form-item label="操作员权限" prop="account_type">
+          <el-radio-group v-model="createDeviceOperatorForm.account_type">
+            <el-radio label="1">管理员</el-radio>
+            <el-radio label="2">操作员</el-radio>
+          </el-radio-group>
+          <!--          <el-input v-model="createDeviceOperatorForm.account_type" autocomplete="off" />-->
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="createDeviceOperatorVisible = false">取消</el-button>

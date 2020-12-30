@@ -57,16 +57,20 @@ export default {
       createDeviceOperatorVisible: false,
       createDeviceOperatorForm: {
         name: '',
-        phone: ''
+        phone: '',
+        account_type: ''
       },
 
       createDeviceOperatorRules: {
         name: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+          { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
         phone: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkPhone, trigger: 'blur' }
+        ],
+        account_type: [
+          { required: true, message: '请选择操作员权限', trigger: 'change' }
         ]
       },
       createDeviceOperatorLoading: false,
@@ -224,6 +228,7 @@ export default {
             user_name: this.createDeviceOperatorForm.name,
             user_no: this.createDeviceOperatorForm.phone,
             mobile_phone: this.createDeviceOperatorForm.phone,
+            account_type: this.createDeviceOperatorForm.account_type,
             trade_device_id: this.tradeDeviceId,
             merchant_id: this.merchant_id
           }

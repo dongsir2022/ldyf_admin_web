@@ -4,61 +4,63 @@
     <div class="block" />
     <!--    树形数据与懒加载-->
     <el-table
+      v-loading="loading"
       :data="treedata"
       style="width: 100%"
       row-key="id"
       default-expand-all
       border
       lazy
-      v-loading="loading"
-      :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+    >
       <el-table-column
         align="center"
         prop="agency_name"
         label="行社名称"
-        width="200">
-      </el-table-column>
+        width="200"
+      />
       <el-table-column
         align="center"
         prop="agency_no"
         label="行社编号"
-        width="200">
-      </el-table-column>
+        width="200"
+      />
       <el-table-column
         align="center"
         prop="bank_agency_no"
         label="银行内部机构号"
-        width="200">
-      </el-table-column>
+        width="200"
+      />
       <el-table-column
         align="center"
         prop="clear_bank_no"
         label="清算行行号"
-        width="200">
-      </el-table-column>
+        width="200"
+      />
       <el-table-column
         align="center"
         prop="pay_bank_no"
         label="支付行行号"
-        width="200">
-      </el-table-column>
+        width="200"
+      />
       <el-table-column
         align="center"
         prop="card_no_front"
         label="卡bin"
-        width="200">
-      </el-table-column>
+        width="200"
+      />
       <el-table-column
         align="center"
         label="操作"
       >
         <template slot-scope="scope">
-            <el-button
-              type="primary"
-              size="mini"
-              v-if="scope.row.p_agency_id < 2"
-              @click.stop="() => append(scope.row.p_agency_id, scope)">添加下属行
-            </el-button>
+          <el-button
+            v-if="scope.row.p_agency_id < 2"
+            type="primary"
+            size="mini"
+            @click.stop="() => append(scope.row.p_agency_id, scope)"
+          >添加下属行
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
