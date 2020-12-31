@@ -110,13 +110,6 @@
             @click="alterModifyBankCardNum(scope.row)"
           >修改银行卡信息
           </el-button>
-          <!--
-          <el-button
-            type="text"
-            size="mini"
-            @click="modifySettlementAccount(scope.row.id)"
-          >修改结算账户信息
-          </el-button>-->
           <el-button
             type="text"
             size="mini"
@@ -229,24 +222,6 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="bankClose">{{ $t('button.cancel') }}</el-button>
         <el-button type="primary" :loading="submitLoading" @click="bankSubmit">{{ $t('button.sure') }}</el-button>
-      </span>
-    </el-dialog>
-    <!--  修改结算账户信息  -->
-    <el-dialog title="修改结算账户信息" :visible.sync="dialogVisible4" width="30%">
-      <el-form ref="codeForm4" :model="settlementCodeData" label-width="100px">
-        <el-form-item label="银行卡号" prop="bankCardNo">
-          <el-input v-model="settlementCodeData.bankCardNo" />
-        </el-form-item>
-        <el-form-item label="银行名称" prop="bankName">
-          <el-input v-model="settlementCodeData.bankName" />
-        </el-form-item>
-        <el-form-item label="支行名称" prop="bankNameSub">
-          <el-input v-model="settlementCodeData.bankNameSub" />
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="settlementClose">{{ $t('button.cancel') }}</el-button>
-        <el-button type="primary" :loading="submitLoading" @click="settlementSubmit">{{ $t('button.sure') }}</el-button>
       </span>
     </el-dialog>
   </div>

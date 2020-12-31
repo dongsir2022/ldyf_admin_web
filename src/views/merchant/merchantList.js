@@ -23,7 +23,6 @@ export default {
       dialogVisible: false,
       dialogVisible1: false,
       dialogVisible3: false,
-      dialogVisible4: false,
       codeData: {
         amount: 0,
         merchant_id: '',
@@ -52,12 +51,6 @@ export default {
         ]
       },
       bankCodeData: {
-        id: '',
-        bankCardNo: '',
-        bankName: '',
-        bankNameSub: ''
-      },
-      settlementCodeData: {
         id: '',
         bankCardNo: '',
         bankName: '',
@@ -229,55 +222,6 @@ export default {
     bankClose() {
       this.dialogVisible1 = false
       this.resetBankForm()
-    },
-    // 打开结算
-    modifySettlementAccount(row) {
-      this.dialogVisible4 = true
-      this.settlementCodeData = {
-        id: row.id
-      }
-    },
-    // 提交结算
-    settlementSubmit() {
-      this.$refs.codeForm4.validate(valid => {
-        if (valid) {
-          this.submitLoading = true
-          const data = {
-            id: this.settlementCodeData.id,
-            bankName: this.settlementCodeData.bankName,
-            bankNameSub: this.settlementCodeData.bankNameSub,
-            bankCardNo: this.settlementCodeData.bankCardNo
-          }
-          // 此处修改为结算接口
-          changeMess(data).then(res => {
-            this.$message({
-              message: '修改成功',
-              type: 'success'
-            })
-            this.fetchData()
-            this.submitLoading = false
-            this.dialogVisible4 = false
-            this.resetSettlementForm()
-          }).catch(() => {
-            this.submitLoading = false
-          })
-        }
-      })
-    },
-    // 重置结算
-    resetSettlementForm() {
-      this.$refs.codeForm4.resetFields()
-      this.settlementCodeData = {
-        id: '',
-        bankCardNo: '',
-        bankName: '',
-        bankNameSub: ''
-      }
-    },
-    // 关闭结算
-    settlementClose() {
-      this.dialogVisible4 = false
-      this.resetSettlementForm()
     },
     handleCurrentChange(page) {
       this.page = page
