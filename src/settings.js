@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '登录 ',
+  title: '联都e付',
 
   /**
    * @type {boolean} true | false
