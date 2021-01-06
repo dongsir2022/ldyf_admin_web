@@ -28,6 +28,16 @@
       </el-row>
     </div>
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
+      <el-table-column align="center" label="商户名称">
+        <template slot-scope="scope">
+          {{ scope.row.merchant_name }}
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="商户编号">
+        <template slot-scope="scope">
+          {{ scope.row.merchant_no }}
+        </template>
+      </el-table-column>
       <el-table-column align="center" label="应付金额">
         <template slot-scope="scope">
           ￥{{ $common.jeFormat(scope.row.payable_fee, 2) }}
@@ -51,7 +61,6 @@
           <el-tag v-if="scope.row.settle_status ===5" type="warning">结算失败</el-tag>
         </template>
       </el-table-column>
-
       <el-table-column align="center" label="结算日期">
         <template slot-scope="scope">
           {{ scope.row.settle_date }}
