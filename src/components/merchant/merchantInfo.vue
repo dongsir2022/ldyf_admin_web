@@ -66,7 +66,7 @@
               </el-form-item>
             </el-row>
             <el-row>
-              <el-form-item label="控股股东证件截止有效期：">
+              <el-form-item label="控股股东证件截止有效期：" label-width="180px">
                 {{ data.merchant_info_ext.holderexpire }}
               </el-form-item>
             </el-row>
@@ -190,12 +190,14 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="6">
+        <el-col>
           <el-form-item label="法人身份证号：">
             {{ data.merchant_info_ext.contact_id_card }}
           </el-form-item>
         </el-col>
-        <el-col :span="12">
+      </el-row>
+      <el-row>
+        <el-col>
           <el-form-item label="法人身份证有效期：">
             {{ data.merchant_info_ext.contact_id_card_period_begin }} 至
             {{ data.merchant_info_ext.contact_id_card_period_end }}
@@ -203,19 +205,21 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="6">
+        <el-col>
           <el-form-item label="法人联系电话：">
             {{ data.merchant_info_ext.contact_phone }}
           </el-form-item>
         </el-col>
-        <el-col :span="6">
+      </el-row>
+      <el-row>
+        <el-col>
           <el-form-item label="法人邮箱：">
             {{ data.merchant_info_ext.contact_email }}
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="9">
+        <el-col>
           <el-form-item label="法人身份证照片：">
             <el-image
               style="width: 300px; height: 200px"
@@ -224,7 +228,7 @@
             />
           </el-form-item>
         </el-col>
-        <el-col :span="8">
+        <el-col style="margin-left: 140px;margin-bottom: 22px">
           <el-image
             style="width: 300px; height: 200px;margin-left:30px;"
             :src="data.merchant_info_ext.contact_id_card_after"
@@ -233,13 +237,15 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-form-item label="手持身份证照片：">
-          <el-image
-            style="width: 300px; height: 200px"
-            :src="data.merchant_info_ext.legalpic"
-            :preview-src-list="[data.merchant_info_ext.legalpic]"
-          />
-        </el-form-item>
+        <el-col>
+          <el-form-item label="手持身份证照片：">
+            <el-image
+              style="width: 300px; height: 200px"
+              :src="data.merchant_info_ext.legalpic"
+              :preview-src-list="[data.merchant_info_ext.legalpic]"
+            />
+          </el-form-item>
+        </el-col>
       </el-row>
     </el-form>
     <!--  业务联系人  -->
@@ -313,7 +319,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-form-item label="银行卡/存折/印鉴卡照片：">
+        <el-form-item label="银行卡/存折/印鉴卡照片：" label-width="174px">
           <el-image
             style="width: 300px; height: 200px"
             :src="data.merchant_info_ext.bank_photo"
@@ -334,6 +340,8 @@
             />
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="7">
           <el-form-item label="内景照：">
             <el-image
@@ -343,6 +351,8 @@
             />
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row>
         <el-col :span="7">
           <el-form-item label="收银台照：">
             <el-image
