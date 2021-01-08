@@ -10,13 +10,13 @@
             </el-form-item>
           </el-row>
           <el-row>
-            <el-col v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== 4" :span="10">
+            <el-col v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== '4'" :span="10">
               <el-form-item label="统一社会信用代码：">
                 {{ data.merchant_info_ext.business_license }}
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== 4">
+          <el-row v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== '4'">
             <el-col :span="24">
               <el-form-item label="营业执照有效期：">
                 {{ data.merchant_info_ext.business_period_begin }} 至 {{ data.merchant_info_ext.business_period_end }}
@@ -54,7 +54,7 @@
             </el-form-item>
           </el-row>
           <!--  商户性质个人时  -->
-          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== 4" :label-width="labelWidth">
+          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== '4'" :label-width="labelWidth">
             <el-row>
               <el-form-item label="控股股东姓名：">
                 {{ data.merchant_info_ext.holdername }}
@@ -92,7 +92,7 @@
             </el-row>
           </el-form>
           <!--  商户性质个人时  -->
-          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 4" :label-width="labelWidth">
+          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '4'" :label-width="labelWidth">
             <el-row>
               <el-form-item label="经营场所证明文件：">
                 <el-image
@@ -114,7 +114,7 @@
           </el-form>
         </el-form>
       </el-col>
-      <el-col v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== 4" :span="6">
+      <el-col v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== '4'" :span="6">
         <el-row>
           <el-col>
             <el-image
@@ -127,8 +127,8 @@
       </el-col>
     </el-row>
     <!--    商户性质为企业结算账户对私时-->
-    <el-divider v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 1 && data.merchant_info_ext.bank_type === 'PRIVATE'" content-position="left">企业</el-divider>
-    <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === 1 && data.merchant_info_ext.bank_type === 'PRIVATE'" :label-width="labelWidth">
+    <el-divider v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '1' && data.merchant_info_ext.bank_type === 'PRIVATE'" content-position="left">企业</el-divider>
+    <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '1' && data.merchant_info_ext.bank_type === 'PRIVATE'" :label-width="labelWidth">
       <el-row>
         <el-col :span="6">
           <el-form-item label="对公账户号：">
@@ -328,8 +328,8 @@
         </el-form-item>
       </el-row>
     </el-form>
-    <el-divider v-if="data.merchant_info_ext.comproperty !== 4" content-position="left">经营场所照片</el-divider>
-    <el-form v-if="data.merchant_info_ext.comproperty !== 4" :label-width="labelWidth">
+    <el-divider v-if="data.merchant_info_ext.comproperty !== '4'" content-position="left">经营场所照片</el-divider>
+    <el-form v-if="data.merchant_info_ext.comproperty !== '4'" :label-width="labelWidth">
       <el-row>
         <el-col :span="7">
           <el-form-item label="门头照：">
