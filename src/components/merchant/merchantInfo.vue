@@ -248,23 +248,6 @@
         </el-col>
       </el-row>
     </el-form>
-    <!--  业务联系人  -->
-    <!--    <el-divider content-position="left">业务联系人信息</el-divider>-->
-    <!--    <el-form :label-width="labelWidth">-->
-    <!--      <el-row>-->
-    <!--        <el-col :span="6">-->
-    <!--          <el-form-item label="业务联系人姓名：">-->
-    <!--            {{ data.merchant_info_ext.busconactperson }}-->
-    <!--          </el-form-item>-->
-    <!--        </el-col>-->
-    <!--        <el-col :span="6">-->
-    <!--          <el-form-item label="业务联系人电话：">-->
-    <!--            {{ data.merchant_info_ext.busconacttel }}-->
-    <!--          </el-form-item>-->
-    <!--        </el-col>-->
-    <!--      </el-row>-->
-    <!--    </el-form>-->
-
     <el-divider content-position="left">结算银行账户信息</el-divider>
     <el-form :label-width="labelWidth">
       <el-row>
@@ -364,7 +347,23 @@
         </el-col>
       </el-row>
     </el-form>
-  </el-card>
+    <!--  业务联系人  -->
+    <el-divider content-position="left">客户经理信息</el-divider>
+      <el-form :label-width="labelWidth">
+        <el-row>
+          <el-col :span="6">
+            <el-form-item label="客户经理姓名：">
+              {{ data.merchant_info_ext.busconactperson }}
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="客户经理电话：">
+              {{ data.merchant_info_ext.busconacttel }}
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+    </el-card>
 </template>
 
 <script>
