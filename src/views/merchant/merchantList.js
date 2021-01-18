@@ -32,7 +32,7 @@ export default {
       },
       rateCodeData: {
         id: '',
-        amount: 0.0001,
+        amount: 0.0000,
         rate: 0.002,
         agent: 0.00001,
         trade_limit: 1000
@@ -128,7 +128,7 @@ export default {
     modifyPaymentRate(row) {
       this.dialogVisible3 = true
       this.rateCodeData = {
-        amount: 0.0001,
+        amount: 0.0000,
         rate: 0.002,
         agent: 0.00001,
         trade_limit: 1000,
@@ -163,7 +163,7 @@ export default {
     resetRateForm() {
       this.$refs.rateCodeForm.resetFields()
       this.rateCodeData = {
-        amount: 0,
+        amount: 0.0000,
         id: '',
         rate: 0.002,
         agent: 0.00001,

@@ -6,7 +6,7 @@
         <el-form ref="form" :model="splitForm" label-width="100px">
           <el-divider content-position="left">支付费率</el-divider>
           <el-form-item label="费率:">
-            <el-input-number v-model="splitForm.rate" :precision="4" :step="0.0001" :max="0.006" :min="0.0020" />
+            <el-input-number v-model="splitForm.rate" :precision="4" :step="0.0001" :min="0.0000" />
           </el-form-item>
         </el-form>
       </el-card>

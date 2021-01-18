@@ -141,7 +141,7 @@
           >开通云闪付支付
           </el-button>
           <el-popconfirm
-            v-if="scope.row.merchant_status==1"
+            v-if="scope.row.merchant_status===1"
             title="确定冻结商户么？"
             @confirm="freezeMerchant(scope.row.id)"
           >
@@ -154,7 +154,7 @@
             </el-button>
           </el-popconfirm>
           <el-popconfirm
-            v-if="scope.row.merchant_status==2"
+            v-if="scope.row.merchant_status===2"
             title="确定解冻商户么？"
             @confirm="normalMerchant(scope.row.id)"
           >
@@ -198,7 +198,7 @@
     <el-dialog title="商户修改费率" :visible.sync="dialogVisible3" width="30%">
       <el-form ref="rateCodeForm" :model="rateCodeData" label-width="60px">
         <el-form-item label="费率" prop="amount">
-          <el-input-number v-model="rateCodeData.amount" :precision="4" :step="0.0001" :max="0.006" :min="0.0001" />
+          <el-input-number v-model="rateCodeData.amount" :precision="4" :step="0.0001" :min="0.0000" />
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
