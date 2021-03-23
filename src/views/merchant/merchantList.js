@@ -23,6 +23,7 @@ export default {
       dialogVisible: false,
       dialogVisible1: false,
       dialogVisible3: false,
+      dialogVisible4: false,
       codeData: {
         amount: 0,
         merchant_id: '',
@@ -55,7 +56,13 @@ export default {
         bankCardNo: '',
         bankName: '',
         bankNameSub: ''
-      }
+      },
+      wx_disabled: false,
+      ali_disabled: false,
+      union_disabled: false,
+      id: 0,
+      dialogTitle: '确定冻结商户么?',
+      merchant_status: 1
     }
   },
   created() {
@@ -261,6 +268,41 @@ export default {
         merchant_id: id
       })
     },
+    dongjie(id) {
+      this.merchant_status = 1
+      this.dialogVisible4 = true
+      this.id = id
+    },
+    dongjie1(id) {
+      this.merchant_status = 2
+      this.dialogTitle = '确定解冻商户么?'
+      this.dialogVisible4 = true
+      this.id = id
+    },
+    close4() {
+      this.dialogVisible4 = false
+    },
+    submit4() {
+      if (this.merchant_status === 1) { // 冻结
+        freezeMerchant(this.id).then(res => {
+          this.$message({
+            message: '冻结商户成功',
+            type: 'success'
+          })
+          this.fetchData()
+          this.close4()
+        })
+      } else {
+        normalMerchant(this.id).then(res => {
+          this.$message({
+            message: '解冻商户成功',
+            type: 'success'
+          })
+          this.close4()
+          this.fetchData()
+        })
+      }
+    },
     freezeMerchant(id) {
       freezeMerchant(id).then(res => {
         this.$message({
@@ -286,6 +328,7 @@ export default {
             message: '开通微信支付成功',
             type: 'success'
           })
+          this.wx_disabled = true
           this.fetchData()
         } else {
           this.$message({
@@ -307,6 +350,7 @@ export default {
             message: '开通支付宝支付成功',
             type: 'success'
           })
+          this.ali_disabled = true
           this.fetchData()
         } else {
           this.$message({
@@ -328,6 +372,7 @@ export default {
             message: '开通云闪付支付成功',
             type: 'success'
           })
+          this.union_disabled = true
           this.fetchData()
         } else {
           this.$message({

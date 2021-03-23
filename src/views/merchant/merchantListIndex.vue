@@ -81,91 +81,125 @@
         label="操作"
       >
         <template slot-scope="scope">
-          <el-button
-            type="text"
-            size="mini"
-            @click="info(scope.row.id)"
-          >查看详情
-          </el-button>
-          <el-button v-if="scope.row.split_status===2" type="text" :loading="splitLoading" size="mini" @click="openSplitAuth(scope.row)">开通分账权限
-          </el-button>
-          <el-button type="text" :loading="alterLoading" size="mini" @click="alter(scope.row)">商户修改限额
-          </el-button>
-          <el-button
-            type="text"
-            size="mini"
-            :loading="alterLoading"
-            @click="modifyPaymentRate(scope.row)"
-          >修改支付费率
-          </el-button>
+          <el-dropdown trigger="click">
+            <span class="el-dropdown-link">
+              更多操作<i class="el-icon-arrow-down el-icon--right" />
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  size="mini"
+                  @click="info(scope.row.id)"
+                >查看详情
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button v-if="scope.row.split_status===2" type="text" :loading="splitLoading" size="mini" @click="openSplitAuth(scope.row)">开通分账权限</el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button type="text" :loading="alterLoading" size="mini" @click="alter(scope.row)">商户修改限额
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  size="mini"
+                  :loading="alterLoading"
+                  @click="modifyPaymentRate(scope.row)"
+                >修改支付费率
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  size="mini"
+                  @click="alterModifyBankCardNum(scope.row)"
+                >修改银行卡信息
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <el-button
+                  type="text"
+                  size="mini"
+                  @click="tradeDeviceList(scope.row.id)"
+                >门店管理
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <!-- 微信支付-->
+                <el-button
+                  type="text"
+                  size="mini"
+                  :disabled="wx_disabled"
+                  @click="openingWechant(scope.row.id)"
+                >开通微信支付
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <!--    支付宝支付      -->
+                <!--                v-if="!scope.row.alipay_no"-->
+                <el-button
+                  :disabled="ali_disabled"
+                  type="text"
+                  size="mini"
+                  @click="openingAlipay(scope.row.id)"
+                >开通支付宝支付
+                </el-button>
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <!--  云闪付支付     -->
+                <!--  v-if="!scope.row.union_no"-->
+                <el-button
+                  :disabled="union_disabled"
+                  type="text"
+                  size="mini"
+                  @click="openingUnoin(scope.row.id)"
+                >开通云闪付支付
+                </el-button>
+              </el-dropdown-item>
+              <!--              <el-dropdown-item v-if="scope.row.merchant_status===1">-->
+              <!--                <el-popconfirm-->
+              <!--                  title="确定冻结商户么？"-->
+              <!--                  @confirm="freezeMerchant(scope.row.id)"-->
+              <!--                >-->
+              <!--                  <el-button-->
+              <!--                    slot="reference"-->
+              <!--                    type="text"-->
+              <!--                    class="red-text-button"-->
+              <!--                    size="mini"-->
+              <!--                  >冻结-->
+              <!--                  </el-button>-->
+              <!--                </el-popconfirm>-->
+              <!--              </el-dropdown-item>-->
+              <!--              <el-dropdown-item v-if="scope.row.merchant_status===2">-->
+              <!--                <el-popconfirm-->
+              <!--                  title="确定解冻商户么？"-->
+              <!--                  @confirm="normalMerchant(scope.row.id)"-->
+              <!--                >-->
+              <!--                  <el-button-->
+              <!--                    slot="reference"-->
+              <!--                    type="text"-->
+              <!--                    class="red-text-button"-->
+              <!--                    size="mini"-->
+              <!--                  >解冻-->
+              <!--                  </el-button>-->
+              <!--                </el-popconfirm>-->
+              <!--              </el-dropdown-item>-->
+              <el-dropdown-item v-if="scope.row.merchant_status===1" style="cursor: pointer;color: red;" @click.native="dongjie(scope.row.id)">冻结
+                <!--                <el-button size="mini" type="text" @click.native="dongjie(scope.row.id)">冻结</el-button>-->
+              </el-dropdown-item>
+              <el-dropdown-item v-if="scope.row.merchant_status===2" style="cursor: pointer;color: red;" @click.native="dongjie1(scope.row.id)">解冻
+                <!--                <el-button size="mini" type="text" @click.native="dongjie1(scope.row.id)">解冻</el-button>-->
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
           <!-- <el-button
             type="text"
             size="mini"
             @click="subTradeTerminal(scope.row.id)"
           >交易终端管理
           </el-button> -->
-          <el-button
-            type="text"
-            size="mini"
-            @click="alterModifyBankCardNum(scope.row)"
-          >修改银行卡信息
-          </el-button>
-          <el-button
-            type="text"
-            size="mini"
-            @click="tradeDeviceList(scope.row.id)"
-          >门店管理
-          </el-button>
-          <!-- 微信支付-->
-          <el-button
-            v-if="!scope.row.wechat_no"
-            type="text"
-            size="mini"
-            @click="openingWechant(scope.row.id)"
-          >开通微信支付
-          </el-button>
-          <!--    支付宝支付      -->
-          <el-button
-            v-if="!scope.row.alipay_no"
-            type="text"
-            size="mini"
-            @click="openingAlipay(scope.row.id)"
-          >开通支付宝支付
-          </el-button>
-          <!--  云闪付支付     -->
-          <el-button
-            v-if="!scope.row.union_no"
-            type="text"
-            size="mini"
-            @click="openingUnoin(scope.row.id)"
-          >开通云闪付支付
-          </el-button>
-          <el-popconfirm
-            v-if="scope.row.merchant_status===1"
-            title="确定冻结商户么？"
-            @confirm="freezeMerchant(scope.row.id)"
-          >
-            <el-button
-              slot="reference"
-              type="text"
-              class="red-text-button"
-              size="mini"
-            >冻结
-            </el-button>
-          </el-popconfirm>
-          <el-popconfirm
-            v-if="scope.row.merchant_status===2"
-            title="确定解冻商户么？"
-            @confirm="normalMerchant(scope.row.id)"
-          >
-            <el-button
-              slot="reference"
-              type="text"
-              class="red-text-button"
-              size="mini"
-            >解冻
-            </el-button>
-          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
@@ -224,6 +258,13 @@
         <el-button type="primary" :loading="submitLoading" @click="bankSubmit">{{ $t('button.sure') }}</el-button>
       </span>
     </el-dialog>
+    <!--    冻结-->
+    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible4" width="30%">
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="close4">取 消</el-button>
+        <el-button type="primary" @click="submit4">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -232,6 +273,10 @@
 @import "src/styles/common.scss";
 </style>
 <style lang="scss" scoped>
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409EFF;
+}
 .sup-merchant-item {
   margin-right: 20px;
 }

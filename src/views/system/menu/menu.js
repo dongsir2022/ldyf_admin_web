@@ -91,6 +91,7 @@ export default {
       }
     },
     append(node, data) {
+      console.log(node, data)
       this.resetForm()
       this.form.parent_id = node.data.id
       this.form.name = node.data.name + '-'

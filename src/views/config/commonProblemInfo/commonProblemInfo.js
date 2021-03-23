@@ -67,6 +67,7 @@ export default {
     // 删除
     remove(id) {
       delCommonProblemInfoApi(id).then(res => {
+        console.log(this)
         this.$message({
           message: this.$t('alert.optionSuccess'),
           type: 'success'

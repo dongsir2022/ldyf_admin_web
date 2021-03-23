@@ -113,6 +113,7 @@ export default {
       this.$refs.appVersionForm.resetFields()
     },
     removeAppVersion(data) {
+      console.log(data)
       removeAppVersionApi(data.id).then(res => {
         this.$message({
           message: this.$t('alert.optionSuccess'),

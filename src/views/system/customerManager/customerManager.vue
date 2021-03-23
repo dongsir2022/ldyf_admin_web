@@ -79,7 +79,7 @@
         </el-form-item>
 
         <el-form-item v-if="id===''" prop="password" label="密码">
-          <el-input v-model="form.password" maxlenth="20" placeholder="6-20位数字字母特殊符号组合" type="password" auto-complete="off" class="input-tx" />
+          <el-input v-model="form.password" maxlenth="20" placeholder="12-18位数字大小写字母特殊符号组合" type="password" auto-complete="off" class="input-tx" />
         </el-form-item>
       </el-form>
 
@@ -93,7 +93,7 @@
     <el-dialog width="40%" title="重置密码" :visible.sync="dialogPd" class="user-dialog">
       <el-form ref="formPd" :model="formPd" :rules="rulesPd" label-width="120px">
         <el-form-item prop="password" label="新密码">
-          <el-input v-model="formPd.password" maxlenth="20" placeholder="6-20位数字字母特殊符号组合" type="password" auto-complete="off" class="input-tx" />
+          <el-input v-model="formPd.password" maxlenth="20" placeholder="12-18位数字大小写字母特殊符号组合" type="password" auto-complete="off" class="input-tx" />
         </el-form-item>
 
         <el-form-item prop="confirmPassword" label="再次确认密码">

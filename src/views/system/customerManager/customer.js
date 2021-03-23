@@ -40,9 +40,9 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, message: '密码不能少于6位', trigger: 'blur' },
-          { max: 20, message: '密码不能超过20位', trigger: 'blur' },
-          { pattern: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>?,.\/]).{6,20}$/, message: '密码规则为数字字母特殊符号的组合', trigger: 'blur' }
+          { min: 12, message: '密码不能少于12位', trigger: 'blur' },
+          { max: 18, message: '密码不能超过18位', trigger: 'blur' },
+          { pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[~!@#$%^&*()_+`\-={}:";'<>?,.\/]).*.{12,18}$/, message: '密码规则为数字大小写字母特殊符号的组合', trigger: 'blur' }
         ]
       },
       initForm: {
@@ -58,9 +58,9 @@ export default {
       rulesPd: {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, message: '密码不能少于6位', trigger: 'blur' },
-          { max: 20, message: '密码不能超过20位', trigger: 'blur' },
-          { pattern: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()_+`\-={}:";'<>?,.\/]).{6,20}$/, message: '密码规则为数字字母特殊符号的组合', trigger: 'blur' }
+          { min: 12, message: '密码不能少于12位', trigger: 'blur' },
+          { max: 18, message: '密码不能超过18位', trigger: 'blur' },
+          { pattern: /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[~!@#$%^&*()_+`\-={}:";'<>?,.\/]).*.{12,18}$/, message: '密码规则为数字大小写字母特殊符号的组合', trigger: 'blur' }
         ],
         confirmPassword: [
           { validator: validateConfirmPwd, trigger: 'blur' }
