@@ -1,4 +1,15 @@
-import { freezeMerchant, getMerchantList, normalMerchant, putOpenSplitAuth, changeLimit, putOpenWx, putOpenAli, putOpenUnion, changePayRate, changeMess } from '@/api/merchant/merchantApi'
+import {
+  freezeMerchant,
+  getMerchantList,
+  normalMerchant,
+  putOpenSplitAuth,
+  changeLimit,
+  putOpenWx,
+  putOpenAli,
+  putOpenUnion,
+  changePayRate,
+  changeMess
+} from '@/api/merchant/merchantApi'
 
 export default {
   name: 'merchantListIndex',
@@ -12,8 +23,8 @@ export default {
       supMerchantArr: [],
       merchantLevel: 1,
       merchantStatus: [
-        { value: 1, label: '正常' },
-        { value: 2, label: '冻结' }
+        {value: 1, label: '正常'},
+        {value: 2, label: '冻结'}
       ],
       search: {
         status: 1
@@ -41,14 +52,14 @@ export default {
       submitLoading: false,
       bankRules: {
         bankCardNo: [
-          { required: true, message: '请输入银行卡号', trigger: 'blur' },
-          { pattern: /^[1-9]\d{9,29}$/, message: '请输入正确的银行卡号', trigger: 'blur' }
+          {required: true, message: '请输入银行卡号', trigger: 'blur'},
+          {pattern: /^[1-9]\d{9,29}$/, message: '请输入正确的银行卡号', trigger: 'blur'}
         ],
         bankName: [
-          { required: true, message: '请输入银行名称', trigger: 'blur' }
+          {required: true, message: '请输入银行名称', trigger: 'blur'}
         ],
         bankNameSub: [
-          { required: true, message: '请输入支行名称', trigger: 'blur' }
+          {required: true, message: '请输入支行名称', trigger: 'blur'}
         ]
       },
       bankCodeData: {
@@ -57,12 +68,10 @@ export default {
         bankName: '',
         bankNameSub: ''
       },
-      wx_disabled: false,
-      ali_disabled: false,
-      union_disabled: false,
       id: 0,
       dialogTitle: '确定冻结商户么?',
-      merchant_status: 1
+      merchant_status: 1,
+      loadingText: ''
     }
   },
   created() {
@@ -76,7 +85,7 @@ export default {
     // 开通分账权限
     openSplitAuth(row) {
       this.splitLoading = true
-      putOpenSplitAuth({ merchant_id: row.id }).then(res => {
+      putOpenSplitAuth({merchant_id: row.id}).then(res => {
         this.splitLoading = false
         this.$message({
           message: this.$t('alert.optionSuccess'),
@@ -245,6 +254,7 @@ export default {
         status: this.search.status
       }
       this.loading = true
+      this.loadingText = '加载数据中...'
       getMerchantList(data).then(res => {
         this.loading = false
         this.list = res.data
@@ -322,69 +332,57 @@ export default {
       })
     },
     openingWechant(id) {
-      putOpenWx({ merchant_id: id }).then(res => {
-        if (res.code === 0) {
-          this.$message({
-            message: '开通微信支付成功',
-            type: 'success'
-          })
-          this.wx_disabled = true
-          this.fetchData()
-        } else {
-          this.$message({
-            message: res.message,
-            type: 'warning'
-          })
-        }
+      this.loading = true
+      this.loadingText = '开通微信支付中...'
+      putOpenWx({merchant_id: id}).then(res => {
+        this.$message({
+          message: '开通微信支付成功',
+          type: 'success'
+        })
+        this.fetchData()
       }).catch((err) => {
         this.$message({
           message: err.message,
           type: 'error'
         })
+      }).finally(() => {
+        this.loading = false
       })
     },
     openingAlipay(id) {
-      putOpenAli({ merchant_id: id }).then(res => {
-        if (res.code === 0) {
-          this.$message({
-            message: '开通支付宝支付成功',
-            type: 'success'
-          })
-          this.ali_disabled = true
-          this.fetchData()
-        } else {
-          this.$message({
-            message: res.message,
-            type: 'warning'
-          })
-        }
+      this.loading = true
+      this.loadingText = '开通支付宝支付中...'
+      putOpenAli({merchant_id: id}).then(res => {
+        this.$message({
+          message: '开通支付宝支付成功',
+          type: 'success'
+        })
+        this.fetchData()
       }).catch((err) => {
         this.$message({
           message: err.message,
           type: 'error'
         })
+      }).finally(() => {
+        this.loading = false
       })
     },
     openingUnoin(id) {
-      putOpenUnion({ merchant_id: id }).then(res => {
-        if (res.code === 0) {
-          this.$message({
-            message: '开通云闪付支付成功',
-            type: 'success'
-          })
-          this.union_disabled = true
-          this.fetchData()
-        } else {
-          this.$message({
-            message: res.message,
-            type: 'warning'
-          })
-        }
+      this.loading = true
+      this.loadingText = '开通云闪付支付中...'
+      putOpenUnion({merchant_id: id}).then(res => {
+        this.$message({
+          message: '开通云闪付支付成功',
+          type: 'success'
+        })
+        this.fetchData()
       }).catch((err) => {
         this.$message({
           message: err.message,
           type: 'error'
         })
+      }).finally(() => {
+        this.loading = false
       })
     }
   }

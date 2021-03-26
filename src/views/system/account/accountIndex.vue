@@ -125,7 +125,7 @@
         @check-change="handleNodeClick"
       >
         <span slot-scope="{ node, data }" class="custom-tree-node">
-          <span>{{ data.agency_name }}({{ data.agency_no }})</span>
+          <span>{{ data.agency_name }}({{ data.bank_agency_no }})</span>
         </span>
       </el-tree>
       <div slot="footer" class="dialog-footer">
