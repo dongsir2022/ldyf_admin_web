@@ -8,7 +8,7 @@ import {
   putOpenAli,
   putOpenUnion,
   changePayRate,
-  changeMess
+  changeMess, wxStatusApi, rejectChangeApi
 } from '@/api/merchant/merchantApi'
 
 export default {
@@ -24,7 +24,8 @@ export default {
       merchantLevel: 1,
       merchantStatus: [
         {value: 1, label: '正常'},
-        {value: 2, label: '冻结'}
+        {value: 2, label: '冻结'},
+        {value: 3, label: '驳回修改'}
       ],
       search: {
         status: 1
@@ -99,7 +100,7 @@ export default {
     alter(row) {
       this.dialogVisible = true
       this.codeData = {
-        amount: 100,
+        amount: row.trading_limit,
         merchant_id: row.id
       }
     },
@@ -144,7 +145,7 @@ export default {
     modifyPaymentRate(row) {
       this.dialogVisible3 = true
       this.rateCodeData = {
-        amount: 0.0000,
+        amount: row.pay_rate,
         rate: 0.002,
         agent: 0.00001,
         trade_limit: 1000,
@@ -278,58 +279,41 @@ export default {
         merchant_id: id
       })
     },
-    dongjie(id) {
-      this.merchant_status = 1
-      this.dialogVisible4 = true
-      this.id = id
-    },
-    dongjie1(id) {
-      this.merchant_status = 2
-      this.dialogTitle = '确定解冻商户么?'
-      this.dialogVisible4 = true
-      this.id = id
-    },
-    close4() {
-      this.dialogVisible4 = false
-    },
-    submit4() {
-      if (this.merchant_status === 1) { // 冻结
-        freezeMerchant(this.id).then(res => {
-          this.$message({
-            message: '冻结商户成功',
-            type: 'success'
-          })
-          this.fetchData()
-          this.close4()
-        })
-      } else {
-        normalMerchant(this.id).then(res => {
-          this.$message({
-            message: '解冻商户成功',
-            type: 'success'
-          })
-          this.close4()
-          this.fetchData()
-        })
-      }
-    },
-    freezeMerchant(id) {
-      freezeMerchant(id).then(res => {
-        this.$message({
-          message: '冻结商户成功',
-          type: 'success'
-        })
-        this.fetchData()
+    normalMerchant(row) {
+      this.$confirm('确定解冻商户么?', '确认信息', {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '解冻',
+        cancelButtonText: '放弃'
       })
-    },
-    normalMerchant(id) {
-      normalMerchant(id).then(res => {
-        this.$message({
-          message: '解冻商户成功',
-          type: 'success'
+        .then(() => {
+          normalMerchant(row.id).then(res => {
+            this.$message({
+              message: '解冻商户成功',
+              type: 'success'
+            })
+            this.fetchData()
+          })
         })
-        this.fetchData()
+        .catch(action => {
+        });
+    },
+    freezeMerchant(row) {
+      this.$confirm('确定冻结商户么?', '确认信息', {
+        distinguishCancelAndClose: true,
+        confirmButtonText: '冻结',
+        cancelButtonText: '放弃'
       })
+        .then(() => {
+          freezeMerchant(row.id).then(res => {
+            this.$message({
+              message: '冻结商户成功',
+              type: 'success'
+            })
+            this.fetchData()
+          })
+        })
+        .catch(action => {
+        });
     },
     openingWechant(id) {
       this.loading = true
@@ -383,6 +367,45 @@ export default {
         })
       }).finally(() => {
         this.loading = false
+      })
+    },
+    wxStatus(row) {
+      const h = this.$createElement
+      wxStatusApi(row.id).then(res => {
+        this.$msgbox({
+          title: '报文信息',
+          message: h('div', null, [
+            h('strong', null, '申请编号: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, res.data.wx_applyment_id),
+            h('br'),
+            h('strong', null, '请求结果: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, res.data.wx_upload_status)
+          ]),
+          confirmButtonText: '关闭',
+          callback: action => {
+          }
+        })
+      })
+    },
+    rejectChange(row) {
+      rejectChangeApi(row.id).then(res => {
+        this.$message({
+          message: '驳回修改成功',
+          type: 'success'
+        })
+        this.fetchData()
       })
     }
   }

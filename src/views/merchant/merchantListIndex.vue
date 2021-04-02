@@ -84,7 +84,7 @@
         <template slot-scope="scope">
           <el-dropdown trigger="click">
             <span class="el-dropdown-link">
-              更多操作<i class="el-icon-arrow-down el-icon--right"/>
+            更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="info(scope.row.id)">
@@ -105,20 +105,26 @@
               <el-dropdown-item @click.native="tradeDeviceList(scope.row.id)">
                 门店管理
               </el-dropdown-item>
-              <el-dropdown-item v-if="!scope.row.wechat_no" @click.native="openingWechant(scope.row.id)">
+              <el-dropdown-item @click.native="openingWechant(scope.row.id)">
                 开通微信支付
               </el-dropdown-item>
-              <el-dropdown-item v-if="!scope.row.union_no" @click.native="openingAlipay(scope.row.id)">
+              <el-dropdown-item @click.native="wxStatus(scope.row)">
+                查看微信开通结果
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="openingAlipay(scope.row.id)">
                 开通支付宝支付
               </el-dropdown-item>
-              <el-dropdown-item v-if="!scope.row.union_no" @click.native="openingUnoin(scope.row.id)">
+              <el-dropdown-item @click.native="openingUnoin(scope.row.id)">
                 开通云闪付支付
               </el-dropdown-item>
-              <el-dropdown-item v-if="scope.row.merchant_status===1" @click.native="dongjie(scope.row.id)">
+              <el-dropdown-item v-if="scope.row.merchant_status===1" @click.native="freezeMerchant(scope.row)">
                 冻结
               </el-dropdown-item>
-              <el-dropdown-item v-if="scope.row.merchant_status===2" @click.native="dongjie(scope.row.id)">
+              <el-dropdown-item v-if="scope.row.merchant_status===2" @click.native="normalMerchant(scope.row)">
                 解冻
+              </el-dropdown-item>
+              <el-dropdown-item v-if="scope.row.merchant_status===1" @click.native="rejectChange(scope.row)">
+                驳回修改
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -142,7 +148,7 @@
     <el-dialog title="商户修改限额" :visible.sync="dialogVisible" width="30%">
       <el-form ref="codeForm" :model="codeData" label-width="60px">
         <el-form-item label="限额" prop="amount">
-          <el-input-number v-model="codeData.amount" :precision="4" :max="999999999" :min="0" :step="100"/>
+          <el-input-number v-model="codeData.amount" :precision="2" :max="999999999" :min="0" :step="100"/>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -180,13 +186,6 @@
         <el-button type="primary" :loading="submitLoading" @click="bankSubmit">{{ $t('button.sure') }}</el-button>
       </span>
     </el-dialog>
-    <!--    冻结-->
-    <el-dialog :title="dialogTitle" :visible.sync="dialogVisible4" width="30%">
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="close4">取 消</el-button>
-        <el-button type="primary" @click="submit4">确 定</el-button>
-      </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -198,6 +197,7 @@
 .el-dropdown-link {
   cursor: pointer;
   color: #409EFF;
+  font-size: 12px;
 }
 
 .sup-merchant-item {

@@ -229,3 +229,17 @@ export function changeMess(params) {
     data: params
   })
 }
+
+export function wxStatusApi(params) {
+  return request({
+    url: '/admin/merchant/wxStatus/' + params,
+    method: 'get',
+  })
+}
+
+export function rejectChangeApi(params) {
+  return request({
+    url: '/admin/merchant/rejectChange/' + params,
+    method: 'post',
+  })
+}
