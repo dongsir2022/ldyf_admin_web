@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
     <div class="block">
-      <el-row :gutter="10">
-        <el-col :span="3">
+      <el-form :inline="true">
+        <el-form-item>
           <el-select v-model="searchKey.merchant_id" filterable remote placeholder="请输入商户名" :remote-method="remoteMethod" :loading="selectloading">
             <el-option v-for="item in options" :key="item.id" :label="item.merchant_name" :value="item.id" />
           </el-select>
-        </el-col>
-        <el-col :span="8">
+        </el-form-item>
+        <el-form-item>
           <el-date-picker
             v-model="searchKey.completeTime"
             type="datetimerange"
@@ -15,12 +15,12 @@
             start-placeholder="创建开始日期"
             end-placeholder="创建结束日期"
           />
-        </el-col>
-        <el-col :span="2">
+        </el-form-item>
+        <el-form-item>
           <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
-        </el-col>
-      </el-row>
+        </el-form-item>
+      </el-form>
     </div>
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
       <el-table-column align="center" label="商户名称">

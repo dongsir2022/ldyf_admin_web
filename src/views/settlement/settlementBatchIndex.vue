@@ -2,15 +2,14 @@
   <div class="app-container">
     <!-- 查询 -->
     <div class="block">
-      <el-row :gutter="10">
-        <el-col :span="8">
+      <el-form :inline="true">
+        <el-form-item>
           <el-date-picker v-model="searchKey.completeTime" type="datetimerange" range-separator="至" start-placeholder="创建开始日期" end-placeholder="创建结束日期" />
-        </el-col>
-        <el-col :span="2">
-          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
-          </el-button>
-        </el-col>
-      </el-row>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询</el-button>
+        </el-form-item>
+      </el-form>
     </div>
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
       <el-table-column align="center" label="结算单号">

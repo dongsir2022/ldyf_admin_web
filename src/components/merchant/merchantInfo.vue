@@ -26,7 +26,9 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="所在地址：">
-                {{ data.merchant_info_ext.business_province }}-{{ data.merchant_info_ext.business_city }}-{{ data.merchant_info_ext.business_area }}
+                {{ data.merchant_info_ext.business_province }}-{{
+                  data.merchant_info_ext.business_city
+                }}-{{ data.merchant_info_ext.business_area }}
               </el-form-item>
             </el-col>
           </el-row>
@@ -54,7 +56,8 @@
             </el-form-item>
           </el-row>
           <!--  商户性质个人时  -->
-          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== '4'" :label-width="labelWidth">
+          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty !== '4'"
+                   :label-width="labelWidth">
             <el-row>
               <el-form-item label="控股股东姓名：">
                 {{ data.merchant_info_ext.holdername }}
@@ -92,7 +95,8 @@
             </el-row>
           </el-form>
           <!--  商户性质个人时  -->
-          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '4'" :label-width="labelWidth">
+          <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '4'"
+                   :label-width="labelWidth">
             <el-row>
               <el-form-item label="经营场所证明文件：">
                 <el-image
@@ -127,8 +131,13 @@
       </el-col>
     </el-row>
     <!--    商户性质为企业结算账户对私时-->
-    <el-divider v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '1' && data.merchant_info_ext.bank_type === 'PRIVATE'" content-position="left">企业</el-divider>
-    <el-form v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '1' && data.merchant_info_ext.bank_type === 'PRIVATE'" :label-width="labelWidth">
+    <el-divider
+      v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '1' && data.merchant_info_ext.bank_type === 'PRIVATE'"
+      content-position="left">企业
+    </el-divider>
+    <el-form
+      v-if="data.merchant_info_ext.comproperty && data.merchant_info_ext.comproperty === '1' && data.merchant_info_ext.bank_type === 'PRIVATE'"
+      :label-width="labelWidth">
       <el-row>
         <el-col :span="6">
           <el-form-item label="对公账户号：">
@@ -348,22 +357,22 @@
       </el-row>
     </el-form>
     <!--  业务联系人  -->
-    <el-divider content-position="left">客户经理信息</el-divider>
-      <el-form :label-width="labelWidth">
-        <el-row>
-          <el-col :span="6">
-            <el-form-item label="客户经理姓名：">
-              {{ data.merchant_info_ext.busconactperson }}
-            </el-form-item>
-          </el-col>
-          <el-col :span="6">
-            <el-form-item label="客户经理电话：">
-              {{ data.merchant_info_ext.busconacttel }}
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-    </el-card>
+<!--    <el-divider content-position="left">客户经理信息</el-divider>-->
+    <!--    <el-form :label-width="labelWidth">-->
+    <!--      <el-row>-->
+    <!--        <el-col :span="6">-->
+    <!--          <el-form-item label="客户经理姓名：">-->
+    <!--            {{ data.merchant_info_ext.busconactperson }}-->
+    <!--          </el-form-item>-->
+    <!--        </el-col>-->
+    <!--        <el-col :span="6">-->
+    <!--          <el-form-item label="客户经理电话：">-->
+    <!--            {{ data.merchant_info_ext.busconacttel }}-->
+    <!--          </el-form-item>-->
+    <!--        </el-col>-->
+    <!--      </el-row>-->
+    <!--    </el-form>-->
+  </el-card>
 </template>
 
 <script>
@@ -476,7 +485,8 @@ export default {
   props: {
     merchantInfo: {
       type: Object,
-      default: function() {}
+      default: function () {
+      }
     }
   },
   data() {

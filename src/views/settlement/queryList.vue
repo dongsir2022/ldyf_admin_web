@@ -2,26 +2,26 @@
   <div class="app-container">
     <!-- 查询框 -->
     <div class="block">
-      <el-row :gutter="10">
-        <el-col :span="8">
-          <el-date-picker v-model="searchKey.completeTime" type="datetimerange" range-separator="至" start-placeholder="创建开始日期" end-placeholder="创建结束日期" />
-        </el-col>
-        <el-col :span="3">
+      <el-form :inline="true">
+        <el-form-item>
+          <el-date-picker v-model="searchKey.completeTime" type="datetimerange" range-separator="至"
+                          start-placeholder="创建开始日期" end-placeholder="创建结束日期"/>
+        </el-form-item>
+        <el-form-item>
           <el-select v-model="searchKey.reconciliationStatus" placeholder="对账状态">
-            <el-option v-for="item in reconciliationArr" :key="item.id" :label="item.name" :value="item.id" />
+            <el-option v-for="item in reconciliationArr" :key="item.id" :label="item.name" :value="item.id"/>
           </el-select>
-        </el-col>
-        <el-col :span="3">
+        </el-form-item>
+        <el-form-item>
           <el-select v-model="searchKey.trade_status" placeholder="清分状态">
-            <el-option v-for="item in tradeArr" :key="item.id" :label="item.name" :value="item.id" />
+            <el-option v-for="item in tradeArr" :key="item.id" :label="item.name" :value="item.id"/>
           </el-select>
-        </el-col>
-
-        <el-col :span="2">
+        </el-form-item>
+        <el-form-item>
           <el-button class="filter-item" type="primary" icon="el-icon-search" :loading="loading" @click="search">查询
           </el-button>
-        </el-col>
-      </el-row>
+        </el-form-item>
+      </el-form>
     </div>
     <!-- 表格 -->
     <el-table v-loading="loading" :data="list" fit highlight-current-row>
@@ -31,7 +31,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column align="center" label="网联交易订单号" prop="transaction_id" />
+      <el-table-column align="center" label="网联交易订单号" prop="transaction_id"/>
 
       <el-table-column align="center" label="对账状态">
         <template slot-scope="scope">
@@ -55,12 +55,12 @@
 
       <el-table-column align="center" label="订单总金额">
         <template slot-scope="scope">
-          ￥ {{ $common.jeFormat(scope.row.total_fee,2) }}
+          ￥ {{ $common.jeFormat(scope.row.total_fee, 2) }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="应收金额">
         <template slot-scope="scope">
-          ￥ {{ $common.jeFormat(scope.row.total_net_fee,2) }}
+          ￥ {{ $common.jeFormat(scope.row.total_net_fee, 2) }}
         </template>
       </el-table-column>
       <el-table-column align="center" label="手续费率">
@@ -70,7 +70,7 @@
       </el-table-column>
       <el-table-column align="center" label="手续费">
         <template slot-scope="scope">
-          ￥ {{ $common.jeFormat(scope.row.pay_rate_fee,2) }}
+          ￥ {{ $common.jeFormat(scope.row.pay_rate_fee, 2) }}
         </template>
       </el-table-column>
 
@@ -79,8 +79,8 @@
           {{ $common.getDateTime('YYYY-MM-DD', new Date(scope.row.reconciliation_date)) }}
         </template>
       </el-table-column>
-      <el-table-column align="center" label="创建时间" prop="create_time" />
-      <el-table-column align="center" label="更新时间" prop="last_update_time" />
+      <el-table-column align="center" label="创建时间" prop="create_time"/>
+      <el-table-column align="center" label="更新时间" prop="last_update_time"/>
 
     </el-table>
     <!-- 分页 -->
@@ -101,5 +101,5 @@
 
 <script src="./query.js"/>
 <style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/common.scss";
+@import "src/styles/common.scss";
 </style>
