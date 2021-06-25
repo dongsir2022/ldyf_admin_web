@@ -32,31 +32,31 @@
       <el-table-column
         align="center"
         label="商户编号"
-        width="300"
+        min-width="200"
         prop="merchant_no"
       />
       <el-table-column
         align="center"
         label="商户名称"
-        width="220"
+        min-width="300"
         prop="merchant_name"
       />
+<!--      <el-table-column-->
+<!--        align="center"-->
+<!--        label="微信渠道号"-->
+<!--        width="100"-->
+<!--        prop="wechat_no"-->
+<!--      />-->
+<!--      <el-table-column-->
+<!--        align="center"-->
+<!--        label="支付宝渠道号"-->
+<!--        width="120"-->
+<!--        prop="alipay_no"-->
+<!--      />-->
       <el-table-column
         align="center"
-        label="微信渠道号"
-        width="100"
-        prop="wechat_no"
-      />
-      <el-table-column
-        align="center"
-        label="支付宝渠道号"
-        width="120"
-        prop="alipay_no"
-      />
-      <el-table-column
-        align="center"
-        label="云闪付渠道号"
-        width="120"
+        label="通联渠道号"
+        width="200"
         prop="union_no"
       />
       <el-table-column
@@ -80,6 +80,7 @@
         v-if="!$route.meta.readOnly"
         align="center"
         label="操作"
+        width="100"
       >
         <template slot-scope="scope">
           <el-dropdown trigger="click">
@@ -87,6 +88,12 @@
             更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item @click.native="openingUnoin(scope.row.id)">
+                开通支付
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="allinpayStatus(scope.row)">
+                查看通联商户状态
+              </el-dropdown-item>
               <el-dropdown-item @click.native="info(scope.row.id)">
                 查看详情
               </el-dropdown-item>
@@ -105,18 +112,16 @@
               <el-dropdown-item @click.native="tradeDeviceList(scope.row.id)">
                 门店管理
               </el-dropdown-item>
-              <el-dropdown-item @click.native="openingWechant(scope.row.id)">
-                开通微信支付
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="wxStatus(scope.row)">
-                查看微信开通结果
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="openingAlipay(scope.row.id)">
-                开通支付宝支付
-              </el-dropdown-item>
-              <el-dropdown-item @click.native="openingUnoin(scope.row.id)">
-                开通云闪付支付
-              </el-dropdown-item>
+<!--              <el-dropdown-item @click.native="openingWechant(scope.row.id)">-->
+<!--                开通微信支付-->
+<!--              </el-dropdown-item>-->
+<!--              <el-dropdown-item @click.native="wxStatus(scope.row)">-->
+<!--                查看微信开通结果-->
+<!--              </el-dropdown-item>-->
+<!--              <el-dropdown-item @click.native="openingAlipay(scope.row.id)">-->
+<!--                开通支付宝支付-->
+<!--              </el-dropdown-item>-->
+
               <el-dropdown-item v-if="scope.row.merchant_status===1" @click.native="freezeMerchant(scope.row)">
                 冻结
               </el-dropdown-item>

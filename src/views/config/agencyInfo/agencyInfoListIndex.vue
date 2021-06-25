@@ -56,7 +56,7 @@
         <template slot-scope="scope">
           <el-button
             v-if="scope.row.p_agency_id < 2"
-            type="primary"
+            type="text"
             size="mini"
             @click.stop="() => append(scope.row.p_agency_id, scope)"
           >添加下属行

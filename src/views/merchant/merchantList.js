@@ -8,7 +8,7 @@ import {
   putOpenAli,
   putOpenUnion,
   changePayRate,
-  changeMess, wxStatusApi, rejectChangeApi
+  changeMess, wxStatusApi, rejectChangeApi, allinpayStatusApi
 } from '@/api/merchant/merchantApi'
 
 export default {
@@ -407,6 +407,45 @@ export default {
         })
         this.fetchData()
       })
-    }
+    },
+    allinpayStatus(row) {
+      const h = this.$createElement
+      allinpayStatusApi(row.id).then(res => {
+        this.$msgbox({
+          title: '通联商户状态',
+          message: h('div', null, [
+            h('strong', null, '状态编号: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, res.data.auditstatus),
+            h('br'),
+            h('strong', null, '描述: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, res.data.retmsg),
+            h('br'),
+            h('strong', null, '通联商户编号: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, res.data.mchid)
+          ]),
+          confirmButtonText: '关闭',
+          callback: action => {
+          }
+        })
+      })
+    },
   }
 }

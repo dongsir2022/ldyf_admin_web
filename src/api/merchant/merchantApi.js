@@ -243,3 +243,10 @@ export function rejectChangeApi(params) {
     method: 'post',
   })
 }
+
+export function allinpayStatusApi(params) {
+  return request({
+    url: '/admin/merchant/allinpayStatus/' + params,
+    method: 'get',
+  })
+}
