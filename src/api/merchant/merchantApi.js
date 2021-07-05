@@ -250,3 +250,17 @@ export function allinpayStatusApi(params) {
     method: 'get',
   })
 }
+
+export function allinpayElectSignStatusApi(params) {
+  return request({
+    url: '/admin/merchant/allinpayElectSignStatus/' + params,
+    method: 'get',
+  })
+}
+
+export function allinpayElectSignApi(params) {
+  return request({
+    url: '/admin/merchant/allinpayElectSign/' + params,
+    method: 'get',
+  })
+}

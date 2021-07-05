@@ -94,6 +94,12 @@
               <el-dropdown-item @click.native="allinpayStatus(scope.row)">
                 查看通联商户状态
               </el-dropdown-item>
+              <el-dropdown-item @click.native="allinpayElectSignStatus(scope.row)">
+                查看通联商户电子协议状态
+              </el-dropdown-item>
+              <el-dropdown-item @click.native="allinpayElectSign(scope.row)">
+                通联商户电子协议重新下发
+              </el-dropdown-item>
               <el-dropdown-item @click.native="info(scope.row.id)">
                 查看详情
               </el-dropdown-item>
@@ -179,12 +185,12 @@
         <el-form-item label="银行卡号" prop="bankCardNo">
           <el-input v-model="bankCodeData.bankCardNo"/>
         </el-form-item>
-        <el-form-item label="银行名称" prop="bankName">
-          <el-input v-model="bankCodeData.bankName"/>
-        </el-form-item>
-        <el-form-item label="支行名称" prop="bankNameSub">
-          <el-input v-model="bankCodeData.bankNameSub"/>
-        </el-form-item>
+<!--        <el-form-item label="银行名称" prop="bankName">-->
+<!--          <el-input v-model="bankCodeData.bankName"/>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="支行名称" prop="bankNameSub">-->
+<!--          <el-input v-model="bankCodeData.bankNameSub"/>-->
+<!--        </el-form-item>-->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="bankClose">{{ $t('button.cancel') }}</el-button>

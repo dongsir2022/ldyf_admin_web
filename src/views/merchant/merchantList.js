@@ -8,7 +8,7 @@ import {
   putOpenAli,
   putOpenUnion,
   changePayRate,
-  changeMess, wxStatusApi, rejectChangeApi, allinpayStatusApi
+  changeMess, wxStatusApi, rejectChangeApi, allinpayStatusApi, allinpayElectSignStatusApi, allinpayElectSignApi
 } from '@/api/merchant/merchantApi'
 
 export default {
@@ -56,12 +56,12 @@ export default {
           {required: true, message: '请输入银行卡号', trigger: 'blur'},
           {pattern: /^[1-9]\d{9,29}$/, message: '请输入正确的银行卡号', trigger: 'blur'}
         ],
-        bankName: [
-          {required: true, message: '请输入银行名称', trigger: 'blur'}
-        ],
-        bankNameSub: [
-          {required: true, message: '请输入支行名称', trigger: 'blur'}
-        ]
+        // bankName: [
+        //   {required: true, message: '请输入银行名称', trigger: 'blur'}
+        // ],
+        // bankNameSub: [
+        //   {required: true, message: '请输入支行名称', trigger: 'blur'}
+        // ]
       },
       bankCodeData: {
         id: '',
@@ -206,8 +206,8 @@ export default {
           this.submitLoading = true
           const data = {
             id: this.bankCodeData.id,
-            bankName: this.bankCodeData.bankName,
-            bankNameSub: this.bankCodeData.bankNameSub,
+            // bankName: this.bankCodeData.bankName,
+            // bankNameSub: this.bankCodeData.bankNameSub,
             bankCardNo: this.bankCodeData.bankCardNo
           }
           changeMess(data).then(res => {
@@ -353,10 +353,10 @@ export default {
     },
     openingUnoin(id) {
       this.loading = true
-      this.loadingText = '开通云闪付支付中...'
+      this.loadingText = '开通支付中...'
       putOpenUnion({merchant_id: id}).then(res => {
         this.$message({
-          message: '开通云闪付支付成功',
+          message: '开通支付成功,等待通联审核',
           type: 'success'
         })
         this.fetchData()
@@ -414,7 +414,7 @@ export default {
         this.$msgbox({
           title: '通联商户状态',
           message: h('div', null, [
-            h('strong', null, '状态编号: '),
+            h('strong', null, '状态值: '),
             h('span', {
               style: {
                 'color': 'teal',
@@ -444,6 +444,50 @@ export default {
           confirmButtonText: '关闭',
           callback: action => {
           }
+        })
+      })
+    },
+    allinpayElectSignStatus(row) {
+      const h = this.$createElement
+      allinpayElectSignStatusApi(row.id).then(res => {
+        const status = {
+          '0': '成功',
+          '1': '失败',
+          '2': '签约中',
+          '9': '未签约',
+        }
+        this.$msgbox({
+          title: '通联签约状态',
+          message: h('div', null, [
+            h('strong', null, '状态值: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, status[res.data.electsignstatus]),
+            h('br'),
+            h('strong', null, '描述: '),
+            h('span', {
+              style: {
+                'color': 'teal',
+                'word-break': 'normal',
+                'word-wrap': 'break-word !important'
+              }
+            }, res.data.errmsg)
+          ]),
+          confirmButtonText: '关闭',
+          callback: action => {
+          }
+        })
+      })
+    },
+    allinpayElectSign(row) {
+      allinpayElectSignApi(row.id).then(res => {
+        this.$message({
+          message: '重新下发电子协议成功',
+          type: 'success'
         })
       })
     },
