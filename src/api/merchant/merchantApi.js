@@ -264,3 +264,10 @@ export function allinpayElectSignApi(params) {
     method: 'get',
   })
 }
+
+export function repaircusrgcApi(params) {
+  return request({
+    url: '/admin/merchant/repaircusrgc/' + params,
+    method: 'get',
+  })
+}

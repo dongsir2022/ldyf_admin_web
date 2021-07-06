@@ -41,18 +41,18 @@
         min-width="300"
         prop="merchant_name"
       />
-<!--      <el-table-column-->
-<!--        align="center"-->
-<!--        label="微信渠道号"-->
-<!--        width="100"-->
-<!--        prop="wechat_no"-->
-<!--      />-->
-<!--      <el-table-column-->
-<!--        align="center"-->
-<!--        label="支付宝渠道号"-->
-<!--        width="120"-->
-<!--        prop="alipay_no"-->
-<!--      />-->
+      <!--      <el-table-column-->
+      <!--        align="center"-->
+      <!--        label="微信渠道号"-->
+      <!--        width="100"-->
+      <!--        prop="wechat_no"-->
+      <!--      />-->
+      <!--      <el-table-column-->
+      <!--        align="center"-->
+      <!--        label="支付宝渠道号"-->
+      <!--        width="120"-->
+      <!--        prop="alipay_no"-->
+      <!--      />-->
       <el-table-column
         align="center"
         label="通联渠道号"
@@ -100,6 +100,9 @@
               <el-dropdown-item @click.native="allinpayElectSign(scope.row)">
                 通联商户电子协议重新下发
               </el-dropdown-item>
+              <el-dropdown-item @click.native="repaircusrgc(scope.row)">
+                合规性补录二维码
+              </el-dropdown-item>
               <el-dropdown-item @click.native="info(scope.row.id)">
                 查看详情
               </el-dropdown-item>
@@ -118,15 +121,15 @@
               <el-dropdown-item @click.native="tradeDeviceList(scope.row.id)">
                 门店管理
               </el-dropdown-item>
-<!--              <el-dropdown-item @click.native="openingWechant(scope.row.id)">-->
-<!--                开通微信支付-->
-<!--              </el-dropdown-item>-->
-<!--              <el-dropdown-item @click.native="wxStatus(scope.row)">-->
-<!--                查看微信开通结果-->
-<!--              </el-dropdown-item>-->
-<!--              <el-dropdown-item @click.native="openingAlipay(scope.row.id)">-->
-<!--                开通支付宝支付-->
-<!--              </el-dropdown-item>-->
+              <!--              <el-dropdown-item @click.native="openingWechant(scope.row.id)">-->
+              <!--                开通微信支付-->
+              <!--              </el-dropdown-item>-->
+              <!--              <el-dropdown-item @click.native="wxStatus(scope.row)">-->
+              <!--                查看微信开通结果-->
+              <!--              </el-dropdown-item>-->
+              <!--              <el-dropdown-item @click.native="openingAlipay(scope.row.id)">-->
+              <!--                开通支付宝支付-->
+              <!--              </el-dropdown-item>-->
 
               <el-dropdown-item v-if="scope.row.merchant_status===1" @click.native="freezeMerchant(scope.row)">
                 冻结
@@ -185,17 +188,26 @@
         <el-form-item label="银行卡号" prop="bankCardNo">
           <el-input v-model="bankCodeData.bankCardNo"/>
         </el-form-item>
-<!--        <el-form-item label="银行名称" prop="bankName">-->
-<!--          <el-input v-model="bankCodeData.bankName"/>-->
-<!--        </el-form-item>-->
-<!--        <el-form-item label="支行名称" prop="bankNameSub">-->
-<!--          <el-input v-model="bankCodeData.bankNameSub"/>-->
-<!--        </el-form-item>-->
+        <!--        <el-form-item label="银行名称" prop="bankName">-->
+        <!--          <el-input v-model="bankCodeData.bankName"/>-->
+        <!--        </el-form-item>-->
+        <!--        <el-form-item label="支行名称" prop="bankNameSub">-->
+        <!--          <el-input v-model="bankCodeData.bankNameSub"/>-->
+        <!--        </el-form-item>-->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="bankClose">{{ $t('button.cancel') }}</el-button>
         <el-button type="primary" :loading="submitLoading" @click="bankSubmit">{{ $t('button.sure') }}</el-button>
       </span>
+    </el-dialog>
+    <el-dialog
+      title="通联合规性补录二维码"
+      :visible.sync="repaircusrgcVisible"
+      width="300">
+      <el-image style="width: 200px; height: 200px" :src="repaircusrgcUrl" fit="cover"/>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="repaircusrgcVisible = false">关 闭</el-button>
+  </span>
     </el-dialog>
   </div>
 </template>

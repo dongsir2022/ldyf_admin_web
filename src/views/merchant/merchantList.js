@@ -8,7 +8,13 @@ import {
   putOpenAli,
   putOpenUnion,
   changePayRate,
-  changeMess, wxStatusApi, rejectChangeApi, allinpayStatusApi, allinpayElectSignStatusApi, allinpayElectSignApi
+  changeMess,
+  wxStatusApi,
+  rejectChangeApi,
+  allinpayStatusApi,
+  allinpayElectSignStatusApi,
+  allinpayElectSignApi,
+  repaircusrgcApi
 } from '@/api/merchant/merchantApi'
 
 export default {
@@ -72,7 +78,9 @@ export default {
       id: 0,
       dialogTitle: '确定冻结商户么?',
       merchant_status: 1,
-      loadingText: ''
+      loadingText: '',
+      repaircusrgcVisible: false,
+      repaircusrgcUrl: ''
     }
   },
   created() {
@@ -499,6 +507,11 @@ export default {
           type: 'success'
         })
       })
+    },
+    repaircusrgc(row) {
+      // this.repaircusrgcUrl = '/admin/merchant/repaircusrgc/' + row.id
+      this.repaircusrgcUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      this.repaircusrgcVisible = true
     },
   }
 }
