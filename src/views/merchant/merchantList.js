@@ -16,6 +16,7 @@ import {
   allinpayElectSignApi,
   repaircusrgcApi
 } from '@/api/merchant/merchantApi'
+import {getToken} from "@/utils/auth";
 
 export default {
   name: 'merchantListIndex',
@@ -509,8 +510,8 @@ export default {
       })
     },
     repaircusrgc(row) {
-      // this.repaircusrgcUrl = '/admin/merchant/repaircusrgc/' + row.id
-      this.repaircusrgcUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      this.repaircusrgcUrl = '/admin/merchant/repaircusrgc/' + row.id + "?token=" + getToken()
+      // this.repaircusrgcUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
       this.repaircusrgcVisible = true
     },
   }
