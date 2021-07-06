@@ -458,11 +458,11 @@ export default {
         }
         let msg = ''
         let state = ''
-        if (res.retcode === 'FAIL') {
-          msg = res.retmsg
+        if (res.data.retcode === 'FAIL') {
+          msg = res.data.retmsg
           state = '失败'
         } else {
-          msg = res.errmsg
+          msg = res.data.errmsg
           state = status[res.data.electsignstatus]
         }
         this.$msgbox({
