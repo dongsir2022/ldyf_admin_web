@@ -203,7 +203,7 @@
     <el-dialog
       title="通联合规性补录二维码"
       :visible.sync="repaircusrgcVisible"
-      width="300">
+      width="250px">
       <el-image style="width: 200px; height: 200px" :src="repaircusrgcUrl" fit="cover"/>
       <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click="repaircusrgcVisible = false">关 闭</el-button>

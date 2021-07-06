@@ -420,6 +420,15 @@ export default {
     allinpayStatus(row) {
       const h = this.$createElement
       allinpayStatusApi(row.id).then(res => {
+        const status = {
+          '00': '受理成功待提交审核',
+          '01': '审核中',
+          '02': '审核通过',
+          '03': '审核失败',
+          '04': '提交审核失败',
+          '06': '已冻结',
+          '07': '已关闭',
+        }
         this.$msgbox({
           title: '通联商户状态',
           message: h('div', null, [
@@ -430,7 +439,7 @@ export default {
                 'word-break': 'normal',
                 'word-wrap': 'break-word !important'
               }
-            }, res.data.auditstatus),
+            }, status[res.data.auditstatus]),
             h('br'),
             h('strong', null, '描述: '),
             h('span', {
@@ -510,7 +519,7 @@ export default {
       })
     },
     repaircusrgc(row) {
-      this.repaircusrgcUrl = '/admin/merchant/repaircusrgc/' + row.id + "?token=" + getToken()
+      this.repaircusrgcUrl = '/ldyf/hjjf/admin/merchant/repaircusrgc/' + row.id + "?token=" + getToken()
       // this.repaircusrgcUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
       this.repaircusrgcVisible = true
     },
