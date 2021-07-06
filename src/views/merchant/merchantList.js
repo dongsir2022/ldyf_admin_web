@@ -456,6 +456,15 @@ export default {
           '2': '签约中',
           '9': '未签约',
         }
+        let msg = ''
+        let state = ''
+        if (res.retcode === 'FAIL') {
+          msg = res.retmsg
+          state = '失败'
+        } else {
+          msg = res.errmsg
+          state = status[res.data.electsignstatus]
+        }
         this.$msgbox({
           title: '通联签约状态',
           message: h('div', null, [
@@ -466,7 +475,7 @@ export default {
                 'word-break': 'normal',
                 'word-wrap': 'break-word !important'
               }
-            }, status[res.data.electsignstatus]),
+            }, state),
             h('br'),
             h('strong', null, '描述: '),
             h('span', {
@@ -475,7 +484,7 @@ export default {
                 'word-break': 'normal',
                 'word-wrap': 'break-word !important'
               }
-            }, res.data.errmsg)
+            }, msg)
           ]),
           confirmButtonText: '关闭',
           callback: action => {
