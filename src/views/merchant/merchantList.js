@@ -448,7 +448,7 @@ export default {
                 'word-break': 'normal',
                 'word-wrap': 'break-word !important'
               }
-            }, res.data.retmsg),
+            }, res.data.errmsg),
             h('br'),
             h('strong', null, '通联商户编号: '),
             h('span', {
