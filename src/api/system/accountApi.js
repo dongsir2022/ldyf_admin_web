@@ -55,3 +55,11 @@ export function updateAgencyInfo(params) {
     data: params
   })
 }
+
+export function updateSelfPassword(params) {
+  return request({
+    url: '/admin/account/update/self/password',
+    method: 'post',
+    data: params
+  })
+}

@@ -49,7 +49,7 @@ export default {
         }
       },
       splitForm: {
-        rate: 0.002,
+        rate: 0.0023,
         agent: 0.00001,
         trade_limit: 1000
       },
