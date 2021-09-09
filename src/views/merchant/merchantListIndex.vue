@@ -118,19 +118,12 @@
               <el-dropdown-item @click.native="alterModifyBankCardNum(scope.row)">
                 修改银行卡信息
               </el-dropdown-item>
+              <el-dropdown-item @click.native="alterModifyPhone(scope.row)">
+                修改手机号
+              </el-dropdown-item>
               <el-dropdown-item @click.native="tradeDeviceList(scope.row.id)">
                 门店管理
               </el-dropdown-item>
-              <!--              <el-dropdown-item @click.native="openingWechant(scope.row.id)">-->
-              <!--                开通微信支付-->
-              <!--              </el-dropdown-item>-->
-              <!--              <el-dropdown-item @click.native="wxStatus(scope.row)">-->
-              <!--                查看微信开通结果-->
-              <!--              </el-dropdown-item>-->
-              <!--              <el-dropdown-item @click.native="openingAlipay(scope.row.id)">-->
-              <!--                开通支付宝支付-->
-              <!--              </el-dropdown-item>-->
-
               <el-dropdown-item v-if="scope.row.merchant_status===1" @click.native="freezeMerchant(scope.row)">
                 冻结
               </el-dropdown-item>
@@ -208,6 +201,18 @@
       <span slot="footer" class="dialog-footer">
     <el-button type="primary" @click="repaircusrgcVisible = false">关 闭</el-button>
   </span>
+    </el-dialog>
+    <!--  修改手机号  -->
+    <el-dialog title="修改商户手机号" :visible.sync="dialogVisible2" width="30%">
+      <el-form ref="codeForm2" :model="phoneData" :rules="phoneRules" label-width="100px">
+        <el-form-item label="手机号" prop="phone">
+          <el-input v-model="phoneData.phone"/>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="phoneClose">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="submitLoading" @click="phoneSubmit">{{ $t('button.sure') }}</el-button>
+      </span>
     </el-dialog>
   </div>
 </template>

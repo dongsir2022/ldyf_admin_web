@@ -230,6 +230,15 @@ export function changeMess(params) {
   })
 }
 
+// 修改手机号
+export function changePhone(params) {
+  return request({
+    url: '/admin/merchant/changePhone',
+    method: 'post',
+    data: params
+  })
+}
+
 export function wxStatusApi(params) {
   return request({
     url: '/admin/merchant/wxStatus/' + params,

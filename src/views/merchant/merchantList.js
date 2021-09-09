@@ -14,7 +14,7 @@ import {
   allinpayStatusApi,
   allinpayElectSignStatusApi,
   allinpayElectSignApi,
-  repaircusrgcApi
+  repaircusrgcApi, changePhone
 } from '@/api/merchant/merchantApi'
 import {getToken} from "@/utils/auth";
 
@@ -70,6 +70,11 @@ export default {
         //   {required: true, message: '请输入支行名称', trigger: 'blur'}
         // ]
       },
+      phoneRules: {
+        phone: [
+          {required: true, message: '请输入手机号', trigger: 'blur'},
+        ]
+      },
       bankCodeData: {
         id: '',
         bankCardNo: '',
@@ -81,7 +86,12 @@ export default {
       merchant_status: 1,
       loadingText: '',
       repaircusrgcVisible: false,
-      repaircusrgcUrl: ''
+      repaircusrgcUrl: '',
+      phoneData: {
+        id: '',
+        phone: '',
+      },
+      dialogVisible2: false
     }
   },
   created() {
@@ -234,6 +244,30 @@ export default {
         }
       })
     },
+    // 打开修改手机
+    alterModifyPhone(row) {
+      this.dialogVisible2 = true
+      this.phoneData.id = row.id
+    },
+    phoneSubmit() {
+      this.$refs.codeForm2.validate(valid => {
+        if (valid) {
+          this.submitLoading = true
+          changePhone(this.phoneData).then(res => {
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+            this.fetchData()
+            this.submitLoading = false
+            this.dialogVisible2 = false
+            this.resetPhoneForm()
+          }).catch(() => {
+            this.submitLoading = false
+          })
+        }
+      })
+    },
     // 重置银行卡
     resetBankForm() {
       this.$refs.codeForm1.resetFields()
@@ -248,6 +282,17 @@ export default {
     bankClose() {
       this.dialogVisible1 = false
       this.resetBankForm()
+    },
+    resetPhoneForm() {
+      this.$refs.codeForm2.resetFields()
+      this.bankCodeData = {
+        id: '',
+        phone: '',
+      }
+    },
+    phoneClose() {
+      this.dialogVisible2 = false
+      this.resetPhoneForm()
     },
     handleCurrentChange(page) {
       this.page = page
