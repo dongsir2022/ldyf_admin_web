@@ -6,6 +6,9 @@
           <el-button class="filter-item" icon="el-icon-refresh" type="primary" :loading="loading" @click="fetchData">刷新
           </el-button>
         </el-col>
+        <el-col :span="2.5">
+          <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" :loading="createLoading" @click="add">创建二维码</el-button>
+        </el-col>
       </el-row>
     </div>
     <el-table
