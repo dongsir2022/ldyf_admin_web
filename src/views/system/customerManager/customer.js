@@ -19,7 +19,7 @@ export default {
     return {
       loading: false,
       page: 1,
-      pageSize: 15,
+      pageSize: 10,
       list: [],
       total: 0,
       dialogTitle: '',
@@ -289,11 +289,11 @@ export default {
     // 分页
     handleCurrentChange(page) {
       this.page = page
-      this.getData()
+      this.fetchData()
     },
     handleSizeChange(pageSize) {
       this.pageSize = pageSize
-      this.getData()
+      this.fetchData()
     }
   }
 }

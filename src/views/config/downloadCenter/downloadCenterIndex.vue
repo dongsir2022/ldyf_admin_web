@@ -7,7 +7,9 @@
           </el-button>
         </el-col>
         <el-col :span="2.5">
-          <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" :loading="createLoading" @click="add">创建二维码</el-button>
+          <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" :loading="createLoading"
+                     @click="add">创建二维码
+          </el-button>
         </el-col>
       </el-row>
     </div>
@@ -32,20 +34,22 @@
           <span v-if="scope.row.batch_processing_type === 1">二维码批量下载</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="下载地址">
+      <el-table-column align="center" label="二维码数量" prop="batch_processing_count"></el-table-column>
+      <el-table-column align="center" width="150" label="下载地址">
         <template slot-scope="scope">
-          <el-button type="primary" icon="el-icon-download" @click="doDownload(scope.row.batch_processing_url)">下载 </el-button>
+          <el-button type="primary" icon="el-icon-download" @click="doDownload(scope.row.batch_processing_url)">下载
+          </el-button>
         </template>
       </el-table-column>
       <el-table-column
         align="center"
-        width="300"
+        width="200"
         label="创建者"
         prop="create_user"
       />
       <el-table-column
         align="center"
-        width="300"
+        width="200"
         label="最后跟新时间"
         prop="last_update_time"
       />
@@ -68,5 +72,5 @@
 <script src="./downloadCenter.js"/>
 
 <style ref="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/common.scss";
+@import "src/styles/common.scss";
 </style>

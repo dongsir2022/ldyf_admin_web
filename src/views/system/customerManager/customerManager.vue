@@ -14,27 +14,12 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-
       <el-table-column align="center" label="姓名" prop="user_name" />
-
-      <el-table-column align="center" label="所属机构编号" prop="agency_no" />
-
       <el-table-column align="center" label="联系手机号" prop="user_no" />
-
       <el-table-column align="center" label="更新时间" prop="last_update_time" />
-
       <el-table-column align="center" label="更新操作人" prop="last_update_user" />
-
       <el-table-column align="center" label="创建时间" prop="create_time" />
-
       <el-table-column align="center" label="创建操作人" prop="create_user" />
-
-      <!-- <el-table-column align="center" label="所属分组">
-        <template slot-scope="scope">
-          {{ scope.row.role_name }}
-        </template>
-      </el-table-column> -->
-
       <el-table-column v-if="!$route.meta.readOnly" align="center" label="操作" width="200px">
         <template slot-scope="scope">
           <el-button type="text" size="mini" @click="update(scope.row)">修改
@@ -43,8 +28,6 @@
             <el-button slot="reference" type="text" class="red-text" size="mini" style="margin-left:5px;">删除
             </el-button>
           </el-popconfirm>
-          <!-- <el-button type="text" size="mini" @click="deleteAccount(scope.row)">删除
-          </el-button> -->
           <el-button type="text" size="mini" style="margin-left:5px;" @click="resetPassword(scope.row,scope.$index)">重置密码
           </el-button>
           <el-button type="text" size="mini" style="margin-left:5px;" @click="updateAgency(scope.row,scope.$index)">更换所属机构
