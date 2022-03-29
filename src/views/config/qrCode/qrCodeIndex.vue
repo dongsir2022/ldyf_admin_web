@@ -13,7 +13,7 @@
           </el-button>
         </el-col>
         <el-col :span="2.5">
-          <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" :loading="createLoading" @click="add">创建二维码</el-button>
+          <el-button class="filter-item" type="primary" icon="el-icon-circle-plus-outline" @click="add">创建二维码</el-button>
         </el-col>
       </el-row>
     </div>
@@ -67,11 +67,6 @@
     <!-- 弹窗 -->
     <el-dialog title="绑定云喇叭" :visible.sync="dialogVisible" width="40%">
       <el-form ref="codeForm" :model="codeData" :rules="rules" label-width="60px" @submit.native.prevent>
-        <!-- <el-tooltip v-if="codeData.type==='create'" placement="top-start">
-          <div slot="content">选择绑定云喇叭，可一步到位；不选择，后面也可以手动绑定</div>
-          <el-checkbox v-model="codeData.bindStatus" style="margin-bottom:20px;margin-left:30px;">绑定云喇叭</el-checkbox>
-        </el-tooltip> -->
-
         <el-form-item label="云喇叭名称" prop="name" label-width="120px">
           <el-input v-model="codeData.name" type="text" maxlength="16" show-word-limit />
         </el-form-item>
@@ -79,6 +74,28 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="close">{{ $t('button.cancel') }}</el-button>
         <el-button type="primary" :loading="submitLoading" @click="submit">{{ $t('button.sure') }}</el-button>
+      </span>
+    </el-dialog>
+    <!-- 弹窗 -->
+    <el-dialog title="创建二维码" :visible.sync="createVisible" width="30%">
+      <el-form ref="createForm" :model="createData" :rules="createRules" label-width="60px" @submit.native.prevent>
+        <el-form-item label="请输入创建数量" prop="name" label-width="120px">
+          <el-input-number v-model="createData.count" style="width: 100%" :min="1" :max="9999" :controls="false"></el-input-number>
+        </el-form-item>
+        <el-form-item label="创建类型" prop="name" label-width="120px">
+          <el-select v-model="createData.type" placeholder="请选择" style="width: 100%">
+            <el-option
+              v-for="item in createTypeList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="close">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="submitLoading" @click="addSubmit">{{ $t('button.sure') }}</el-button>
       </span>
     </el-dialog>
   </div>
