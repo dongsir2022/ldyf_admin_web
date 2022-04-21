@@ -68,7 +68,10 @@ export default {
       this.fetchData()
     },
     add() {
-      this.$refs.createForm.resetFields()
+      this.createData = {
+        count: 1,
+        type: '3'
+      }
       this.createVisible = true
     },
     addSubmit() {
@@ -94,7 +97,6 @@ export default {
     },
     close() {
       this.dialogVisible = false
-      this.resetForm()
     },
     resetForm() {
       this.$refs.createForm.resetFields()
