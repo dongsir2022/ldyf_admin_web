@@ -67,6 +67,27 @@
         @size-change="handleSizeChange"
       />
     </div>
+    <el-dialog title="创建二维码" :visible.sync="createVisible" width="30%">
+      <el-form ref="createForm" :model="createData" :rules="createRules" label-width="60px" @submit.native.prevent>
+        <el-form-item label="请输入创建数量" prop="name" label-width="120px">
+          <el-input-number v-model="createData.count" style="width: 100%" :min="1" :max="9999" :controls="false"></el-input-number>
+        </el-form-item>
+        <el-form-item label="创建类型" prop="name" label-width="120px">
+          <el-select v-model="createData.type" placeholder="请选择" style="width: 100%">
+            <el-option
+              v-for="item in createTypeList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="close">{{ $t('button.cancel') }}</el-button>
+        <el-button type="primary" :loading="submitLoading" @click="addSubmit">{{ $t('button.sure') }}</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script src="./downloadCenter.js"/>
