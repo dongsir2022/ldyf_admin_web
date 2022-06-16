@@ -32,7 +32,8 @@ export default {
       merchantStatus: [
         {value: 1, label: '正常'},
         {value: 2, label: '冻结'},
-        {value: 3, label: '驳回修改'}
+        {value: 3, label: '驳回修改'},
+        {value: 4, label: '降低风控状态'},
       ],
       search: {
         status: 1
@@ -306,6 +307,7 @@ export default {
       const data = {
         page_num: this.page,
         page_size: this.pageSize,
+        merchantName: this.search.merchantName,
         status: this.search.status
       }
       this.loading = true
